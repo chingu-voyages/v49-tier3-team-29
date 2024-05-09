@@ -35,7 +35,8 @@ your repo access and to practice PR'ing with your team *before* you start
 coding!
 
 - Arieonna Hearn: [GitHub](https://github.com/chuelgi)
-- Bia: [GitHub](https://github.com/bank1e) 
+- Bia: [GitHub](https://github.com/bank1e)
+- Alex Hunt: [GitHub](https://github.com/alexh205) / [LinkedIn](https://www.linkedin.com/in/alexhse/)
 
    ...
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
