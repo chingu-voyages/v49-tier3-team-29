@@ -39,4 +39,4 @@ coding!
 - Alex Hunt: [GitHub](https://github.com/alexh205) / [LinkedIn](https://www.linkedin.com/in/alexhse/)
 - Jared Sinai Hernandez [GitHub](https://github.com/jaredsina) / [LinkedIn](https://www.linkedin.com/in/jaredsina/)
    ...
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Jeison Infante: [GitHub](https://github.com/JeisonRd) 
