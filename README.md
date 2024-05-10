@@ -37,6 +37,6 @@ coding!
 - Arieonna Hearn: [GitHub](https://github.com/chuelgi)
 - Bia: [GitHub](https://github.com/bank1e)
 - Alex Hunt: [GitHub](https://github.com/alexh205) / [LinkedIn](https://www.linkedin.com/in/alexhse/)
-
+- Jared Sinai Hernandez [GitHub](https://github.com/jaredsina) / [LinkedIn](https://www.linkedin.com/in/jaredsina/)
    ...
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
