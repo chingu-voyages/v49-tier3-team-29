@@ -16,6 +16,19 @@ const bookSchema = new Schema({
 	genre: {
 		type: String,
 		required: [true, 'genre is required'],
+		enum: [
+			'Fiction',
+			'Non-Fiction',
+			'Science Fiction',
+			'Fantasy',
+			'Biography',
+			'History',
+			'Romance',
+			'Thriller',
+			'Mystery',
+			'Self-Help',
+			'Health',
+		],
 		trim: true,
 	},
 	userId: {
@@ -28,6 +41,7 @@ const bookSchema = new Schema({
 		type: String,
 		required: [true, 'isBan is required'],
 		trim: true,
+		unique: true,
 		minlength: 10,
 		maxlength: 13,
 	},
@@ -36,13 +50,13 @@ const bookSchema = new Schema({
 		default: () => Date.now(),
 		immutable: true,
 	},
-	updatedAt: { type: Date },
+	updated_at: { type: Date },
 });
 
 // * update the updatedAt field before saving the document
 
 bookSchema.pre('save', function (next) {
-	this.updatedAt = Date.now();
+	this.updated_at = Date.now();
 	next();
 });
 

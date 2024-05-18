@@ -3,6 +3,7 @@ import express from 'express';
 import helmet from 'helmet';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoute.js';
+import bookRoutes from './routes/bookRoute.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ app.use(helmet());
 
 //* Routes
 app.use('/users', userRoutes);
+app.use('/books', bookRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Shelf Shell');

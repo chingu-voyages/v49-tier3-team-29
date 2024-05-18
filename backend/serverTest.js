@@ -25,22 +25,22 @@ mongoose.connect(process.env.DB_URI);
 // 	password: 'pass',
 // });
 
-//user.save();
-//const firstArticle = User.findOne({});
-//console.log(firstArticle);
+// user.save();
+// const firstArticle = User.findOne({});
+// console.log(firstArticle);
 
 //******* insert book test *****************
-// const book = new Book({
-// 	title: 'book1',
-// 	description: 'description1 for a new book that is created by user1',
-// 	genre: 'genre1',
-// 	userId: '6647cba7f2367062b0990012',
-// 	isBan: 'not banned',
-// });
+const book = new Book({
+	title: 'book12',
+	description: 'description1 for a new book that is created by user1',
+	genre: 'Health',
+	userId: '6647cba7f2367062b0990012',
+	isBan: 'not banned',
+});
 
-// book.save();
-// const firstBook = Book.findOne({});
-// console.log(firstBook);
+book.save();
+const firstBook = Book.findOne({});
+console.log(firstBook);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
