@@ -1,14 +1,32 @@
 import dotenv from 'dotenv';
 import express from 'express';
-dotenv.config();
-const port = process.env.PORT || 4000;
+import helmet from 'helmet';
+import { connectDB } from './config/db.js';
+import userRoutes from './routes/userRoute.js';
 
+dotenv.config();
+const port = process.env.PORT || 5000;
 const app = express();
+
+app.use(express.json());
+
+//* Security Middleware
+app.use(helmet());
+
+//* Routes
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Shelf Shell');
 });
 
-app.listen(port, () => {
-	console.log(`Server is listening at http://localhost:${port}`);
-});
+//* Connect to Database and Start Server
+connectDB()
+	.then(() => {
+		app.listen(port, () => {
+			console.log(`Server is listening live on port:${port}`);
+		});
+	})
+	.catch(error => {
+		console.log(`Database Connection Error: ${error}`);
+	});
