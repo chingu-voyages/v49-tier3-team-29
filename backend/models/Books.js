@@ -53,7 +53,7 @@ const bookSchema = new Schema({
 	updated_at: { type: Date },
 });
 
-// * update the updatedAt field before saving the document
+//* update the updatedAt field before saving the document
 
 bookSchema.pre('save', function (next) {
 	this.updated_at = Date.now();
