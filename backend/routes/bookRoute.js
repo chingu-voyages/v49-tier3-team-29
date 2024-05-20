@@ -6,12 +6,8 @@ const router = express.Router();
 //* get all books
 router.get('/', getAllBooks);
 
-//* get book by title
+//* get books by genre
 
-//* create a new book
-
-//* update a book
-
-//* delete a book
+//* get book by title/author/isbn
 
 export default router;
