@@ -3,6 +3,7 @@ import {
 	getAllUsers,
 	getUserByUsername,
 	updateUser,
+	deactivate
 } from '../controller/userController.js';
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.get('/', getAllUsers);
 router.get('/:username', getUserByUsername);
 
 router.put('/:username', updateUser);
+router.put('/:username/deactivate', deactivate);
 
 export default router;

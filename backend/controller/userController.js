@@ -54,3 +54,17 @@ export const updateUser = async (req, res) => {
 	}
 };
 
+export const deactivate = async (req, res) => {
+	try {
+		
+		const user = User.findOne(req.params.username , {isActive: false});
+		if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ message: 'The account has been deactivated' });
+    } catch (error) {
+        console.error('Error deactivating account:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
