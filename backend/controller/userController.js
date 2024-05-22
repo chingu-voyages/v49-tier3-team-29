@@ -65,8 +65,6 @@ export const deactivate = async (req, res) => {
 		//get by username
 		const user = await User.findOne({ username });
 
-
-
 		//if already deactivated
 		if(!user.isActive){
 			return res.status(404).json({message: ' User already deactivated'})
