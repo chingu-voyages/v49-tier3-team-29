@@ -38,10 +38,14 @@ export const updateUser = async (req, res) => {
 			return res.status(404).json({ message: 'User not found' });
 		}
 
+		//update any field but isActive
 		for( const key in req.body){
-			if(req.body.hasOwnProperty(key)){
+			if(key !=='isActive'){
+				if(req.body.hasOwnProperty(key)){
 				user[key]= req.body[key];
+				}
 			}
+			
 		}
 
 		const updateUser = await user.save();
@@ -56,11 +60,22 @@ export const updateUser = async (req, res) => {
 
 export const deactivate = async (req, res) => {
 	try {
+		const { username } = req.params;
 		
-		const user = User.findOne(req.params.username , {isActive: false});
-		if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+		//get by username
+		const user = await User.findOne({ username });
+
+
+
+		//if already deactivated
+		if(!user.isActive){
+			return res.status(404).json({message: ' User already deactivated'})
+		}
+
+		//deactivate
+		user.isActive = false;
+		await user.save();
+
 
         res.json({ message: 'The account has been deactivated' });
     } catch (error) {
