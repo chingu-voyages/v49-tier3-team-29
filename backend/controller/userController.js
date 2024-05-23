@@ -1,7 +1,7 @@
 import User from '../models/Users.js';
 
 export const newUser = async (req, res) => {
-	console.log("test register")
+	//console.log("test register")
 
 	try{
 
@@ -19,7 +19,8 @@ export const newUser = async (req, res) => {
 		const newUser = new User({username, email, password, name})
 
 		await newUser.save();     
-		res.status(201).json({ message: 'User registered successfully', user: newUser });
+		res.json({ message: 'User registered successfully' });
+		//res.status(201).json({ message: 'User registered successfully', user: newUser });
     
 	} catch (error) {
         console.error('Error registering user:', error);
@@ -28,10 +29,10 @@ export const newUser = async (req, res) => {
 };
 
 export const getAllUsers = async (req, res) => {
-	console.log("get all");
+	//console.log("get all");
 
 	try {
-		const users = await User.find();
+		const users = await User.find().select('username');
 		res.json(users);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
@@ -39,7 +40,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getUserByUsername = async (req, res) => {
-	console.log("test get username");
+	//console.log("test get username");
 
 	try {
 		const user = await User.findOne({ username: req.params.username });
@@ -55,7 +56,7 @@ export const getUserByUsername = async (req, res) => {
 export const updateUser = async (req, res) => {
 
 	try{
-		console.log("test update");
+		//console.log("test update");
 
 		//find by username
 		const user = await User.findOne({ username: req.params.username});
@@ -76,8 +77,9 @@ export const updateUser = async (req, res) => {
 		}
 
 		const updateUser = await user.save();
-
-		res.json(updateUser);
+		//res.json(updateUser);
+		res.json({message: 'User information had been updated'});
+		
 
 	} catch (error) {
 		
