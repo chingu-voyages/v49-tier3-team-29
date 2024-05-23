@@ -3,12 +3,12 @@ import bcrypt from 'bcrypt';
 
 //schema
 const userSchema = new mongoose.Schema({
-	username: { type: String, required: true, unique: true },
+	username: { type: String, required: true, unique: true, minlength:3, maxlength:15},
 	email: { type: String, required: true, unique: true },
-	password: { type: String, required: true },
+	password: { type: String, required: true,  minlength: 5 },
 	name: { type: String },
-	created_at: { type: Date },
-	isActive: { type: Boolean },
+	created_at: { type: Date, default: Date.now },
+	isActive: { type: Boolean,  default: true },
 });
 
 //* Method for hashing password
