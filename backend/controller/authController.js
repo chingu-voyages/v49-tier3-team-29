@@ -1,12 +1,15 @@
 import User from "../models/Users.js";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
+  // Bia: I created an account with Brevo. Under the free plan, it allows 300 emails per day free of charge through Brevo's SMTP server and my credentials. For more information: brevo.com
   host: "smtp-relay.brevo.com",
   auth: {
-    user: "753b65001@smtp-brevo.com",
-    pass: "QDyVFCB3fJ8RX6bZ",
+    user: process.env.BREVO_USERID,
+    pass: process.env.BREVO_PASS,
   },
 });
 
@@ -94,24 +97,14 @@ async function resetPassword(req, res) {
 }
 
 async function generateJwtToken(req, res) {
-  // Find user by email
-  const user = await User.findOne({ email: req.body.email });
+  const id = req._id;
 
-  if (!user || !req.body.password) {
-    return res
-      .status(404)
-      .json({ error: "Invalid email address or password." });
-  }
-  //check if pw is correct
-  const isMatch = await user.comparePassword(req.body.password);
-  if (isMatch) {
-    // Generate a password reset token and set an expiry date
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-    return res.status(200).json({ success: true, token });
-  }
-  res.status(400).json({ error: "Invalid credentials." });
+  // Generate a token and set an expiry date
+  const generatedToken = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+  // Return the generated token
+  return res.status(200).json({ token: generatedToken });
 }
 
 export { forgotPassword, resetPassword, generateJwtToken };
