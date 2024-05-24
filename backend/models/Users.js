@@ -3,12 +3,12 @@ import bcrypt from "bcrypt";
 
 //schema
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  name: { type: String },
-  created_at: { type: Date },
-  isActive: { type: Boolean },
+	username: { type: String, required: true, unique: true, minlength:3, maxlength:15},
+	email: { type: String, required: true, unique: true },
+	password: { type: String, required: true,  minlength: 5 },
+	name: { type: String },
+	created_at: { type: Date, default: Date.now },
+	isActive: { type: Boolean,  default: true },
   passwordResetToken: { type: String },
   passwordResetExpires: { type: Date },
 });
