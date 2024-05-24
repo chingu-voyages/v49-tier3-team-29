@@ -109,7 +109,7 @@ async function generateJwtToken(req, res) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.status(200).json({ success: true, token });
+    return res.status(200).json({ success: true, token });
   }
   res.status(400).json({ error: "Invalid credentials." });
 }
