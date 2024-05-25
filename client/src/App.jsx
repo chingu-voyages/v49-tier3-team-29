@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.js'; 
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [count, setCount] = useState(0);
 
   return (
     <>
@@ -23,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
