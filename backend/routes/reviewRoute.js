@@ -16,4 +16,8 @@ router.get('/:bookId', getAllBookReviews);
 //* create a review
 router.post('/', createReview);
 
+//* update review
+
+//* delete review
+
 export default router;
