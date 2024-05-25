@@ -1,4 +1,4 @@
-import { Schema, model, SchemaType } from 'mongoose';
+import { Schema, model, SchemaTypes } from 'mongoose';
 
 const reviewSchema = new Schema({
 	title: {
@@ -11,7 +11,7 @@ const reviewSchema = new Schema({
 		type: String,
 		required: [true, 'review is required'],
 		trim: true,
-		minlength: 20,
+		minlength: 10,
 	},
 	rating: {
 		type: Number,
@@ -20,13 +20,13 @@ const reviewSchema = new Schema({
 		max: 5,
 	},
 	userId: {
-		type: SchemaType.ObjectId,
+		type: SchemaTypes.ObjectId,
 		ref: 'User',
 		required: true,
 		alias: 'author',
 	},
 	bookId: {
-		type: SchemaType.ObjectId,
+		type: SchemaTypes.ObjectId,
 		ref: 'Book',
 		required: true,
 	},

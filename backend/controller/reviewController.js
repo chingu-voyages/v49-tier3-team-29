@@ -1,8 +1,13 @@
+import { mongo } from 'mongoose';
 import Review from '../models/Reviews.js';
+import User from '../models/Users.js';
 
 export const getAllUserReviews = async (req, res) => {
+	//TODO Further refinement is needed
 	try {
-		const reviews = await Review.find({ userId: req.params.userId });
+		const user = await User.find({ username: req.params.username });
+
+		const reviews = await Review.find({ userId: user[0]._id.toString() });
 
 		res.json(reviews);
 	} catch (err) {
