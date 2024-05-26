@@ -21,10 +21,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     width: '100%', 
   },
-  signUpButton: {
-    marginTop: theme.spacing(2),
-    width: '50%', 
-  },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -40,10 +36,18 @@ const LoginPage = () => {
         shelf<span style={{ fontWeight: 'bold' }}>share</span>
       </Typography>
       <Typography variant="body1" component="p" align="center" gutterBottom>
-        SIGN IN
+        CREATE ACCOUNT
       </Typography>
       <form className={classes.form}>
         <Grid container spacing={2}>
+        <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              label="Your Name"
+              fullWidth
+              autoFocus
+            />
+          </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -61,29 +65,28 @@ const LoginPage = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Sign In
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-          <Typography variant="body1" component="p" align="center" gutterBottom>
-              New to Shelfshare? 
-            </Typography>
+            <TextField
+              variant="outlined"
+              label="Re-enter Password"
+              type="password"
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12} className={classes.buttonContainer}>
             <Button
               variant="contained"
               color="primary"
-              className={classes.signUpButton}
+              className={classes.button}
               component={Link}
-              to="/signup"
+              to="/" // TO-DO: Update to Landing Page
             >
-              Sign Up
+              Create Account
             </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" component="p" align="center" gutterBottom>
+              Already have an account? <Link to="/signin" style={{ fontWeight: 'bold' }}>Sign In</Link>
+            </Typography>
           </Grid>
         </Grid>
       </form>

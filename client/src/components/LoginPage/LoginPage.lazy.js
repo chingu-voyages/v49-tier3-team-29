@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react'
 
-const LazyLoginPage = lazy(() => import('./LoginPage'));
+const LazyLoginPage = lazy(() => import('./LoginPage'))
 
-const LoginPage = props => (
+const LoginPage = (props) => (
   <Suspense fallback={null}>
     <LazyLoginPage {...props} />
   </Suspense>
-);
+)
 
-export default LoginPage;
+export default LoginPage
