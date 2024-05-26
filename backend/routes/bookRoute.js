@@ -6,8 +6,6 @@ const router = express.Router();
 //* get all books
 router.get('/', getAllBooks);
 
-//* get books by genre
-
 //* get book by title/author/isbn
 
 export default router;
