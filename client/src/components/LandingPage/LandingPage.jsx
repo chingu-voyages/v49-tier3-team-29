@@ -1,139 +1,192 @@
-import React from 'react';
 import styles from './LandingPage.module.css';
-import {
-	AppBar,
-	Box,
-	Toolbar,
-	Typography,
-	Card,
-	Button,
-	Divider,
-	Container,
-	CssBaseline,
-	Link,
-} from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import MaterialLink from '@mui/material/Link';
+import EmailIcon from '@mui/icons-material/Email';
+import { Link } from 'react-router-dom';
+import { Stack } from '@mui/material';
+import theme from '../../theme';
 
 const LandingPage = () => (
-	<div
-		className={styles.LandingPage}
-		data-testid="LandingPage">
+	<div className={styles.LandingPage}>
 		<>
 			<CssBaseline />
 			{/* Navbar Header */}
 			<AppBar
 				sx={{
-					bgcolor: '#BCB8B1',
 					boxShadow: 0,
-					backgroundImage: 'none',
 					position: 'static',
 				}}>
-				<Container maxWidth="lg">
+				<Container
+					maxWidth="md"
+					sx={{ position: 'relative' }}>
 					<Toolbar
 						sx={{
-							bgcolor: '#BCB8B1',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'space-between',
 							flexShrink: 0,
-							backdropFilter: 'blur(24px)',
-							maxHeight: 40,
 						}}>
-						<Box sx={{ color: '#463F3A' }}>
+						<Box>
 							<Typography
-								variant="h5"
-								fontWeight={'500'}>
-								Shelf Share
+								variant="h4"
+								fontWeight={200}>
+								shelf
+								<span style={{ fontWeight: 'bold' }}>
+									share
+								</span>
 							</Typography>
 						</Box>
-
-						{/* Card */}
-						<Card
-							variant="outlined"
-							sx={{
-								position: 'absolute',
-								right: '64px',
-								top: '36px',
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center',
-								maxWidth: '350px',
-								padding: '16px',
-								gap: '24px',
-							}}>
-							<Typography
-								color={'#463F3A'}
-								fontWeight={'700'}>
+					</Toolbar>
+					{/* Card */}
+					<Card
+						variant="outlined"
+						sx={{
+							position: 'absolute',
+							right: '0',
+							top: '0',
+							mt: 2,
+							mr: 2,
+							width: '300px',
+							padding: 2,
+							zIndex: 1,
+						}}>
+						<Stack
+							direction={'column'}
+							spacing={2}
+							justifyContent={'center'}
+							alignItems={'center'}>
+							<Typography variant="h6">
 								Discover & read more
 							</Typography>
 							<Button
 								variant="outlined"
-								sx={{
-									borderColor: '#463F3A',
-									color: '#463F3A',
-									'&:hover': {
-										borderColor: '#8A817C', // Change this to your preferred color
-										color: '#8A817C',
-									},
-								}}
-								size="large">
-								Sign Up with email
+								component={Link}
+								to="/signup"
+								size="large"
+								sx={{ width: '80%', mt: 3 }}
+								startIcon={
+									<EmailIcon fontSize="small"></EmailIcon>
+								}>
+								<Typography
+									noWrap
+									variant="button">
+									Sign Up with email
+								</Typography>
 							</Button>
-							<Divider
-								variant="middle"
-								flexItem
-								sx={{ backgroundColor: '#463F3A' }}></Divider>
+
 							<Button
 								variant="contained"
 								sx={{
-									bgcolor: '#463F3A',
+									mt: 2,
+									width: '80%',
 									'&:hover': {
-										backgroundColor: '#8A817C', // Change this to your preferred color
+										backgroundColor: 'secondary', // Change this to your preferred color
 									},
 								}}
-								size="large">
+								size="large"
+								component={Link}
+								to="/login">
 								Sign In
 							</Button>
-						</Card>
-						{/* Card End */}
-					</Toolbar>
+						</Stack>
+					</Card>
+					{/* Card End */}
 				</Container>
 			</AppBar>
 			{/* Navbar Header End */}
 
-			<Divider></Divider>
-
 			{/* Main Content */}
-			<Box>
-				<Typography>Book Images</Typography>
+			<Box
+				sx={{
+					background: 'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
+				}}
+				py={4}>
+				<Container maxWidth="lg">
+					<Box
+						sx={{
+							height: '400px',
+						}}>
+						<Stack
+							position={'absolute'}
+							spacing={3}>
+							<Box textAlign={'left'}>
+								<Typography variant="h3">
+									<span style={{ fontStyle: 'italic' }}>
+										What are users reading?
+									</span>
+								</Typography>
+							</Box>
+							<Stack
+								direction={'row'}
+								spacing={4}>
+								<Box
+									sx={{
+										bgcolor: theme.palette.primary.main,
+										width: '200px',
+										height: '300px',
+									}}></Box>
+								<Box
+									sx={{
+										bgcolor: theme.palette.primary.main,
+										width: '200px',
+										height: '300px',
+									}}></Box>
+								<Box
+									sx={{
+										bgcolor: theme.palette.primary.main,
+										width: '200px',
+										height: '300px',
+									}}></Box>
+								<Box
+									sx={{
+										bgcolor: theme.palette.primary.main,
+										width: '200px',
+										height: '300px',
+									}}></Box>
+								<Box
+									sx={{
+										bgcolor: theme.palette.primary.main,
+										width: '200px',
+										height: '300px',
+									}}></Box>
+							</Stack>
+						</Stack>
+					</Box>
+				</Container>
 			</Box>
+
 			{/* Main Content End */}
 
-			<Divider></Divider>
-
 			{/* Footer */}
-			<Box sx={{ position: 'fixed', bottom: 0, left: 0, width: '100%' }}>
+			<Box>
 				<Container
 					maxWidth="lg"
 					sx={{
-						my: '24px',
+						py: '24px',
 						display: 'flex',
 						justifyContent: 'center',
 					}}>
 					<Box>
-						<Link
+						<MaterialLink
 							href="https://github.com/chingu-voyages/v49-tier3-team-29"
 							underline="none"
 							target="_blank"
 							rel="noopener"
 							sx={{
-								color: 'black',
 								display: 'flex',
 								gap: '8px',
 							}}>
 							<GitHubIcon></GitHubIcon>
 							Github
-						</Link>
+						</MaterialLink>
 					</Box>
 				</Container>
 			</Box>
