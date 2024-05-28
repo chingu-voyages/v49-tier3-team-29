@@ -5,6 +5,7 @@ import LoginPage from './components/LoginPage/LoginPage';
 import SignupPage from './components/SignupPage/SignupPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.js';
+import LandingPage from './components/LandingPage/LandingPage.jsx';
 
 function App() {
 	// const [count, setCount] = useState(0);
@@ -16,8 +17,11 @@ function App() {
 					<Routes>
 						<Route
 							path="/"
-							element={<LoginPage />}
+							element={<LandingPage />}
 						/>
+						<Route
+							path="/login"
+							element={<LoginPage></LoginPage>}></Route>
 						<Route
 							path="/signup"
 							element={<SignupPage />}
