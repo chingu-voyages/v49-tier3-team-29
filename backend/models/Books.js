@@ -31,11 +31,10 @@ const bookSchema = new Schema({
 		],
 		trim: true,
 	},
-	userId: {
-		type: SchemaTypes.ObjectId,
-		ref: 'User',
-		required: true,
-		alias: 'author',
+	author: {
+		type: String,
+		required: [true, 'author is required'],
+		minlength: 6,
 	},
 	isBan: {
 		type: String,
