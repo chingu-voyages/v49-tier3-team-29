@@ -28,12 +28,18 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
 });
 
 // * Register User
-export const registerUser = createAsyncThunk('user/registerUser', async () => {
-	const request = await axios.post(`${userBaseURL}/register`);
-	const response = await request.data;
+export const registerUser = createAsyncThunk(
+	'user/registerUser',
+	async userDetails => {
+		const request = await axios.post(
+			`${userBaseURL}/register`,
+			userDetails
+		);
+		const response = await request.data;
 
-	return response;
-});
+		return response;
+	}
+);
 
 // * Authenticate/ restore logged In user
 export const authenticateUser = createAsyncThunk(
