@@ -1,4 +1,5 @@
 import User from '../models/Users.js';
+import bcrypt from 'bcrypt';
 
 export const newUser = async (req, res) => {
 	//console.log("test register")
@@ -26,6 +27,36 @@ export const newUser = async (req, res) => {
 		//res.status(201).json({ message: 'User registered successfully', user: newUser });
 	} catch (error) {
 		console.error('Error registering user:', error);
+		res.status(500).json({ message: 'Internal server error' });
+
+	}
+};
+
+export const login = async (req, res) => {
+	//console.log('test login start');
+
+	try {
+		//console.log('test login');
+		const { username, password } = req.body;
+
+		const user = await User.findOne({ username });
+
+		//check for pass
+		if (user) {
+			console.log('test pass');
+			if (await bcrypt.compare(password, user.password))
+				res.status(200).json({ message: 'Successful login' });
+			else {
+				res.status(401).json({ message: 'Incorrect login credentials' });
+			}
+		}
+		else{
+			res.status(404).json({message: 'User not found'})
+		}
+		
+		//console.log('end login');
+	} catch (error) {
+		console.error('Error loging in user:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };
