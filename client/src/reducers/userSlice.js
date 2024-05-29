@@ -102,15 +102,8 @@ const userSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.userInfo = null;
+					state.error = action.error.message;
 					console.log(action.error.message);
-					if (
-						action.error.message ===
-						'Request failed with status code 401'
-					) {
-						state.error = 'Access Denied! Invalid Credentials';
-					} else {
-						state.error = action.error.message;
-					}
 				}
 			);
 	},
