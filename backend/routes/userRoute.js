@@ -18,7 +18,10 @@ router.get('/', getAllUsers);
 //* get user by username
 router.get('/:username', getUserByUsername);
 
+//* Update user by username
 router.put('/:username', updateUser);
+
+// * Deactivate user
 router.put('/:username/deactivate', deactivate);
 
 export default router;

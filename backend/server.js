@@ -4,10 +4,13 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { connectDB } from './config/db.js';
 import { genLimiter } from './middleware/limiter.js';
-import userRoutes from './routes/userRoute.js';
-import bookRoutes from './routes/bookRoute.js';
+import {
+	userRoutes,
+	bookRoutes,
+	authRoutes,
+	reviewRoutes,
+} from './routes/index.js';
 
-// Load environment variables
 dotenv.config();
 const port = process.env.PORT || 5000;
 
@@ -24,11 +27,13 @@ app.use(genLimiter);
 app.use(express.json());
 
 //* Routes
+app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/books', bookRoutes);
+app.use('/reviews', reviewRoutes);
 
 app.get('/', (req, res) => {
-	res.send('Shelf Shell');
+	res.send('Shelf Share API is live!');
 });
 
 //* Connect to Database and then Start Server
