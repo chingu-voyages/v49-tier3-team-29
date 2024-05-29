@@ -6,7 +6,7 @@ import theme from '../../theme';
 
 const Hero = () => (
 	<Box>
-		<Box textAlign={{ lg: 'left' }}>
+		<Box textAlign={{ sm: 'left' }}>
 			<Typography variant="h5">
 				What are users{' '}
 				<span
@@ -26,37 +26,39 @@ const Hero = () => (
 				elevation={5}
 				sx={{
 					bgcolor: theme.palette.primary.main,
-					width: { xs: '68px', lg: '200px' },
-					height: { xs: '125px', lg: '300px' },
+					width: { xs: '68px', sm: '200px' },
+					height: { xs: '125px', sm: '300px' },
 				}}></Paper>
 			<Paper
 				elevation={5}
 				sx={{
 					bgcolor: theme.palette.primary.main,
-					width: { xs: '68px', lg: '200px' },
-					height: { xs: '125px', lg: '300px' },
+					width: { xs: '68px', sm: '200px' },
+					height: { xs: '125px', sm: '300px' },
 				}}></Paper>
 			<Paper
 				elevation={5}
 				sx={{
+					display: { xs: 'none', sm: 'block' },
 					bgcolor: theme.palette.primary.main,
-					width: { xs: '68px', lg: '200px' },
-					height: { xs: '125px', lg: '300px' },
+					width: { xs: '68px', sm: '200px' },
+					height: { xs: '125px', sm: '300px' },
 				}}></Paper>
 			<Paper
 				elevation={5}
 				sx={{
+					display: { sm: 'none', md: 'block' },
 					bgcolor: theme.palette.primary.main,
-					width: { xs: '68px', lg: '200px' },
-					height: { xs: '125px', lg: '300px' },
+					width: { xs: '68px', sm: '200px' },
+					height: { xs: '125px', sm: '300px' },
 				}}></Paper>
 			<Paper
 				elevation={5}
 				sx={{
-					display: { xs: 'none', lg: 'block' },
+					display: { sm: 'none', lg: 'block' },
 					bgcolor: theme.palette.primary.main,
-					width: { xs: '68px', lg: '200px' },
-					height: { xs: '125px', lg: '300px' },
+					width: { xs: '68px', sm: '200px' },
+					height: { xs: '125px', sm: '300px' },
 				}}></Paper>
 		</Grid>
 	</Box>

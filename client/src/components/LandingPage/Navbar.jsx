@@ -38,8 +38,8 @@ const Navbar = () => (
 			<Card
 				variant="outlined"
 				sx={{
-					display: { xs: 'none', lg: 'block' },
-					position: { lg: 'absolute' },
+					display: { xs: 'none', sm: 'block' },
+					position: 'absolute',
 					right: '0',
 					top: '0',
 					mt: 2,
