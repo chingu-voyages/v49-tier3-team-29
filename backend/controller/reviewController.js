@@ -50,8 +50,8 @@ export const createReview = async (req, res) => {
 
 export const updateReview = async (req, res) => {
 	try {
-        const { username, bookId } = req.params;
-        const { title, body, rating } = req.body;
+        const {  bookId } = req.params;
+        const { username, title, body, rating } = req.body;
 
         // get user by username
         const user = await User.findOne({ username });

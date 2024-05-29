@@ -19,9 +19,9 @@ router.get('/:bookId', getAllBookReviews);
 router.post('/', createReview);
 
 //* update review
-router.put('/users/:username/:bookId', updateReview)
+router.patch('/:bookId', updateReview)
 
 //* delete review
-router.delete('/users/:username/:bookId', deleteReview);
+router.delete('/:username/:bookId', deleteReview);
 
 export default router;
