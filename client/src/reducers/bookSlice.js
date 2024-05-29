@@ -12,7 +12,7 @@ const initialState = {
 export const fetchBook = createAsyncThunk(
 	'book/bookInfo',
 	async bookDetails => {
-		const request = await axios.get(`${bookBaseURL}`, bookDetails);
+		const request = await axios.get(`${bookBaseURL}/author/${bookDetails}`);
 		const response = await request.data;
 		return response;
 	}
