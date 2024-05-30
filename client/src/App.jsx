@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignupPage from './components/SignupPage/SignupPage';
+import CompletedPage from './components/CompletedPage/CompletedPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.js';
 
@@ -21,6 +22,10 @@ function App() {
 						<Route
 							path="/signup"
 							element={<SignupPage />}
+						/>
+						<Route
+							path="/completed"
+							element={<CompletedPage />}
 						/>
 					</Routes>
 				</Router>
