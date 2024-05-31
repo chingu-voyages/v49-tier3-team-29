@@ -3,7 +3,6 @@ import Review from '../models/Reviews.js';
 import User from '../models/Users.js';
 
 export const getAllUserReviews = async (req, res) => {
-	//TODO Further refinement is needed
 	try {
 		const user = await User.find({ username: req.params.username });
 

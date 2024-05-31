@@ -39,6 +39,7 @@ const reviewSchema = new Schema({
 });
 
 //* update the updatedAt field before saving the document
+
 reviewSchema.pre('save', function (next) {
 	this.updated_at = Date.now();
 	next();
