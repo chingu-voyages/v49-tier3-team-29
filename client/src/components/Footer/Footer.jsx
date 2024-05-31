@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import MaterialLink from '@mui/material/Link';
 import GitHubIcon from '@mui/icons-material/GitHub';
+
 const Footer = () => (
 	<Box>
 		<Container
@@ -28,4 +29,5 @@ const Footer = () => (
 		</Container>
 	</Box>
 );
+
 export default Footer;
