@@ -28,12 +28,18 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
 });
 
 // * Register User
-export const registerUser = createAsyncThunk('user/registerUser', async () => {
-	const request = await axios.post(`${userBaseURL}/register`);
-	const response = await request.data;
+export const registerUser = createAsyncThunk(
+	'user/registerUser',
+	async userDetails => {
+		const request = await axios.post(
+			`${userBaseURL}/register`,
+			userDetails
+		);
+		const response = await request.data;
 
-	return response;
-});
+		return response;
+	}
+);
 
 // * Authenticate/ restore logged In user
 export const authenticateUser = createAsyncThunk(
@@ -96,15 +102,8 @@ const userSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.userInfo = null;
+					state.error = action.error.message;
 					console.log(action.error.message);
-					if (
-						action.error.message ===
-						'Request failed with status code 401'
-					) {
-						state.error = 'Access Denied! Invalid Credentials';
-					} else {
-						state.error = action.error.message;
-					}
 				}
 			);
 	},
