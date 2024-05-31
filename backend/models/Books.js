@@ -36,9 +36,9 @@ const bookSchema = new Schema({
 		required: [true, 'author is required'],
 		minlength: 6,
 	},
-	isBan: {
+	ISBN: {
 		type: String,
-		required: [true, 'isBan is required'],
+		required: [true, 'ISBN is required'],
 		trim: true,
 		unique: true,
 		minlength: 10,
