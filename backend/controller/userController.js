@@ -1,143 +1,80 @@
-import User from '../models/Users.js';
-import bcrypt from 'bcrypt';
-
-export const newUser = async (req, res) => {
-	//console.log("test register")
-
-	try {
-		const { username, email, password, name } = req.body;
-
-		//check for existing user/email
-		const existingUser = await User.findOne({
-			$or: [{ username }, { email }],
-		});
-
-		//notify if used
-		if (existingUser) {
-			return res
-				.status(400)
-				.json({ message: 'Username and or Email already in use' });
-		}
-
-		//create new user
-		const newUser = new User({ username, email, password, name });
-
-		await newUser.save();
-		res.json({ message: 'User registered successfully' });
-		//res.status(201).json({ message: 'User registered successfully', user: newUser });
-	} catch (error) {
-		console.error('Error registering user:', error);
-		res.status(500).json({ message: 'Internal server error' });
-
-	}
-};
-
-export const login = async (req, res) => {
-	//console.log('test login start');
-
-	try {
-		//console.log('test login');
-		const { username, password } = req.body;
-
-		const user = await User.findOne({ username });
-
-		//check for pass
-		if (user) {
-			console.log('test pass');
-			if (await bcrypt.compare(password, user.password))
-				res.status(200).json({ message: 'Successful login' });
-			else {
-				res.status(401).json({ message: 'Incorrect login credentials' });
-			}
-		}
-		else{
-			res.status(404).json({message: 'User not found'})
-		}
-		
-		//console.log('end login');
-	} catch (error) {
-		console.error('Error loging in user:', error);
-		res.status(500).json({ message: 'Internal server error' });
-	}
-};
+import User from "../models/Users.js";
 
 export const getAllUsers = async (req, res) => {
-	//console.log("get all");
+  //console.log("get all");
 
-	try {
-		const users = await User.find().select('username');
-		res.json(users);
-	} catch (error) {
-		res.status(500).json({ message: error.message });
-	}
+  try {
+    const users = await User.find().select("username");
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const getUserByUsername = async (req, res) => {
-	//console.log("test get username");
+  //console.log("test get username");
 
-	try {
-		const user = await User.findOne({ username: req.params.username });
-		if (!user) {
-			return res.status(404).json({ message: 'User not found' });
-		}
-		res.json(user);
-	} catch (error) {
-		res.status(500).json({ message: error.message });
-	}
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const updateUser = async (req, res) => {
-	try {
-		//console.log("test update");
+  try {
+    //console.log("test update");
 
-		//find by username
-		const user = await User.findOne({ username: req.params.username });
+    //find by username
+    const user = await User.findOne({ username: req.params.username });
 
-		if (!user) {
-			console.log(
-				`User with username '${req.params.username}' not found in database.`
-			);
-			return res.status(404).json({ message: 'User not found' });
-		}
+    if (!user) {
+      console.log(
+        `User with username '${req.params.username}' not found in database.`
+      );
+      return res.status(404).json({ message: "User not found" });
+    }
 
-		//update any field but isActive
-		for (const key in req.body) {
-			if (key !== 'isActive') {
-				if (req.body.hasOwnProperty(key)) {
-					user[key] = req.body[key];
-				}
-			}
-		}
+    //update any field but isActive
+    for (const key in req.body) {
+      if (key !== "isActive") {
+        if (req.body.hasOwnProperty(key)) {
+          user[key] = req.body[key];
+        }
+      }
+    }
 
-		const updateUser = await user.save();
-		//res.json(updateUser);
-		res.json({ message: 'User information had been updated' });
-	} catch (error) {
-		res.status(500).json({ message: error.message });
-	}
+    const updateUser = await user.save();
+    //res.json(updateUser);
+    res.json({ message: "User information had been updated" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const deactivate = async (req, res) => {
-	try {
-		const { username } = req.params;
+  try {
+    const { username } = req.params;
 
-		//get by username
-		const user = await User.findOne({ username });
+    //get by username
+    const user = await User.findOne({ username });
 
-		//if already deactivated
-		if (!user.isActive) {
-			return res
-				.status(404)
-				.json({ message: ' User already deactivated' });
-		}
+    //if already deactivated
+    if (!user.isActive) {
+      return res.status(404).json({ message: " User already deactivated" });
+    }
 
-		//deactivate
-		user.isActive = false;
-		await user.save();
+    //deactivate
+    user.isActive = false;
+    await user.save();
 
-		res.json({ message: 'The account has been deactivated' });
-	} catch (error) {
-		console.error('Error deactivating account:', error);
-		res.status(500).json({ message: 'Internal server error' });
-	}
+    res.json({ message: "The account has been deactivated" });
+  } catch (error) {
+    console.error("Error deactivating account:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
