@@ -6,11 +6,10 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
-import Divider from '@mui/material/Divider';
 import Features from './Features';
 import Hero from './Hero';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
 
 const LandingPage = () => (
 	<div className={styles.LandingPage}>
