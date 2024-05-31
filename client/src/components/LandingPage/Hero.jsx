@@ -8,13 +8,14 @@ const Hero = () => (
 	<Box>
 		<Box textAlign={{ sm: 'left' }}>
 			<Typography variant="h5">
-				What are users{' '}
+				What are{' '}
 				<span
 					style={{
 						color: theme.palette.primary.main,
 					}}>
-					reading?
-				</span>
+					users
+				</span>{' '}
+				reading?
 			</Typography>
 		</Box>
 		<Grid
