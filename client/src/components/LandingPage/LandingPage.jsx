@@ -32,9 +32,11 @@ const LandingPage = () => (
 							fontWeight={700}>
 							Meet your next favorite book.
 						</Typography>
-						<Typography mt={3}>
-							Find and read more books youll love. Be part of
-							Shelfshare, the world largest community for readers
+						<Typography
+							mt={3}
+							variant="body1">
+							Find and read more books you{"'"}ll love. Be part of
+							Shelfshare, the worlds largest community for readers
 							like you.
 						</Typography>
 						<Button
@@ -67,7 +69,6 @@ const LandingPage = () => (
 							</Typography>
 						</Button>
 					</Box>
-					<Divider></Divider>
 					<Features></Features>
 				</Container>
 			</Box>
