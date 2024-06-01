@@ -89,6 +89,7 @@ function ResetPasswordPage() {
                 variant="outlined"
                 inputProps={{ minLength: 5 }}
                 value={newPasswordVerify}
+                placeholder="Repeat the password"
                 type="password"
                 fullWidth
                 required={true}
