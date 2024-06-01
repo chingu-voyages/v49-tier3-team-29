@@ -40,7 +40,7 @@ async function forgotPassword(req, res) {
 	await user.save();
 
 	//  Sent password reset email
-	const resetUrl = `http://${req.headers.host}/auth/reset-password?token=${token}`;
+	const resetUrl = `http://localhost:5173/auth/reset-password?token=${token}`;
 	const mailOptions = {
 		from: 'admin@example.com',
 		to: user.email,
@@ -62,11 +62,11 @@ async function forgotPassword(req, res) {
 }
 
 async function resetPassword(req, res) {
-	// Validate password reset token
+	//Validate password reset token
 	const token = req.query.token;
 	const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-	// Find user by ID and token and check if token is still valid
+	//Find user by ID and token and check if token is still valid
 	const user = await User.findOne({
 		_id: decodedToken.id,
 		passwordResetToken: token,
@@ -79,13 +79,13 @@ async function resetPassword(req, res) {
 			.json({ error: 'Invalid or expired password reset token' });
 	}
 
-	// Update the user's password and remove the reset token and its expiration date
+	//Update the user's password and remove the reset token and its expiration date
 	user.password = req.body.password;
 	user.passwordResetToken = undefined;
 	user.passwordResetExpires = undefined;
 	await user.save();
 
-	// Send confirmation email for resetting password
+	//Send confirmation email for resetting password
 	const mailOptions = {
 		from: 'admin@example.com',
 		to: user.email,

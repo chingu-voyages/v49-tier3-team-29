@@ -6,9 +6,11 @@ import SignupPage from './components/SignupPage/SignupPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.js';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
+import ForgotPasswordPage from "./components/ForgotPasswordPage/ForgotPasswordPage.jsx";
+import ResetPasswordPage from "./components/ResetPasswordPage/ResetPasswordPage.jsx";
 
 function App() {
-	// const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
 	return (
 		<>
@@ -24,7 +26,11 @@ function App() {
 							element={<LoginPage></LoginPage>}></Route>
 						<Route
 							path="/signup"
-							element={<SignupPage />}
+							element={<SignupPage />}    
+						<Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route
+              path="/auth/reset-password"
+              element={<ResetPasswordPage />}
 						/>
 					</Routes>
 				</Router>
