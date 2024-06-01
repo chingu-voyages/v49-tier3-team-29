@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
-import { Input } from "@mui/material";
+import { Button, Input, TextField } from "@mui/material";
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -53,12 +53,12 @@ function ForgotPasswordPage() {
           gutterBottom
         ></Typography>{" "}
         <Typography variant="body2" component="p" align="center" gutterBottom>
-          Input your email address and hit enter key.
+          To reset password, type your email address below.
         </Typography>
         <form className={styles.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Input
+              <TextField
                 variant="outlined"
                 value={email}
                 label="Enter your email address..."
@@ -69,9 +69,18 @@ function ForgotPasswordPage() {
                 }}
               />
             </Grid>
+            <Grid align="center" item xs={12}>
+              {" "}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ width: "80%" }}
+              >
+                Submit
+              </Button>
+            </Grid>
             <Grid item xs={12}></Grid>
-            <Grid item xs={12}></Grid>
-
             <Grid item xs={12}></Grid>
           </Grid>
         </form>

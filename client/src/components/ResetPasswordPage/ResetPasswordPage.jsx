@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
-import { Input, TextField } from "@mui/material";
+import { Button, Input, TextField } from "@mui/material";
 import queryString from "query-string";
 
 function ResetPasswordPage() {
@@ -11,6 +11,7 @@ function ResetPasswordPage() {
   console.log(parsed);
   console.log(parsed.token);
   const [newPassword, setNewPassword] = useState("");
+  const [newPasswordVerify, setNewPasswordVerify] = useState("");
   const fetchResetPasswordApi = async () => {
     await fetch(
       `http://localhost:5000/auth/reset-password?token=${parsed.token}`,
@@ -35,6 +36,10 @@ function ResetPasswordPage() {
   };
   const onSubmit = (event) => {
     event.preventDefault();
+    if (newPassword !== newPasswordVerify) {
+      alert("Passwords do not match");
+    }
+
     fetchResetPasswordApi();
   };
   return (
@@ -48,6 +53,7 @@ function ResetPasswordPage() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+
         background: "linear-gradient(to bottom, #FFEFD5, #f0f0f0)",
       }}
     >
@@ -62,14 +68,15 @@ function ResetPasswordPage() {
           gutterBottom
         ></Typography>{" "}
         <Typography variant="body2" component="p" align="center" gutterBottom>
-          Input a new password and hit enter key.
+          Input a new password (minimum 5 characters).
         </Typography>
         <form className={styles.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Input
+              <TextField
                 variant="outlined"
                 value={newPassword}
+                inputProps={{ minLength: 5 }}
                 type="password"
                 fullWidth
                 required={true}
@@ -77,11 +84,33 @@ function ResetPasswordPage() {
                 onChange={(event) => {
                   setNewPassword(event.target.value);
                 }}
+              />{" "}
+              <TextField
+                variant="outlined"
+                inputProps={{ minLength: 5 }}
+                value={newPasswordVerify}
+                type="password"
+                fullWidth
+                required={true}
+                sx={{ width: "80%" }}
+                onChange={(event) => {
+                  setNewPasswordVerify(event.target.value);
+                }}
               />
             </Grid>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={12}></Grid>
 
+            <Grid align="center" item xs={12}>
+              {" "}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ width: "50%" }}
+              >
+                Submit
+              </Button>
+            </Grid>
+            <Grid item xs={12}></Grid>
             <Grid item xs={12}></Grid>
           </Grid>
         </form>
