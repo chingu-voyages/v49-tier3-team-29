@@ -8,20 +8,6 @@ const initialState = {
 	error: '',
 };
 
-// * Register User
-export const registerUser = createAsyncThunk(
-	'user/registerUser',
-	async userDetails => {
-		const request = await axios.post(
-			`${userBaseURL}/register`,
-			userDetails
-		);
-		const response = await request.data;
-
-		return response;
-	}
-);
-
 // * Login User
 export const loginUser = createAsyncThunk(
 	'user/loginUser',
@@ -39,6 +25,20 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
 	axios.get(`${userBaseURL}/logout`);
 });
+
+// * Register User
+export const registerUser = createAsyncThunk(
+	'user/registerUser',
+	async userDetails => {
+		const request = await axios.post(
+			`${userBaseURL}/register`,
+			userDetails
+		);
+		const response = await request.data;
+
+		return response;
+	}
+);
 
 // * Authenticate/ restore logged In user
 export const authenticateUser = createAsyncThunk(
