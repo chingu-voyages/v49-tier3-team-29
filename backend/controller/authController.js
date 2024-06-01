@@ -15,14 +15,12 @@ export const sendTokenResponse = (user, statusCode, res) => {
 		httpOnly: true,
 	};
 
-	res.status(statusCode)
-		.cookie('token', token, options)
-		.json({
-			username: user.username,
-			email: user.email,
-			name: user.name,
-			token,
-		});
+	res.status(statusCode).cookie('token', token, options).json({
+		username: user.username,
+		email: user.email,
+		name: user.name,
+		token,
+	});
 };
 
 async function forgotPassword(req, res) {
@@ -128,7 +126,8 @@ export const newUser = async (req, res) => {
 		const newUser = new User({ username, email, password, name });
 
 		await newUser.save();
-		res.json({ message: 'User registered successfully' });
+
+		sendTokenResponse(newUser, 201, res);
 	} catch (error) {
 		console.error('Error registering user:', error);
 		res.status(500).json({ message: 'Internal server error' });

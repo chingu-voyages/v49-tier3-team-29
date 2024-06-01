@@ -17,7 +17,8 @@ const SignupPage = () => {
 	const [passwordVerifier, setPasswordVerifier] = useState('');
 	const dispatch = useDispatch();
 
-	const handleSubmission = async () => {
+	const handleSubmission = async e => {
+		e.preventDefault();
 		if (password !== passwordVerifier) {
 			alert('Passwords do not match');
 		}

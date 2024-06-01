@@ -15,13 +15,15 @@ const LoginPage = () => {
 
 	const dispatch = useDispatch();
 
-	const handleSubmission = async () => {
+	const handleSubmission = async e => {
+		e.preventDefault();
 		const userCredentials = {
 			username,
 			password,
 		};
 		await dispatch(loginUser(userCredentials));
 	};
+
 	return (
 		<div
 			style={{
