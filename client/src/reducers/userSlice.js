@@ -5,7 +5,6 @@ import { userBaseURL } from '../utils/baseUrl';
 const initialState = {
 	loading: false,
 	userInfo: {},
-	userToken: null,
 	error: '',
 };
 
@@ -80,7 +79,6 @@ const userSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.userInfo = action.payload;
-					state.userToken = action.payload.token || '';
 				}
 			)
 			.addMatcher(

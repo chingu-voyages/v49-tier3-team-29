@@ -27,9 +27,7 @@ const SignupPage = () => {
 			password,
 			username,
 		};
-		const user = await dispatch(registerUser(userDetails));
-
-		console.log(user);
+		await dispatch(registerUser(userDetails));
 	};
 	return (
 		<div
@@ -48,16 +46,16 @@ const SignupPage = () => {
 				elevation={3}
 				className={styles.paper}>
 				<Typography
-					variant="h2"
-					component="h2"
-					align="center"
+					variant='h2'
+					component='h2'
+					align='center'
 					gutterBottom>
 					shelf<span style={{ fontWeight: 'bold' }}>share</span>
 				</Typography>
 				<Typography
-					variant="body1"
-					component="p"
-					align="center"
+					variant='body1'
+					component='p'
+					align='center'
 					gutterBottom>
 					CREATE ACCOUNT
 				</Typography>
@@ -69,8 +67,8 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant="outlined"
-								label="Username"
+								variant='outlined'
+								label='Username'
 								fullWidth
 								autoFocus
 								value={username}
@@ -82,8 +80,8 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant="outlined"
-								label="Your Name"
+								variant='outlined'
+								label='Your Name'
 								fullWidth
 								autoFocus
 								value={name}
@@ -95,8 +93,8 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant="outlined"
-								label="Email"
+								variant='outlined'
+								label='Email'
 								fullWidth
 								autoFocus
 								value={email}
@@ -108,9 +106,9 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant="outlined"
-								label="Password"
-								type="password"
+								variant='outlined'
+								label='Password'
+								type='password'
 								fullWidth
 								value={password}
 								onChange={e => setPassword(e.target.value)}
@@ -121,9 +119,9 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant="outlined"
-								label="Re-enter Password"
-								type="password"
+								variant='outlined'
+								label='Re-enter Password'
+								type='password'
 								fullWidth
 								value={passwordVerifier}
 								onChange={e =>
@@ -136,12 +134,12 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<Button
-								variant="contained"
-								color="primary"
+								variant='contained'
+								color='primary'
 								sx={{ width: '50%' }}
 								component={Link}
 								onClick={handleSubmission}
-								to="/" // TO-DO: Update to Landing Page
+								to='/' // TO-DO: Update to Landing Page
 							>
 								Create Account
 							</Button>
@@ -150,13 +148,13 @@ const SignupPage = () => {
 							item
 							xs={12}>
 							<Typography
-								variant="body1"
-								component="p"
-								align="center"
+								variant='body1'
+								component='p'
+								align='center'
 								gutterBottom>
 								Already have an account?{' '}
 								<Link
-									to="/"
+									to='/'
 									style={{ fontWeight: 'bold' }}>
 									Sign In
 								</Link>
