@@ -9,6 +9,8 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import PropTypes from 'prop-types';
 
 const TableComponent = ({ rowHeaders, data }) => {
@@ -28,64 +30,98 @@ const TableComponent = ({ rowHeaders, data }) => {
 		console.log('Remove button clicked for row:', row);
 	};
 
+	const handleListChange = (e, row) => {
+		console.log('List change for row:', row, 'New value:', e.target.value);
+	};
+
 	return (
 		<div>
-			<TableContainer component={Paper}>
-				<Table
-					sx={{ minWidth: 650 }}
-					aria-label="simple table">
-					<TableHead>
-						<TableRow>
-							{rowHeaders.map(header => (
-								<TableCell key={header}>{header}</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{data
-							.slice(
-								page * rowsPerPage,
-								page * rowsPerPage + rowsPerPage
-							)
-							.map(row => (
-								<TableRow
-									key={row.title}
-									sx={{
-										'&:last-child td, &:last-child th': {
-											border: 0,
-										},
-									}}>
-									<TableCell
-										component="img"
-										src={row.cover}
-										scope="row"
+			<div style={{ overflow: 'auto', maxHeight: '400px' }}>
+				<TableContainer component={Paper}>
+					<Table
+						sx={{ minWidth: 650 }}
+						aria-label="simple table">
+						<TableHead>
+							<TableRow>
+								{rowHeaders.map(header => (
+									<TableCell key={header}>{header}</TableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{data
+								.slice(
+									page * rowsPerPage,
+									page * rowsPerPage + rowsPerPage
+								)
+								.map(row => (
+									<TableRow
+										key={row.title}
 										sx={{
-											maxHeight: '150px',
-											maxWidth: '150px',
-										}}></TableCell>
-									<TableCell align="right">
-										{row.title}
-									</TableCell>
-									<TableCell align="right">
-										{row.author}
-									</TableCell>
-									<TableCell align="right">
-										{row.list}
-									</TableCell>
-									<TableCell align="right">
-										<Button
-											variant="contained"
-											color="primary"
-											startIcon={<DeleteIcon />}
-											onClick={() =>
-												handleRemove(row)
-											}></Button>
-									</TableCell>
-								</TableRow>
-							))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+											'&:last-child td, &:last-child th':
+												{
+													border: 0,
+												},
+										}}>
+										<TableCell
+											component="img"
+											src={row.cover}
+											scope="row"
+											sx={{
+												maxHeight: '100px',
+												maxWidth: '100px',
+											}}></TableCell>
+										<TableCell align="right">
+											{row.title}
+										</TableCell>
+										<TableCell align="right">
+											{row.author}
+										</TableCell>
+										<TableCell>
+											<Select
+												value={row.list}
+												onChange={e =>
+													handleListChange(e, row)
+												}
+												defaultValue={row.list}
+												sx={{ width: '150px' }}>
+												<MenuItem value="completed">
+													Completed
+												</MenuItem>
+												<MenuItem value="want-to-read">
+													Want to Read
+												</MenuItem>
+												<MenuItem value="currently-reading">
+													Currently Reading
+												</MenuItem>
+											</Select>
+										</TableCell>
+										<TableCell align="right">
+											<Button
+												variant="contained"
+												color="primary"
+												onClick={() =>
+													handleRemove(row)
+												}
+												sx={{
+													width: '10px',
+													height: '40px',
+												}}>
+												<DeleteIcon
+													sx={{
+														width: '80%',
+														height: 'auto',
+													}}
+												/>{' '}
+												{/* Center the icon */}
+											</Button>
+										</TableCell>
+									</TableRow>
+								))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			</div>
 			<TablePagination
 				rowsPerPageOptions={[5, 10, 25]}
 				component="div"
