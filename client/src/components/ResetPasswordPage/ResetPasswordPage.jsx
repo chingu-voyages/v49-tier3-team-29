@@ -38,9 +38,9 @@ function ResetPasswordPage() {
     event.preventDefault();
     if (newPassword !== newPasswordVerify) {
       alert("Passwords do not match");
+    } else {
+      fetchResetPasswordApi();
     }
-
-    fetchResetPasswordApi();
   };
   return (
     <div
