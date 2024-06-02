@@ -39,7 +39,15 @@ const TableComponent = ({ rowHeaders, data }) => {
 			<div style={{ overflow: 'auto', maxHeight: '400px' }}>
 				<TableContainer component={Paper}>
 					<Table
-						sx={{ minWidth: 650 }}
+						sx={{
+							minWidth: 650,
+							'& .MuiTableCell-root': {
+								maxWidth: '200px', // Set the maximum width for all TableCell components
+								overflow: 'hidden', // Optional: Handle overflow content
+								// textOverflow: 'ellipsis', // Optional: Add ellipsis for overflow content
+								whiteSpace: 'wrap', // Optional: Prevent text wrapping
+							},
+						}}
 						aria-label="simple table">
 						<TableHead>
 							<TableRow>
@@ -71,10 +79,10 @@ const TableComponent = ({ rowHeaders, data }) => {
 												maxHeight: '100px',
 												maxWidth: '100px',
 											}}></TableCell>
-										<TableCell align="right">
+										<TableCell align="left">
 											{row.title}
 										</TableCell>
-										<TableCell align="right">
+										<TableCell align="left">
 											{row.author}
 										</TableCell>
 										<TableCell>
@@ -96,7 +104,7 @@ const TableComponent = ({ rowHeaders, data }) => {
 												</MenuItem>
 											</Select>
 										</TableCell>
-										<TableCell align="right">
+										<TableCell align="left">
 											<Button
 												variant="contained"
 												color="primary"

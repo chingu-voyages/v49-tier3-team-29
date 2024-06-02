@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 const LazyCompletedPage = lazy(() => import('./CompletedPage'));
 
 const CompletedPage = props => (
-  <Suspense fallback={null}>
-    <LazyCompletedPage {...props} />
-  </Suspense>
+	<Suspense fallback={null}>
+		<LazyCompletedPage {...props} />
+	</Suspense>
 );
 
 export default CompletedPage;

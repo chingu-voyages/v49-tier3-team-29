@@ -1,5 +1,5 @@
 import styles from './CompletedPage.module.css';
-import TableComponent from '../TableComponent/TableComponent';
+import TableComponent from '../../shared/TableComponent/TableComponent';
 
 const rowHeaders = ['Cover', 'Title', 'Author', 'List', 'Remove'];
 

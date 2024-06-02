@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignupPage from './components/SignupPage/SignupPage';
-import CompletedPage from './components/CompletedPage/CompletedPage';
+import CompletedPage from './components/reading-list-pages/CompletedPage/CompletedPage.jsx';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.js';
+import CurrentlyReadingPage from './components/reading-list-pages/CurrentlyReadingPage/CurrentlyReadingPage.jsx';
+import WantToReadPage from './components/reading-list-pages/WantToReadPage/WantToReadPage.jsx';
 
 function App() {
 	// const [count, setCount] = useState(0);
@@ -38,6 +40,14 @@ function App() {
 							<Route
 								path="/completed"
 								element={<CompletedPage />}
+							/>
+							<Route
+								path="/currently-reading"
+								element={<CurrentlyReadingPage />}
+							/>
+							<Route
+								path="/want-to-read"
+								element={<WantToReadPage />}
 							/>
 						</Routes>
 					</Router>
