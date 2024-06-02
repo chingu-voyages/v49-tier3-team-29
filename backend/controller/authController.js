@@ -1,17 +1,27 @@
 import User from '../models/Users.js';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import { transporter } from '../utils/index.js';
 dotenv.config();
 
-const transporter = nodemailer.createTransport({
-	// Bia: I created an account with Brevo. Under the free plan, it allows 300 emails per day free of charge through Brevo's SMTP server and my credentials. For more information: brevo.com
-	host: 'smtp-relay.brevo.com',
-	auth: {
-		user: process.env.BREVO_USERID,
-		pass: process.env.BREVO_PASS,
-	},
-});
+// Get token from model, create cookie and send response
+export const sendTokenResponse = (user, statusCode, res) => {
+	// Create token
+	const token = user.getSignedJwtToken();
+	const options = {
+		// Cookie expiry matches with JWT expiry
+		expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+		httpOnly: true,
+	};
+
+	res.status(statusCode).cookie('token', token, options).json({
+		username: user.username,
+		email: user.email,
+		name: user.name,
+		token,
+	});
+};
 
 async function forgotPassword(req, res) {
 	// Find user by email
@@ -30,7 +40,7 @@ async function forgotPassword(req, res) {
 	await user.save();
 
 	//  Sent password reset email
-	const resetUrl = `http://${req.headers.host}/auth/reset-password?token=${token}`;
+	const resetUrl = `http://localhost:5173/auth/reset-password?token=${token}`;
 	const mailOptions = {
 		from: 'admin@example.com',
 		to: user.email,
@@ -96,15 +106,55 @@ async function resetPassword(req, res) {
 	}
 }
 
-async function generateJwtToken(req, res) {
-	const id = req._id;
+export const newUser = async (req, res) => {
+	try {
+		const { username, email, password, name } = req.body;
 
-	// Generate a token and set an expiry date
-	const generatedToken = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-		expiresIn: '30d',
-	});
-	// Return the generated token
-	return res.status(200).json({ token: generatedToken });
-}
+		// check for existing user/email
+		const existingUser = await User.findOne({
+			$or: [{ username }, { email }],
+		});
 
-export { forgotPassword, resetPassword, generateJwtToken };
+		// notify if used
+		if (existingUser) {
+			return res
+				.status(400)
+				.json({ message: 'Username and or Email already in use' });
+		}
+
+		// create new user
+		const newUser = new User({ username, email, password, name });
+
+		await newUser.save();
+
+		sendTokenResponse(newUser, 201, res);
+	} catch (error) {
+		console.error('Error registering user:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const login = async (req, res) => {
+	try {
+		const { username, password } = req.body;
+
+		const user = await User.findOne({ username });
+
+		if (user) {
+			if (await bcrypt.compare(password, user.password))
+				sendTokenResponse(user, 200, res);
+			else {
+				res.status(401).json({
+					message: 'Incorrect login credentials',
+				});
+			}
+		} else {
+			res.status(404).json({ message: 'User not found' });
+		}
+	} catch (error) {
+		console.error('Error loging in user:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export { forgotPassword, resetPassword };

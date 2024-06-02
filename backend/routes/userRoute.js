@@ -4,14 +4,13 @@ import {
 	getUserByUsername,
 	updateUser,
 	deactivate,
-	newUser,
-	login,
 } from '../controller/userController.js';
+import { login, newUser } from '../controller/authController.js';
 
 const router = express.Router();
 
-router.post('/register', newUser);
 router.post('/login', login);
+router.post('/register', newUser);
 //* get all users
 router.get('/', getAllUsers);
 
