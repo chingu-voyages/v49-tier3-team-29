@@ -17,57 +17,44 @@ function App() {
 
 	return (
 		<>
-			<div
-				style={{
-					position: 'fixed',
-					top: 0,
-					right: 0,
-					bottom: 0,
-					left: 0,
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
-				}}>
-				<ThemeProvider theme={theme}>
-					<Router>
-						<Routes>
-							<Route
-								path="/"
-								element={<LandingPage />}
-							/>
-							<Route
-								path="/"
-								element={<LoginPage />}
-							/>
-							<Route
-								path="/signup"
-								element={<SignupPage />}
-							/>
-							<Route
-								path="/forgot-password"
-								element={<ForgotPasswordPage />}
-							/>
-							<Route
-								path="/auth/reset-password"
-								element={<ResetPasswordPage />}
-							/>
-							<Route
-								path="/completed"
-								element={<CompletedPage />}
-							/>
-							<Route
-								path="/currently-reading"
-								element={<CurrentlyReadingPage />}
-							/>
-							<Route
-								path="/want-to-read"
-								element={<WantToReadPage />}
-							/>
-						</Routes>
-					</Router>
-				</ThemeProvider>
-			</div>
+			<ThemeProvider theme={theme}>
+				<Router>
+					<Routes>
+						<Route
+							path="/"
+							element={<LandingPage />}
+						/>
+						<Route
+							path="/login"
+							element={<LoginPage />}
+						/>
+						<Route
+							path="/signup"
+							element={<SignupPage />}
+						/>
+						<Route
+							path="/forgot-password"
+							element={<ForgotPasswordPage />}
+						/>
+						<Route
+							path="/auth/reset-password"
+							element={<ResetPasswordPage />}
+						/>
+						<Route
+							path="/completed"
+							element={<CompletedPage />}
+						/>
+						<Route
+							path="/currently-reading"
+							element={<CurrentlyReadingPage />}
+						/>
+						<Route
+							path="/want-to-read"
+							element={<WantToReadPage />}
+						/>
+					</Routes>
+				</Router>
+			</ThemeProvider>
 		</>
 	);
 }

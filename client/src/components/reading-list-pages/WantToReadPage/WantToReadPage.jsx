@@ -44,13 +44,26 @@ const data = [
 
 const WantToReadPage = () => (
 	<div
-		className={styles.WantToReadPage}
-		data-testid="CurrentlyReadingPage">
-		<h3 className={styles.header}>Want-To-Read</h3>
-		<TableComponent
-			rowHeaders={rowHeaders}
-			data={data}
-		/>
+		style={{
+			position: 'fixed',
+			top: 0,
+			right: 0,
+			bottom: 0,
+			left: 0,
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
+		}}>
+		<div
+			className={styles.WantToReadPage}
+			data-testid="CurrentlyReadingPage">
+			<h3 className={styles.header}>Want-To-Read</h3>
+			<TableComponent
+				rowHeaders={rowHeaders}
+				data={data}
+			/>
+		</div>
 	</div>
 );
 
