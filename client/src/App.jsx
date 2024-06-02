@@ -32,10 +32,10 @@ function App() {
 				<ThemeProvider theme={theme}>
 					<Router>
 						<Routes>
-              <Route
-                path="/"
-                element={<LandingPage />}
-              />
+							<Route
+								path="/"
+								element={<LandingPage />}
+							/>
 							<Route
 								path="/"
 								element={<LoginPage />}
@@ -44,14 +44,14 @@ function App() {
 								path="/signup"
 								element={<SignupPage />}
 							/>
-              <Route
-                path='/forgot-password'
-                element={<ForgotPasswordPage />}
-						/>
-						  <Route
-                path='/auth/reset-password'
-                element={<ResetPasswordPage />}
-						/>
+							<Route
+								path="/forgot-password"
+								element={<ForgotPasswordPage />}
+							/>
+							<Route
+								path="/auth/reset-password"
+								element={<ResetPasswordPage />}
+							/>
 							<Route
 								path="/completed"
 								element={<CompletedPage />}
