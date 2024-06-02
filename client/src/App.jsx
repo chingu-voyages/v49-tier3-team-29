@@ -12,24 +12,37 @@ function App() {
 
 	return (
 		<>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Routes>
-						<Route
-							path="/"
-							element={<LoginPage />}
-						/>
-						<Route
-							path="/signup"
-							element={<SignupPage />}
-						/>
-						<Route
-							path="/completed"
-							element={<CompletedPage />}
-						/>
-					</Routes>
-				</Router>
-			</ThemeProvider>
+			<div
+				style={{
+					position: 'fixed',
+					top: 0,
+					right: 0,
+					bottom: 0,
+					left: 0,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
+				}}>
+				<ThemeProvider theme={theme}>
+					<Router>
+						<Routes>
+							<Route
+								path="/"
+								element={<LoginPage />}
+							/>
+							<Route
+								path="/signup"
+								element={<SignupPage />}
+							/>
+							<Route
+								path="/completed"
+								element={<CompletedPage />}
+							/>
+						</Routes>
+					</Router>
+				</ThemeProvider>
+			</div>
 		</>
 	);
 }
