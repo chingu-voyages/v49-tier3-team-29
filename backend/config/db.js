@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+// const dbConnection = "mongodb://localhost:27017/BookApp";
+
 export const connectDB = async () => {
 	try {
 		const conn = await mongoose.connect(`${process.env.DB_URI}`);
