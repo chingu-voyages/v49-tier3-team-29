@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true, minlength: 5 },
 	name: { type: String },
-	list: { type: mongoose.Schema.Types.ObjectId, ref: 'List' },
 	created_at: { type: Date, default: Date.now },
 	isActive: { type: Boolean, default: true },
 	passwordResetToken: { type: String },

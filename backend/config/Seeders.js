@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker';
 import Books from '../models/Books.js';
 import Users from '../models/Users.js';
 import Reviews from '../models/Reviews.js';
-import Lists from '../models/Lists.js';
 import bcrypt from 'bcrypt';
 
 export const seedData = async () => {
@@ -45,7 +44,6 @@ export const seedData = async () => {
 	Users.collection.drop();
 	Books.collection.drop();
 	Reviews.collection.drop();
-	Lists.collection.drop();
 
 	// # of seed objects
 	const seed_count = 10;
