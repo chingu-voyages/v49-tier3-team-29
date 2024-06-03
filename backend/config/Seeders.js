@@ -2,113 +2,163 @@ import { faker } from '@faker-js/faker';
 import Books from '../models/Books.js';
 import Users from '../models/Users.js';
 import Reviews from '../models/Reviews.js';
-import bcrypt from "bcrypt";
+import Lists from '../models/Lists.js';
+import bcrypt from 'bcrypt';
 
 export const seedData = async () => {
-const genres = [
-'Fiction',
-'Non-Fiction',
-'Science Fiction',
-'Fantasy',
-'Biography',
-'History',
-'Romance',
-'Thriller',
-'Mystery',
-'Self-Help',
-'Health',
-];
+	// Book genres
+	const genres = [
+		'Fiction',
+		'Non-Fiction',
+		'Science Fiction',
+		'Fantasy',
+		'Biography',
+		'History',
+		'Romance',
+		'Thriller',
+		'Mystery',
+		'Self-Help',
+		'Health',
+	];
 
-//Getting random genres
-const getRandomGenre = () => {
-const randomIndex = Math.floor(Math.random() * genres.length);
-return genres[randomIndex];
-};
+	const reviewTitles = [
+		'Amazing Book!',
+		'Great Read!',
+		'Must-read!',
+		'Could not put it down!',
+	];
 
-//Cleaning collections
-Users.collection.drop();
-Books.collection.drop();
-Reviews.collection.drop();
+	const reviewBodies = [
+		'This book was amazing! I could not put it down!',
+		'This book was a great read. I would recommend it to anyone.',
+		'This book was a must-read! I would recommend it to anyone.',
+		'I could not put this book down. It was amazing!',
+	];
 
-// # of seed objects
-const seed_count = 10;
+	//Getting random genres
+	const getRandomGenre = () => {
+		const randomIndex = Math.floor(Math.random() * genres.length);
+		return genres[randomIndex];
+	};
 
-let userData = [];
-let BookData = [];
+	//Cleaning collections
+	Users.collection.drop();
+	Books.collection.drop();
+	Reviews.collection.drop();
+	Lists.collection.drop();
 
-// Demo user data
-const demoUser = {
-name: 'Demo User',
-username: 'demo_user',
-email: 'demo_shelf@bookShare.com',
-password: process.env.DEMOUSER_PASSWORD,
-isActive: true,
-};
+	// # of seed objects
+	const seed_count = 10;
 
-userData.push(demoUser);
+	// Número de rondas para generar el salt
+	const saltRounds = 10;
 
-async function hashPassword(password) {
-    const saltRounds = 10; // Número de rondas para generar el salt
-    try {
-        const hash = await bcrypt.hash(password, saltRounds);
-        return hash;
-    } catch (err) {
-        console.error(err);
-        throw err; // Propaga el error para que el llamador lo maneje
-    }
-}
+	let userData = [],
+		BookData = [],
+		ReviewData = [];
 
+	// Demo user data
+	const demoUser = {
+		name: 'Demo User',
+		username: 'demo_user',
+		email: 'demo_shelf@bookShare.com',
+		password: await bcrypt.hash(process.env.DEMOUSER_PASSWORD, saltRounds),
+		isActive: true,
+	};
 
-const saltRounds = 10;
+	userData.push(demoUser);
 
-// Created user data
-for (let i = 0; i < seed_count; i++) {
-const name = faker.person.fullName();
-const username = faker.internet.userName().slice(0, 12);
-const email = faker.internet.email();
-const Pass = faker.internet.password(); // Generates the password
-const password = bcrypt.hashSync(Pass, saltRounds); //Hash each password
+	// Created user data
+	for (let i = 0; i < seed_count; i++) {
+		const name = faker.person.fullName();
+		const username = faker.internet.userName().slice(0, 12);
+		const email = faker.internet.email();
+		const Pass = faker.internet.password(); // Generates the password
+		const password = await bcrypt.hash(Pass, saltRounds); //Hash each password
 
-const isActive = true;
+		const isActive = true;
 
-userData.push({
-name,
-username,
-email,
-password,
-isActive,
-});
-}
+		userData.push({
+			name,
+			username,
+			email,
+			password,
+			isActive,
+		});
+	}
 
- await Users.insertMany(userData);
+	await Users.insertMany(userData);
 
-const bookDemo = {
-title: 'Demo Book',
-description: 'This is a demo book for testing purposes',
-genre: 'Fiction',
-author: 'Demo Author',
-ISBN: '22cdc683-2e7',
-};
+	const bookDemo = {
+		title: 'Demo Book',
+		description: 'This is a demo book for testing purposes',
+		genre: 'Fiction',
+		author: 'Demo Author',
+		ISBN: '22cdc683b2e7',
+	};
 
-BookData.push(bookDemo);
-// Created book data
-for (let i = 0; i < seed_count; i++) {
-const title = faker.lorem.words(4);
-const description = faker.lorem.paragraph();
-const genre = getRandomGenre();
-const author = faker.person.fullName();
+	BookData.push(bookDemo);
 
-const truncatedIsban = faker.string.uuid();
-const ISBN = truncatedIsban.slice(0, 12);
+	// Created book data
+	for (let i = 0; i < seed_count; i++) {
+		const title = faker.lorem.words(4);
+		const description = faker.lorem.paragraph();
+		const genre = getRandomGenre();
+		const author = faker.person.fullName();
 
-BookData.push({ title, description, genre, author, ISBN });
-}
+		const truncatedIsban = faker.string.uuid();
+		const ISBN = truncatedIsban.slice(0, 12);
 
-const seedDB = async () => {
-await Books.insertMany(BookData);
-};
+		BookData.push({ title, description, genre, author, ISBN });
+	}
 
-seedDB().then(() => {
-console.log('Seeding was successful');
-});
+	const seedDB_Books = async () => {
+		await Books.insertMany(BookData);
+	};
+	seedDB_Books();
+
+	const users = await Users.find();
+	const books = await Books.find();
+
+	for (let i = 0; i < books.length; i++) {
+		const book = books[i];
+
+		const user1 = users[Math.floor(Math.random() * users.length)];
+
+		let user2;
+		// Ensure user2 is different from user1
+		do {
+			user2 = users[Math.floor(Math.random() * users.length)];
+		} while (user2._id === user1._id);
+
+		const review1 = {
+			userId: user1._id,
+			bookId: book._id,
+			rating: Math.floor(Math.random() * 3) + 3,
+			title: reviewTitles[
+				Math.floor(Math.random() * reviewTitles.length)
+			],
+			body: reviewBodies[Math.floor(Math.random() * reviewBodies.length)],
+		};
+		const review2 = {
+			userId: user2._id,
+			bookId: book._id,
+			rating: Math.floor(Math.random() * 3) + 3,
+			title: reviewTitles[
+				Math.floor(Math.random() * reviewTitles.length)
+			],
+			body: reviewBodies[Math.floor(Math.random() * reviewBodies.length)],
+		};
+
+		ReviewData.push(review1);
+		ReviewData.push(review2);
+	}
+
+	const seedDB_Review = async () => {
+		await Reviews.insertMany(ReviewData);
+	};
+
+	seedDB_Review().then(() => {
+		console.log('Seeding was successful');
+	});
 };

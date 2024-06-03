@@ -1,4 +1,5 @@
 import User from '../models/Users.js';
+import Lists from '../models/Lists.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
@@ -126,6 +127,14 @@ export const newUser = async (req, res) => {
 		const newUser = new User({ username, email, password, name });
 
 		await newUser.save();
+
+		// create a new 'My books' list
+		const list = new Lists({
+			user: newUser._id,
+			books: [],
+		});
+
+		await list.save();
 
 		sendTokenResponse(newUser, 201, res);
 	} catch (error) {
