@@ -21,7 +21,6 @@ const Hero = () => (
 		<Grid
 			mt={3}
 			container
-			xs={12}
 			justifyContent={'space-between'}>
 			<Paper
 				elevation={5}
