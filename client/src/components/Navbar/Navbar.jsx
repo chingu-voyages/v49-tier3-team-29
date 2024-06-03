@@ -14,10 +14,20 @@ import IconButton from '@mui/material/IconButton';
 import { alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import theme from '../../theme';
+import { useState } from 'react';
+import { Divider, Menu, MenuItem, Tooltip } from '@mui/material';
 
 const Navbar = () => {
+	const [anchorEl, setAnchorEl] = useState(null);
 	// Needs to be changed for getting if a user is logged in or not
-	const isAuthenticated = false;
+	const isAuthenticated = true;
+
+	const handleMenu = event => {
+		setAnchorEl(event.target);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	return (
 		<AppBar
@@ -56,7 +66,12 @@ const Navbar = () => {
 					{isAuthenticated && (
 						<>
 							<Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-								<Button sx={{ color: 'white' }}>Home</Button>
+								<Button
+									sx={{ color: 'white' }}
+									component={Link}
+									to="/">
+									Home
+								</Button>
 								<Button sx={{ color: 'white' }}>
 									My Books
 								</Button>
@@ -128,9 +143,43 @@ const Navbar = () => {
 									/>
 								</Box>
 							</Box>
-							<IconButton color="inherit">
-								<AccountCircleIcon fontSize="large"></AccountCircleIcon>
-							</IconButton>
+
+							<Tooltip title="Open Account Options">
+								<IconButton
+									color="inherit"
+									aria-label="account of current user"
+									aria-controls="menu-appbar"
+									aria-haspopup="true"
+									onClick={handleMenu}>
+									<AccountCircleIcon fontSize="large"></AccountCircleIcon>
+								</IconButton>
+							</Tooltip>
+							<Menu
+								sx={{ mt: '45px' }}
+								id="menu-appbar"
+								anchorEl={anchorEl}
+								anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+								}}
+								open={Boolean(anchorEl)}
+								onClose={handleClose}>
+								<MenuItem onClick={handleClose}>
+									Profile
+								</MenuItem>
+								<MenuItem onClick={handleClose}>
+									My Books
+								</MenuItem>
+								<Divider></Divider>
+								<MenuItem onClick={handleClose}>
+									Logout
+								</MenuItem>
+							</Menu>
 						</>
 					)}
 				</Toolbar>
