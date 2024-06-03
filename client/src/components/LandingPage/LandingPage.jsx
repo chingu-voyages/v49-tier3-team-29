@@ -8,14 +8,11 @@ import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
 import Features from './Features';
 import Hero from './Hero';
-import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
 
 const LandingPage = () => (
 	<div className={styles.LandingPage}>
 		<>
 			<CssBaseline />
-			<Navbar></Navbar>
 			<Box
 				sx={{
 					background: 'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
@@ -72,7 +69,6 @@ const LandingPage = () => (
 					<Features></Features>
 				</Container>
 			</Box>
-			<Footer></Footer>
 		</>
 	</div>
 );
