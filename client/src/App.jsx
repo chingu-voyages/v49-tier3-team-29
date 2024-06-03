@@ -13,6 +13,8 @@ import theme from './theme.js';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPage.jsx';
+import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
 
 function App() {
 	// const [count, setCount] = useState(0);
@@ -41,6 +43,14 @@ function App() {
 						<Route
 							path="/signup"
 							element={<SignupPage />}
+						/>
+						<Route
+							path="/forgot-password"
+							element={<ForgotPasswordPage />}
+						/>
+						<Route
+							path="/auth/reset-password"
+							element={<ResetPasswordPage />}
 						/>
 					</Routes>
 				</Router>

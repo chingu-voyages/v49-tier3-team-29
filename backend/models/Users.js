@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 	passwordResetExpires: { type: Date },
 });
 
-// Take the ID from User schema and set with JWT
+//* Take the ID from User schema and set with JWT
 userSchema.methods.getSignedJwtToken = function () {
 	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
 		expiresIn: '1d',
