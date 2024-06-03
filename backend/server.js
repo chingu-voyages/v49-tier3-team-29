@@ -11,6 +11,7 @@ import {
   authRoutes,
   reviewRoutes,
 } from "./routes/index.js";
+import {seedData} from './config/Seeders.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -44,6 +45,7 @@ app.get("/", (req, res) => {
 //* Connect to Database and then Start Server
 connectDB()
   .then(() => {
+    seedData();
     app.listen(port, () => {
       console.log(`Server is listening live on http://localhost:${port}`);
     });
