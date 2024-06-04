@@ -6,7 +6,13 @@ import Book from '../models/Books.js';
 export const getAllBooks = async (req, res) => {
 	try {
 		const books = await Book.find();
-		res.json(books);
+
+		// Randomly select 5 books
+		const randomBooks = books
+			.sort(() => Math.random() - Math.random())
+			.slice(0, 5);
+
+		res.json(randomBooks);
 	} catch (err) {
 		res.status(400).json({ message: err.message });
 	}
