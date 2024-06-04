@@ -1,4 +1,5 @@
 import Book from '../models/Books.js';
+import Review from '../models/Reviews.js';
 
 // @desc		Get all books
 // @route		GET	/books
@@ -14,7 +15,7 @@ export const getAllBooks = async (req, res) => {
 
 		res.json(randomBooks);
 	} catch (err) {
-		res.status(400).json({ message: err.message });
+		res.status(500).json({ message: err.message });
 	}
 };
 
@@ -22,27 +23,31 @@ export const getAllBooks = async (req, res) => {
 // @route		GET	/books/search/:searchQuery
 
 export const getBooksBySearchQuery = async (req, res) => {
-	let query;
 	try {
-		query = Book.find({
+		const searchQuery = req.params.searchQuery;
+		const booksBySearchQuery = await Book.find({
 			$or: [
-				{
-					author: { $regex: '.*' + req.params.searchQuery + '.*' },
-				},
-				{
-					title: { $regex: '.*' + req.params.searchQuery + '.*' },
-				},
-				{ ISBN: req.params.searchQuery },
-				{ genre: req.params.searchQuery },
+				{ author: { $regex: searchQuery, $options: 'i' } },
+				{ title: { $regex: searchQuery, $options: 'i' } },
+				{ ISBN: searchQuery },
+				{ genre: searchQuery },
 			],
 		});
+
+		if (booksBySearchQuery.length === 0) {
+			return res.status(404).json({ message: 'No books found' });
+		}
+
+		// Fetch reviews for all books in parallel
+		const booksWithReviews = await Promise.all(
+			booksBySearchQuery.map(async book => {
+				const reviews = await Review.find({ bookId: book._id });
+				return { ...book.toObject(), reviews };
+			})
+		);
+
+		res.json(booksWithReviews);
 	} catch (err) {
-		res.status(400).json({ message: err.message });
-	}
-	const booksBySearchQuery = await query;
-	if (booksBySearchQuery.length === 0) {
-		res.json({ message: 'No record found.' });
-	} else {
-		res.json(booksBySearchQuery);
+		res.status(500).json({ message: err.message });
 	}
 };
