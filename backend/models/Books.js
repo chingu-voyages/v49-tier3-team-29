@@ -1,4 +1,4 @@
-import { Schema, model, SchemaTypes } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const bookSchema = new Schema({
 	title: {
@@ -12,6 +12,11 @@ const bookSchema = new Schema({
 		required: [true, 'description is required'],
 		trim: true,
 		minlength: 20,
+	},
+	// Bia: Added to have a static image URL for book cover
+	imageUrl: {
+		type: String,
+		trim: true,
 	},
 	genre: {
 		type: String,

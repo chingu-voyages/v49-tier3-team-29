@@ -1,7 +1,8 @@
-import { mongo } from 'mongoose';
 import Review from '../models/Reviews.js';
 import User from '../models/Users.js';
 
+// @desc		Get all user reviews
+// @route		GET	/reviews
 export const getAllUserReviews = async (req, res) => {
 	try {
 		const user = await User.find({ username: req.params.username });
@@ -10,20 +11,24 @@ export const getAllUserReviews = async (req, res) => {
 
 		res.json(reviews);
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
 };
 
+// @desc		Get all book reviews
+// @route		GET	/reviews/:bookId
 export const getAllBookReviews = async (req, res) => {
 	try {
 		const reviews = await Review.find({ bookId: req.params.bookId });
 
 		res.json(reviews);
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
 };
 
+// @desc		Create a review
+// @route		POST	/reviews
 export const createReview = async (req, res) => {
 	try {
 		const { title, body, rating, userId, bookId } = req.body;
@@ -47,6 +52,8 @@ export const createReview = async (req, res) => {
 	}
 };
 
+// @desc		Update a review
+// @route		PATCH	/reviews/:bookId
 export const updateReview = async (req, res) => {
 	try {
 		const { bookId } = req.params;
@@ -76,10 +83,12 @@ export const updateReview = async (req, res) => {
 			updatedReview,
 		});
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
 };
 
+// @desc		Delete a review
+// @route		DELETE	/reviews/:username/:bookId
 export const deleteReview = async (req, res) => {
 	try {
 		const { username, bookId } = req.params;
@@ -102,6 +111,6 @@ export const deleteReview = async (req, res) => {
 
 		res.status(200).json({ message: 'Review has been deleted.' });
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
 };

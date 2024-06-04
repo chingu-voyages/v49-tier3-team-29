@@ -106,6 +106,8 @@ async function resetPassword(req, res) {
 	}
 }
 
+// @desc		Register new user
+// @route		POST	/users/register
 export const newUser = async (req, res) => {
 	try {
 		const { username, email, password, name } = req.body;
@@ -134,6 +136,8 @@ export const newUser = async (req, res) => {
 	}
 };
 
+// @desc		Login user
+// @route		POST	/users/login
 export const login = async (req, res) => {
 	try {
 		const { username, password } = req.body;
