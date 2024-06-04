@@ -5,7 +5,6 @@ import Reviews from '../models/Reviews.js';
 import bcrypt from 'bcrypt';
 
 export const seedData = async () => {
-	// Book genres
 	const genres = [
 		'Fiction',
 		'Non-Fiction',
@@ -18,6 +17,27 @@ export const seedData = async () => {
 		'Mystery',
 		'Self-Help',
 		'Health',
+	];
+	const bookImages = [
+		'https://images.unsplash.com/photo-1528459061998-56fd57ad86e3?q=80&w=3655&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1571829604981-ea159f94e5ad?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1528459105426-b9548367069b?q=80&w=3320&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1571829604981-ea159f94e5ad?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=3333&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+	];
+
+	const userImages = [
+		'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1472068996216-8c972a0af9bd?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1536985576470-b7e4a0363a19?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1544185310-0b3cf501672b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1535930749574-1399327ce78f?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1600468448005-67286e81341b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1604520024165-2f48dfca2a8b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+		'https://images.unsplash.com/photo-1472173148041-00294f0814a2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 	];
 
 	const reviewTitles = [
@@ -61,6 +81,7 @@ export const seedData = async () => {
 		username: 'demo_user',
 		email: 'demo_shelf@bookShare.com',
 		password: await bcrypt.hash(process.env.DEMOUSER_PASSWORD, saltRounds),
+		image: userImages[Math.floor(Math.random() * userImages.length)],
 		isActive: true,
 	};
 
@@ -71,6 +92,7 @@ export const seedData = async () => {
 		const name = faker.person.fullName();
 		const username = faker.internet.userName().slice(0, 12);
 		const email = faker.internet.email();
+		const image = userImages[Math.floor(Math.random() * userImages.length)];
 		const Pass = faker.internet.password(); // Generates the password
 		const password = await bcrypt.hash(Pass, saltRounds); //Hash each password
 
@@ -80,6 +102,7 @@ export const seedData = async () => {
 			name,
 			username,
 			email,
+			image,
 			password,
 			isActive,
 		});
@@ -92,6 +115,7 @@ export const seedData = async () => {
 		description: 'This is a demo book for testing purposes',
 		genre: 'Fiction',
 		author: 'Demo Author',
+		imageUrl: bookImages[Math.floor(Math.random() * bookImages.length)],
 		ISBN: '22cdc683b2e7',
 	};
 
@@ -103,11 +127,12 @@ export const seedData = async () => {
 		const description = faker.lorem.paragraph();
 		const genre = getRandomGenre();
 		const author = faker.person.fullName();
-
+		const imageUrl =
+			bookImages[Math.floor(Math.random() * bookImages.length)];
 		const truncatedIsban = faker.string.uuid();
 		const ISBN = truncatedIsban.slice(0, 12);
 
-		BookData.push({ title, description, genre, author, ISBN });
+		BookData.push({ title, description, genre, author, ISBN, imageUrl });
 	}
 
 	const seedDB_Books = async () => {

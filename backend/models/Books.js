@@ -13,6 +13,11 @@ const bookSchema = new Schema({
 		trim: true,
 		minlength: 20,
 	},
+	// Bia: Added to have a static image URL for book cover
+	imageUrl: {
+		type: String,
+		trim: true,
+	},
 	genre: {
 		type: String,
 		required: [true, 'genre is required'],
