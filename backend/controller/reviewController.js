@@ -11,7 +11,7 @@ export const getAllUserReviews = async (req, res) => {
 
 		res.json(reviews);
 	} catch (err) {
-		res.status(400).json({ message: err.message });
+		res.status(500).json({ message: err.message });
 	}
 };
 
@@ -23,7 +23,7 @@ export const getAllBookReviews = async (req, res) => {
 
 		res.json(reviews);
 	} catch (err) {
-		res.status(400).json({ message: err.message });
+		res.status(500).json({ message: err.message });
 	}
 };
 
@@ -48,7 +48,7 @@ export const createReview = async (req, res) => {
 		const newReview = await review.save();
 		res.status(201).json(newReview);
 	} catch (err) {
-		res.status(400).json({ message: err.message });
+		res.status(500).json({ message: err.message });
 	}
 };
 
@@ -83,7 +83,7 @@ export const updateReview = async (req, res) => {
 			updatedReview,
 		});
 	} catch (err) {
-		res.status(400).json({ message: err.message });
+		res.status(500).json({ message: err.message });
 	}
 };
 
@@ -111,6 +111,6 @@ export const deleteReview = async (req, res) => {
 
 		res.status(200).json({ message: 'Review has been deleted.' });
 	} catch (err) {
-		res.status(400).json({ message: err.message });
+		res.status(500).json({ message: err.message });
 	}
 };

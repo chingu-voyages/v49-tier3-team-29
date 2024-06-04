@@ -15,7 +15,8 @@ const LoginPage = () => {
 
 	const dispatch = useDispatch();
 
-	const handleSubmission = async () => {
+	const handleSubmission = async e => {
+		e.preventDefault();
 		const userCredentials = {
 			username,
 			password,
@@ -25,7 +26,7 @@ const LoginPage = () => {
 
 	const user = useSelector(state => state.session.userInfo);
 
-	if (user) {
+	if (user.length > 1) {
 		window.location.href = '/';
 	}
 
@@ -92,10 +93,28 @@ const LoginPage = () => {
 						<Grid
 							item
 							xs={12}>
+							<Typography
+								variant='body1'
+								component={Link}
+								align='center'
+								gutterBottom
+								to='/forgot-password'>
+								Forgot password
+							</Typography>
+						</Grid>
+						<Grid
+							item
+							xs={12}>
 							<Button
 								variant='contained'
 								color='primary'
-								onClick={handleSubmission}
+								onClick={() => {
+									if (username === '' || password === '') {
+										alert('Please fill out all fields');
+										return;
+									}
+									handleSubmission();
+								}}
 								sx={{ width: '50%' }}>
 								Sign In
 							</Button>
