@@ -13,7 +13,14 @@ export const getAllBooks = async (req, res) => {
 			.sort(() => Math.random() - Math.random())
 			.slice(0, 5);
 
-		res.json(randomBooks);
+		// Fetch reviews for all books in parallel
+		const booksWithReviews = await Promise.all(
+			randomBooks.map(async book => {
+				const reviews = await Review.find({ bookId: book._id });
+				return { ...book.toObject(), reviews };
+			})
+		);
+		res.json(booksWithReviews);
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}
