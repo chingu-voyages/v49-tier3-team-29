@@ -18,6 +18,22 @@ const Hero = () => {
 	}, [dispatch]);
 
 	const books = useSelector(state => state.book.bookInfo);
+	const bookImages =
+		books.length > 0 ? (
+			books.map(book => (
+				<Paper
+					key={book.ISBN}
+					elevation={5}
+					sx={{
+						backgroundImage: `url(${book.imageUrl})`,
+						backgroundSize: 'contain',
+						width: { xs: '68px', sm: '200px' },
+						height: { xs: '125px', sm: '300px' },
+					}}></Paper>
+			))
+		) : (
+			<></>
+		);
 
 	return (
 		<Box>
@@ -37,44 +53,7 @@ const Hero = () => {
 				mt={3}
 				container
 				justifyContent={'space-between'}>
-				<Paper
-					elevation={5}
-					sx={{
-						bgcolor: theme.palette.primary.main,
-						width: { xs: '68px', sm: '200px' },
-						height: { xs: '125px', sm: '300px' },
-					}}></Paper>
-				<Paper
-					elevation={5}
-					sx={{
-						bgcolor: theme.palette.primary.main,
-						width: { xs: '68px', sm: '200px' },
-						height: { xs: '125px', sm: '300px' },
-					}}></Paper>
-				<Paper
-					elevation={5}
-					sx={{
-						display: { xs: 'none', sm: 'block' },
-						bgcolor: theme.palette.primary.main,
-						width: { xs: '68px', sm: '200px' },
-						height: { xs: '125px', sm: '300px' },
-					}}></Paper>
-				<Paper
-					elevation={5}
-					sx={{
-						display: { sm: 'none', md: 'block' },
-						bgcolor: theme.palette.primary.main,
-						width: { xs: '68px', sm: '200px' },
-						height: { xs: '125px', sm: '300px' },
-					}}></Paper>
-				<Paper
-					elevation={5}
-					sx={{
-						display: { sm: 'none', lg: 'block' },
-						bgcolor: theme.palette.primary.main,
-						width: { xs: '68px', sm: '200px' },
-						height: { xs: '125px', sm: '300px' },
-					}}></Paper>
+				{bookImages}
 			</Grid>
 		</Box>
 	);
