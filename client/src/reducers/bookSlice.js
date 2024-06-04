@@ -8,11 +8,18 @@ const initialState = {
 	error: '',
 };
 
-// * Fetch book by title, author
+// * Fetch all books
+export const fetchAllBooks = createAsyncThunk('book/allBooks', async () => {
+	const request = await axios.get(`${bookBaseURL}/`);
+	const response = await request.data;
+	return response;
+});
+
+// * Fetch book by title, author, genre, or ISBN
 export const fetchBook = createAsyncThunk(
-	'book/bookInfo',
+	'book/bookQuery',
 	async bookDetails => {
-		const request = await axios.get(`${bookBaseURL}/author/${bookDetails}`);
+		const request = await axios.get(`${bookBaseURL}/search/${bookDetails}`);
 		const response = await request.data;
 		return response;
 	}
@@ -25,7 +32,10 @@ const bookSlice = createSlice({
 		builder
 			.addMatcher(
 				action => {
-					return action.type === fetchBook.pending.type;
+					return (
+						action.type === fetchBook.pending.type ||
+						action.type === fetchAllBooks.pending.type
+					);
 				},
 				state => {
 					state.loading = true;
@@ -33,7 +43,10 @@ const bookSlice = createSlice({
 			)
 			.addMatcher(
 				action => {
-					return action.type === fetchBook.fulfilled.type;
+					return (
+						action.type === fetchBook.fulfilled.type ||
+						action.type === fetchAllBooks.fulfilled.type
+					);
 				},
 				(state, action) => {
 					state.loading = false;

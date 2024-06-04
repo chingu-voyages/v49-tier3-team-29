@@ -1,87 +1,48 @@
 import Book from '../models/Books.js';
 
+// @desc		Get all books
+// @route		GET	/books
+
 export const getAllBooks = async (req, res) => {
 	try {
 		const books = await Book.find();
-		res.json(books);
+
+		// Randomly select 5 books
+		const randomBooks = books
+			.sort(() => Math.random() - Math.random())
+			.slice(0, 5);
+
+		res.json(randomBooks);
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
 };
 
-// @desc		Get books by genre
-// @route		GET	/books/genre/:genre
-// @access	Public
-export const getBooksByGenre = async (req, res) => {
-	let query;
-	try {
-		query = Book.find({ genre: req.params.genre });
-	} catch (err) {
-		res.status(500).json({ message: err.message });
-	}
-	const booksByGenre = await query;
-	if (booksByGenre.length === 0) {
-		res.json({ message: 'No record found.' });
-	} else {
-		res.json(booksByGenre);
-	}
-};
+// @desc		Get books by author name or genre title or ISBN
+// @route		GET	/books/search/:searchQuery
 
-// @desc		Get book by Book ISBN
-// @route		GET	/books/isbn/:isbn
-// @access	Public
-export const getBookByIsbn = async (req, res) => {
-	let query;
-	try {
-		query = Book.find({ isbn: req.params.isbn });
-	} catch (err) {
-		res.status(500).json({ message: err.message });
-	}
-	const bookByIsbn = await query;
-	if (bookByIsbn.length === 0) {
-		res.json({ message: 'No record found.' });
-	} else {
-		res.json(bookByIsbn);
-	}
-};
-
-// @desc		Get book(s) by book title
-// @route		GET	/books/title/:title
-// @access	Public
-export const getBooksByTitle = async (req, res) => {
+export const getBooksBySearchQuery = async (req, res) => {
 	let query;
 	try {
 		query = Book.find({
-			title: { $regex: '.*' + req.params.title + '.*' },
+			$or: [
+				{
+					author: { $regex: '.*' + req.params.searchQuery + '.*' },
+				},
+				{
+					title: { $regex: '.*' + req.params.searchQuery + '.*' },
+				},
+				{ ISBN: req.params.searchQuery },
+				{ genre: req.params.searchQuery },
+			],
 		});
 	} catch (err) {
-		res.status(500).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
-	const booksByTitle = await query;
-	if (booksByTitle.length === 0) {
+	const booksBySearchQuery = await query;
+	if (booksBySearchQuery.length === 0) {
 		res.json({ message: 'No record found.' });
 	} else {
-		res.json(booksByTitle);
-	}
-};
-
-// @desc		Get books(s) by book author
-// @route		GET	/books/author/:author
-// @access	Public
-export const getBooksByAuthor = async (req, res) => {
-	let query;
-	try {
-		query = Book.find({
-			author: { $regex: '.*' + req.params.author + '.*' },
-		});
-	} catch (err) {
-		res.status(500).json({ message: err.message });
-	}
-	const booksByAuthor = await query;
-
-	if (booksByAuthor.length === 0) {
-		res.json({ message: 'No record found.' });
-	} else {
-		res.json(booksByAuthor);
+		res.json(booksBySearchQuery);
 	}
 };

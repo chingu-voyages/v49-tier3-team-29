@@ -11,7 +11,7 @@ const reviewSchema = new Schema({
 		type: String,
 		required: [true, 'review is required'],
 		trim: true,
-		minlength: 10,
+		minlength: 7,
 	},
 	rating: {
 		type: Number,
