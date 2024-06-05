@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import Books from '../models/Books.js';
 import Users from '../models/Users.js';
 import Reviews from '../models/Reviews.js';
+import lists from '../models/Lists.js';
 import bcrypt from 'bcrypt';
 
 export const seedData = async () => {
@@ -48,7 +49,7 @@ export const seedData = async () => {
 	];
 
 	const reviewBodies = [
-		'This book was amazing! I could not put it down!',
+		'This book was amazing! I could not put it down!, I would recommend it to anyone.',
 		'This book was a great read. I would recommend it to anyone.',
 		'This book was a must-read! I would recommend it to anyone.',
 		'I could not put this book down. It was amazing!',
@@ -64,6 +65,7 @@ export const seedData = async () => {
 	Users.collection.drop();
 	Books.collection.drop();
 	Reviews.collection.drop();
+	lists.collection.drop();
 
 	// # of seed objects
 	const seed_count = 10;
@@ -109,6 +111,17 @@ export const seedData = async () => {
 	}
 
 	await Users.insertMany(userData);
+
+	const createdUsers = await Users.find();
+	for (let i = 0; i < createdUsers.length; i++) {
+		const user = createdUsers[i];
+
+		const list = new lists({
+			userId: user._id,
+		});
+
+		await list.save();
+	}
 
 	const bookDemo = {
 		title: 'Demo Book',

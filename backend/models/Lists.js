@@ -3,9 +3,7 @@ import { Schema, model } from 'mongoose';
 const listSchema = new Schema({
 	name: {
 		type: String,
-		required: [true, 'name is required'],
-		trim: true,
-		minlength: 3,
+		default: 'My Books',
 	},
 	userId: {
 		type: Schema.Types.ObjectId,

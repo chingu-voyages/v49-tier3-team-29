@@ -131,27 +131,12 @@ export const newUser = async (req, res) => {
 
 		await newUser.save();
 
-		// Create List "currently reading" for new user
+		// Create List "My Books" for new user
 		const newList = new List({
-			name: 'Currently Reading',
-			userId: newUser._id,
-		});
-
-		// Create List "want to read" for new user
-		const newList2 = new List({
-			name: 'Want to Read',
-			userId: newUser._id,
-		});
-
-		// Create List "finished reading" for new user
-		const newList3 = new List({
-			name: 'Already Read',
 			userId: newUser._id,
 		});
 
 		await newList.save();
-		await newList2.save();
-		await newList3.save();
 
 		sendTokenResponse(newUser, 201, res);
 	} catch (error) {
