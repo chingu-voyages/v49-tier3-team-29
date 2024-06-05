@@ -6,10 +6,10 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
-import Features from './Features';
-import Hero from './Hero';
-import UserContent from './UserActivity';
-import UserReviewed from './UserReviewed';
+import Features from '../Features/Features';
+import Hero from '../Hero/Hero';
+import RecentBooks from '../RecentBooks/RecentBooks';
+import RecentReviews from '../RecentReviews/RecentReviews';
 
 const LandingPage = () => {
 	const isAuthenticated = true;
@@ -79,11 +79,11 @@ const LandingPage = () => {
 						)}
 						{isAuthenticated && (
 							<>
-								<UserContent></UserContent>
+								<RecentBooks></RecentBooks>
 							</>
 						)}
 					</Container>
-					{isAuthenticated && <UserReviewed></UserReviewed>}
+					{isAuthenticated && <RecentReviews></RecentReviews>}
 				</Box>
 			</>
 		</div>

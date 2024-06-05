@@ -1,13 +1,11 @@
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	Container,
-	Typography,
-} from '@mui/material';
-import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Grid from '@mui/material/Grid';
 const userReviews = [
 	{
 		avatar: <AccountCircle></AccountCircle>,
@@ -31,7 +29,8 @@ const userReviews = [
 		review: 'The level of simplicity and user-friendliness in this product has significantly simplified my life. I appreciate the creators for delivering a solution that not only meets but exceeds user expectations.',
 	},
 ];
-const UserReviewed = () => {
+
+const RecentReviews = () => {
 	return (
 		<Box sx={{ backgroundColor: 'primary.main', color: 'secondary.main' }}>
 			<Container
@@ -58,11 +57,11 @@ const UserReviewed = () => {
 					<Typography
 						variant="body1"
 						sx={{ color: 'primary.main.400' }}>
-						See what users are saying about books you've interacted
-						with. Discover reviews that can offer insightful
-						analysis of a book's strengths and weaknesses, prompting
-						you to consider aspects you might have missed while
-						reading.
+						See what users are saying about books you{"'"}ve
+						interacted with. Discover reviews that can offer
+						insightful analysis of a book{"'"}s strengths and
+						weaknesses, prompting you to consider aspects you might
+						have missed while reading.
 					</Typography>
 				</Box>
 				<Grid
@@ -72,8 +71,7 @@ const UserReviewed = () => {
 						<Grid
 							item
 							xs={12}
-							sm={6}
-							md={4}
+							sm={4}
 							key={index}
 							sx={{ display: 'flex' }}>
 							<Card
@@ -123,4 +121,4 @@ const UserReviewed = () => {
 		</Box>
 	);
 };
-export default UserReviewed;
+export default RecentReviews;
