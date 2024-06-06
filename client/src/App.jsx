@@ -1,11 +1,18 @@
 // import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Route,
+	Routes,
+	Outlet,
+} from 'react-router-dom';
 import './App.css';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignupPage from './components/SignupPage/SignupPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.js';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
 
@@ -18,22 +25,31 @@ function App() {
 				<Router>
 					<Routes>
 						<Route
-							path='/'
-							element={<LandingPage />}
-						/>
+							element={
+								<>
+									<Navbar></Navbar>
+									<Outlet></Outlet>
+									<Footer></Footer>
+								</>
+							}>
+							<Route
+								path="/"
+								element={<LandingPage />}
+							/>
+						</Route>
 						<Route
-							path='/login'
+							path="/login"
 							element={<LoginPage></LoginPage>}></Route>
 						<Route
-							path='/signup'
+							path="/signup"
 							element={<SignupPage />}
 						/>
 						<Route
-							path='/forgot-password'
+							path="/forgot-password"
 							element={<ForgotPasswordPage />}
 						/>
 						<Route
-							path='/auth/reset-password'
+							path="/auth/reset-password"
 							element={<ResetPasswordPage />}
 						/>
 					</Routes>
