@@ -1,5 +1,55 @@
-import List from '../models/Lists.js';
-import Book from '../models/Books.js';
+import List from "../models/Lists.js";
+// import Book from "../models/Books.js";
+
+export const getListById = async (req, res) => {
+  try {
+    const list = await List.find({ _id: req.params.listid });
+
+    res.json(list);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export const getListByUserId = async (req, res) => {
+  try {
+    const list = await List.findOne({ userId: req.params.userid });
+
+    res.json(list);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export const getAllLists = async (req, res) => {
+  try {
+    const list = await List.find();
+
+    res.json(list);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export const deleteList = async (req, res) => {
+  try {
+    // get by list
+    const list = await List.findOne({ _id: req.params.listid });
+    if (!list) {
+      return res.status(404).json({ message: "List not found." });
+    }
+
+    // find and delete by listID
+    const existingList = await List.findOneAndDelete({
+      _id: list._id,
+    });
+
+    if (!existingList) {
+      return res.status(404).json({ message: "List not found." });
+    }
+
+    res.status(200).json({ message: "List has been deleted." });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 // // @desc   Add book to list
 // // @route  PATCH  /lists/:listId/
