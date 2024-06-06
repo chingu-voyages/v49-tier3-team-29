@@ -10,10 +10,12 @@ const listSchema = new Schema({
 		ref: 'User',
 		required: true,
 	},
-	bookId: {
-		type: Schema.Types.ObjectId,
-		ref: 'Book',
-	},
+	books: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Book',
+		},
+	],
 	created_at: {
 		type: Date,
 		default: () => Date.now(),
