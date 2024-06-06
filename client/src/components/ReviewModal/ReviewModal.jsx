@@ -3,14 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {
-	Card,
-	CardContent,
-	Paper,
-	Rating,
-	Stack,
-	TextField,
-} from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import theme from '../../theme';
 
 const ReviewModal = () => {
