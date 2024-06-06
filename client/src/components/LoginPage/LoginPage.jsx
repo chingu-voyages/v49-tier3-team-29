@@ -23,8 +23,7 @@ const LoginPage = () => {
 		await dispatch(loginUser(userCredentials));
 	};
 
-	const selectedUser = useSelector(state => state.session.userInfo);
-	console.log(selectedUser);
+
 	return (
 		<div
 			style={{
@@ -88,10 +87,28 @@ const LoginPage = () => {
 						<Grid
 							item
 							xs={12}>
+							<Typography
+								variant='body1'
+								component={Link}
+								align='center'
+								gutterBottom
+								to='/forgot-password'>
+								Forgot password
+							</Typography>
+						</Grid>
+						<Grid
+							item
+							xs={12}>
 							<Button
-								variant="contained"
-								color="primary"
-								onClick={handleSubmission}
+								variant='contained'
+								color='primary'
+								onClick={() => {
+									if (username === '' || password === '') {
+										alert('Please fill out all fields');
+										return;
+									}
+									handleSubmission();
+								}}
 								sx={{ width: '50%' }}>
 								Sign In
 							</Button>

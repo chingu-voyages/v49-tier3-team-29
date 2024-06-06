@@ -10,6 +10,7 @@ import { login, newUser } from '../controller/authController.js';
 const router = express.Router();
 
 router.post('/login', login);
+
 router.post('/register', newUser);
 //* get all users
 router.get('/', getAllUsers);
@@ -18,9 +19,9 @@ router.get('/', getAllUsers);
 router.get('/:username', getUserByUsername);
 
 //* Update user by username
-router.put('/:username', updateUser);
+router.patch('/:username', updateUser);
 
 // * Deactivate user
-router.put('/:username/deactivate', deactivate);
+router.patch('/:username/deactivate', deactivate);
 
 export default router;

@@ -17,14 +17,13 @@ export const loginUser = createAsyncThunk(
 			userCredentials
 		);
 		const response = await request.data;
+
 		return response;
 	}
 );
 
 // * Logout User
-export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
-	axios.get(`${userBaseURL}/logout`);
-});
+export const logoutUser = createAsyncThunk('user/logoutUser', async () => {});
 
 // * Register User
 export const registerUser = createAsyncThunk(

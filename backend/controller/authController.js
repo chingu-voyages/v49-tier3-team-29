@@ -1,8 +1,10 @@
 import User from '../models/Users.js';
+import List from '../models/Lists.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { transporter } from '../utils/index.js';
+
 dotenv.config();
 
 // Get token from model, create cookie and send response
@@ -106,6 +108,8 @@ async function resetPassword(req, res) {
 	}
 }
 
+// @desc		Register new user
+// @route		POST	/users/register
 export const newUser = async (req, res) => {
 	try {
 		const { username, email, password, name } = req.body;
@@ -127,6 +131,13 @@ export const newUser = async (req, res) => {
 
 		await newUser.save();
 
+		// Create List "My Books" for new user
+		const newList = new List({
+			userId: newUser._id,
+		});
+
+		await newList.save();
+
 		sendTokenResponse(newUser, 201, res);
 	} catch (error) {
 		console.error('Error registering user:', error);
@@ -134,6 +145,8 @@ export const newUser = async (req, res) => {
 	}
 };
 
+// @desc		Login user
+// @route		POST	/users/login
 export const login = async (req, res) => {
 	try {
 		const { username, password } = req.body;

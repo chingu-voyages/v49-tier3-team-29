@@ -1,5 +1,7 @@
 import User from '../models/Users.js';
 
+// @desc		Get all users
+// @route		GET	/users
 export const getAllUsers = async (req, res) => {
 	try {
 		const users = await User.find().select('username');
@@ -9,6 +11,8 @@ export const getAllUsers = async (req, res) => {
 	}
 };
 
+// @desc		Get user by username
+// @route		GET	/users/:username
 export const getUserByUsername = async (req, res) => {
 	try {
 		const user = await User.findOne({ username: req.params.username });
@@ -21,6 +25,8 @@ export const getUserByUsername = async (req, res) => {
 	}
 };
 
+// @desc		Update user information
+// @route		PATCH	/users/:username
 export const updateUser = async (req, res) => {
 	try {
 		// find by username
@@ -50,6 +56,8 @@ export const updateUser = async (req, res) => {
 	}
 };
 
+// @desc		Deactivate user account
+// @route		PATCH	/users/:username
 export const deactivate = async (req, res) => {
 	try {
 		const { username } = req.params;
