@@ -35,13 +35,11 @@ const UserProfile = () => {
 			<Grid
 				container
 				spacing={2}>
-				{/* Left card */}
 				<Grid
 					item
 					xs={12}
 					sm={4}>
 					{' '}
-					{/* xs={12} for full width on small screens */}
 					<Card>
 						<CardContent>
 							<ButtonBase>
@@ -61,7 +59,6 @@ const UserProfile = () => {
 					</Card>
 				</Grid>
 
-				{/* Right card */}
 				<Grid
 					item
 					xs={12}
