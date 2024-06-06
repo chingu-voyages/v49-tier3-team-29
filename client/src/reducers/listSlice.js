@@ -22,10 +22,7 @@ const listSlice = createSlice({
     builder
       .addMatcher(
         (action) => {
-          return (
-            action.type === fetchList.pending.type ||
-            action.type === fetchList.pending.type
-          );
+          return action.type === fetchList.pending.type;
         },
         (state) => {
           state.loading = true;
@@ -33,10 +30,7 @@ const listSlice = createSlice({
       )
       .addMatcher(
         (action) => {
-          return (
-            action.type === fetchList.fulfilled.type ||
-            action.type === fetchList.fulfilled.type
-          );
+          return action.type === fetchList.fulfilled.type;
         },
         (state, action) => {
           state.loading = false;
