@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from '../../reducers/userSlice';
 
 const LoginPage = () => {
@@ -15,20 +15,13 @@ const LoginPage = () => {
 
 	const dispatch = useDispatch();
 
-	const handleSubmission = async e => {
-		e.preventDefault();
+	const handleSubmission = async () => {
 		const userCredentials = {
 			username,
 			password,
 		};
 		await dispatch(loginUser(userCredentials));
 	};
-
-	const user = useSelector(state => state.session.userInfo);
-
-	if (user.length > 1) {
-		window.location.href = '/';
-	}
 
 	return (
 		<div

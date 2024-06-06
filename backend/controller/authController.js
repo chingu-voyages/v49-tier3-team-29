@@ -1,8 +1,10 @@
 import User from '../models/Users.js';
+import List from '../models/Lists.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { transporter } from '../utils/index.js';
+
 dotenv.config();
 
 // Get token from model, create cookie and send response
@@ -128,6 +130,13 @@ export const newUser = async (req, res) => {
 		const newUser = new User({ username, email, password, name });
 
 		await newUser.save();
+
+		// Create List "My Books" for new user
+		const newList = new List({
+			userId: newUser._id,
+		});
+
+		await newList.save();
 
 		sendTokenResponse(newUser, 201, res);
 	} catch (error) {
