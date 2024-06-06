@@ -1,10 +1,6 @@
-import { Grid, Paper, Typography } from '@mui/material';
+import { ButtonBase, Card, CardContent, Grid, Typography } from '@mui/material';
 import styles from './UserProfile.module.css';
-import theme from '../../theme';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-let selectedUser;
 
 const testUser = {
 	username: 'test_username',
@@ -18,129 +14,82 @@ const testUser = {
 };
 
 const profileImage =
-	'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA0L2pvYjk2OS02LXYuanBn.jpg';
+	'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
 
-const UserProfile = () => (
-	<div
-		style={{
-			position: 'fixed',
-			top: 0,
-			right: 0,
-			bottom: 0,
-			left: 0,
-			display: 'flex',
-			justifyContent: 'center',
-			alignItems: 'center',
-			background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
-		}}>
-		<Grid
-			container
-			direction="column"
-			alignItems="left"
-			style={{ marginLeft: '150px' }}
-			spacing={12}>
+const UserProfile = () => {
+	const selectedUser = useSelector(state => state.session.user);
+	return (
+		<div
+			style={{
+				padding: 25,
+				position: 'fixed',
+				top: 0,
+				right: 0,
+				bottom: 0,
+				left: 0,
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
+			}}>
 			<Grid
 				container
-				direction="row"
-				alignItems="center"
-				style={{ margin: '30px' }}
-				spacing={3}>
-				<Grid item>
-					<div className={styles.profileContainer}>
-						<img
-							src={profileImage}
-							className={styles.profileImage}
-							alt="Profile"
-						/>
-					</div>
-				</Grid>
-				<Paper
-					sx={{
-						margin: '10px',
-						maxWidth: '500px',
-						padding: '20px',
-					}}>
-					<Grid item>
-						<Typography
-							variant="body1"
-							component="p"
-							fontFamily={theme.typography.fontFamily}
-							gutterBottom
-							align="left">
-							Username: {testUser.username}
-						</Typography>
-						<Typography
-							variant="body1"
-							component="p"
-							fontFamily={theme.typography.fontFamily}
-							gutterBottom
-							align="left">
-							Joined:{' '}
-							{testUser.created_at.toLocaleString('en-US', {
-								month: 'long',
-							})}{' '}
-							{testUser.created_at.getFullYear()}
-						</Typography>
-					</Grid>
-				</Paper>
-			</Grid>
-
-			<Paper
-				sx={{
-					margin: '10px',
-					maxWidth: '50%',
-				}}>
+				spacing={2}>
+				{/* Left card */}
 				<Grid
-					container
-					direction="column"
-					alignItems="center"
-					spacing={3}>
-					<Grid item>
-						<Typography
-							variant="h5"
-							gutterBottom>
-							User Bookshelves
-						</Typography>
-					</Grid>
-					<Grid
-						item
-						container
-						justifyContent="space-around">
-						<Grid item>
-							<Link to="/completed">
-								<Typography
-									variant="body1"
-									component="div"
-									align="center">
-									Completed
-								</Typography>
-							</Link>
-						</Grid>
-						<Grid item>
-							<Link to="/want-to-read">
-								<Typography
-									variant="body1"
-									component="div"
-									align="center">
-									Want to Read
-								</Typography>
-							</Link>
-						</Grid>
-						<Grid item>
-							<Link to="/currently-reading">
-								<Typography
-									variant="body1"
-									component="div"
-									align="center">
-									Currently Reading
-								</Typography>
-							</Link>
-						</Grid>
-					</Grid>
+					item
+					xs={12}
+					sm={4}>
+					{' '}
+					{/* xs={12} for full width on small screens */}
+					<Card>
+						<CardContent>
+							<ButtonBase>
+								<img
+									src={profileImage}
+									className={styles.profileImageLarge}
+									alt="Profile"
+								/>
+							</ButtonBase>
+							<Typography variant="h6">
+								{testUser.username}
+							</Typography>
+							<Typography variant="body1">
+								{testUser.email}
+							</Typography>
+						</CardContent>
+					</Card>
 				</Grid>
-			</Paper>
-		</Grid>
-	</div>
-);
+
+				{/* Right card */}
+				<Grid
+					item
+					xs={12}
+					sm={8}>
+					{' '}
+					<Card>
+						<CardContent>
+							<Typography variant="h6">
+								{testUser.name}
+							</Typography>
+							<Typography variant="body2">
+								Member Since:{' '}
+								{testUser.created_at.toLocaleDateString(
+									'en-US',
+									{
+										year: 'numeric',
+										month: 'long',
+									}
+								)}
+							</Typography>
+							<hr />
+							<Typography variant="h6">{`${testUser.name}'s reviews`}</Typography>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
+		</div>
+	);
+};
 
 export default UserProfile;

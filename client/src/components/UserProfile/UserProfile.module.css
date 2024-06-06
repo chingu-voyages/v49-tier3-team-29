@@ -1,12 +1,5 @@
-.profileContainer {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-}
+.profileImageLarge {
 
-.profileImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 80%;
+    height: 80%;
 }

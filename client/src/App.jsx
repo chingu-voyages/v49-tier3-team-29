@@ -14,38 +14,36 @@ function App() {
 	// const [count, setCount] = useState(0);
 
 	return (
-		<>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Routes>
-						<Route
-							path="/"
-							element={<LandingPage />}
-						/>
-						<Route
-							path="/login"
-							element={<LoginPage></LoginPage>}
-						/>
-						<Route
-							path="/signup"
-							element={<SignupPage />}
-						/>
-						<Route
-							path="/forgot-password"
-							element={<ForgotPasswordPage />}
-						/>
-						<Route
-							path="/auth/reset-password"
-							element={<ResetPasswordPage />}
-						/>
-						<Route
-							path="/user-profile"
-							element={<UserProfile />}
-						/>
-					</Routes>
-				</Router>
-			</ThemeProvider>
-		</>
+		<ThemeProvider theme={theme}>
+			<Router>
+				<Routes>
+					<Route
+						path="/"
+						element={<LandingPage />}
+					/>
+					<Route
+						path="/login"
+						element={<LoginPage></LoginPage>}
+					/>
+					<Route
+						path="/signup"
+						element={<SignupPage />}
+					/>
+					<Route
+						path="/forgot-password"
+						element={<ForgotPasswordPage />}
+					/>
+					<Route
+						path="/auth/reset-password"
+						element={<ResetPasswordPage />}
+					/>
+					<Route
+						path="/user-profile"
+						element={<UserProfile />}
+					/>
+				</Routes>
+			</Router>
+		</ThemeProvider>
 	);
 }
 
