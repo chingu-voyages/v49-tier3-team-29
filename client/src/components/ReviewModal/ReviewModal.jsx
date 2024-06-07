@@ -10,25 +10,41 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import theme from '../../theme';
+import { useDispatch } from 'react-redux';
 
 const ReviewModal = () => {
 	const [open, setOpen] = React.useState(false);
-	const [value, setValue] = React.useState(2);
+	const [rating, setRating] = React.useState(0);
+	const [title, setTitle] = React.useState('');
+	const [body, setBody] = React.useState('');
+
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
+
+	const dispatch = useDispatch();
+
+	const handleSubmission = () => {
+		const reviewData = {
+			rating,
+			title,
+			body,
+		};
+
+		handleClose();
+	};
 
 	return (
 		<Box>
 			<Button
 				onClick={handleOpen}
-				variant="contained">
+				variant='contained'>
 				Review Book
 			</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description">
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'>
 				<Card
 					sx={{
 						width: { xs: '90%', md: '50%' },
@@ -47,7 +63,7 @@ const ReviewModal = () => {
 						<Box
 							display={'flex'}
 							flexDirection={'row'}
-							gap="12px">
+							gap='12px'>
 							<Paper
 								elevation={5}
 								sx={{
@@ -56,38 +72,48 @@ const ReviewModal = () => {
 									height: { xs: '100px' },
 								}}></Paper>
 							<Stack textAlign={'left'}>
-								<Typography variant="h4">Book Title</Typography>
+								<Typography variant='h4'>Book Title</Typography>
 								<Typography
-									variant="h8"
+									variant='h8'
 									color={'text.secondary'}>
 									by Book Author
 								</Typography>
 							</Stack>
 						</Box>
 						<Typography
-							component="legend"
+							component='legend'
 							alignSelf={'center'}>
 							Your rating:
 						</Typography>
 						<Rating
 							sx={{ alignSelf: 'center' }}
-							name="simple-controlled"
-							value={value}
-							defaultValue={3}
-							size="large"
-							onChange={(event, newValue) => {
-								setValue(newValue);
+							name='simple-controlled'
+							value={rating}
+							defaultValue={0}
+							size='large'
+							onChange={event => {
+								setRating(event.target.value);
 							}}
 						/>
-						<TextField placeholder="Write a title for the review"></TextField>
 						<TextField
-							id="outlined-multiline-static"
+							placeholder='Write a title for the review'
+							value={title}
+							onChange={event => {
+								setTitle(event.target.value);
+							}}></TextField>
+						<TextField
+							id='outlined-multiline-static'
 							multiline
 							rows={8}
-							placeholder="Write a review"></TextField>
+							value={body}
+							onChange={event => {
+								setBody(event.target.value);
+							}}
+							placeholder='Write a review'></TextField>
 						<Button
-							variant="contained"
-							size="small"
+							variant='contained'
+							size='small'
+							onClick={handleSubmission}
 							sx={{ width: '20%', alignSelf: 'center' }}>
 							Post
 						</Button>
