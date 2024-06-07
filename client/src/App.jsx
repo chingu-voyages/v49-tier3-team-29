@@ -16,6 +16,7 @@ import Footer from './components/Footer/Footer.jsx';
 import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
 import SearchResultsPage from './components/SearchResultsPage/SearchResultsPage.jsx';
+import MyBooks from './components/MyBooks/MyBooks.jsx';
 
 function App() {
 	// const [count, setCount] = useState(0);
@@ -40,6 +41,10 @@ function App() {
 							<Route
 								path='/results'
 								element={<SearchResultsPage />}
+							/>
+							<Route
+								path='/my-books'
+								element={<MyBooks />}
 							/>
 						</Route>
 						<Route

@@ -72,7 +72,10 @@ const Navbar = () => {
 									to="/">
 									Home
 								</Button>
-								<Button sx={{ color: 'white' }}>
+								<Button
+									sx={{ color: 'white' }}
+									component={Link}
+									to="/my-books">
 									My Books
 								</Button>
 							</Box>
