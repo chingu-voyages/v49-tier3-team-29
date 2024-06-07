@@ -37,6 +37,10 @@ function App() {
 								path="/"
 								element={<LandingPage />}
 							/>
+							<Route
+								path="/my-books"
+								element={<MyBooks />}
+							/>
 						</Route>
 						<Route
 							path="/login"
@@ -52,10 +56,6 @@ function App() {
 						<Route
 							path="/auth/reset-password"
 							element={<ResetPasswordPage />}
-						/>
-						<Route
-							path="/my-books"
-							element={<MyBooks />}
 						/>
 					</Routes>
 				</Router>

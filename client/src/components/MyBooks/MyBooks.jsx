@@ -1,5 +1,7 @@
+import { CssBaseline } from '@mui/material';
 import TableComponent from '../shared/TableComponent/TableComponent';
 import styles from './MyBooks.module.css';
+import theme from '../../theme';
 
 const rowHeaders = ['Cover', 'Title', 'Author', 'Remove'];
 
@@ -39,19 +41,14 @@ const data = [
 const MyBooks = () => (
 	<div
 		style={{
-			position: 'fixed',
-			top: 0,
-			right: 0,
-			bottom: 0,
-			left: 0,
 			display: 'flex',
 			justifyContent: 'center',
-			alignItems: 'center',
-			background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
+			alignItems: 'space-between',
+			background: theme.palette.secondary.main,
 		}}>
-		<div
-			data-testid="MyBooks"
-			style={{ overflow: 'auto' }}>
+		<div data-testid="MyBooks">
+			<CssBaseline />
+
 			<h3 className={styles.header}>My Books</h3>
 			<TableComponent
 				rowHeaders={rowHeaders}
