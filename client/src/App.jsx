@@ -37,6 +37,10 @@ function App() {
 								path="/"
 								element={<LandingPage />}
 							/>
+							<Route
+								path="/user-profile"
+								element={<UserProfile />}
+							/>
 						</Route>
 						<Route
 							path="/login"
@@ -53,10 +57,6 @@ function App() {
 							path="/auth/reset-password"
 							element={<ResetPasswordPage />}
 						/>
-             <Route
-						   path="/user-profile"
-						   element={<UserProfile />}
-					/>
 					</Routes>
 				</Router>
 			</ThemeProvider>

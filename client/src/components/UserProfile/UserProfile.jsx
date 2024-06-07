@@ -1,4 +1,11 @@
-import { ButtonBase, Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+	ButtonBase,
+	Card,
+	CardContent,
+	CssBaseline,
+	Grid,
+	Typography,
+} from '@mui/material';
 import styles from './UserProfile.module.css';
 import { useSelector } from 'react-redux';
 
@@ -21,17 +28,9 @@ const UserProfile = () => {
 	return (
 		<div
 			style={{
-				padding: 25,
-				position: 'fixed',
-				top: 0,
-				right: 0,
-				bottom: 0,
-				left: 0,
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				background: 'linear-gradient(to bottom, #FFEFD5, #f0f0f0)',
+				background: 'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
 			}}>
+			<CssBaseline />
 			<Grid
 				container
 				spacing={2}>
