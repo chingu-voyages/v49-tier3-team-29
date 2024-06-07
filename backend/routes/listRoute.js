@@ -1,9 +1,7 @@
 import express from "express";
 
 import {
-  deleteList,
-  getAllLists,
-  getListById,
+  removeListBook,
   getListByUserId,
 } from "../controller/listController.js";
 
@@ -12,13 +10,10 @@ import {
 const router = express.Router();
 
 // router.patch("/:listId", addBookToList);
-// Get all lists
-router.get("/", getAllLists);
-// Get list by list ID
-router.get("/:listid", getListById);
+
 // Get list by user ID
 router.get("/user/:userid", getListByUserId);
 // Delete list
-router.delete("/:listid", deleteList);
+router.delete("/:listid", removeListBook);
 
 export default router;

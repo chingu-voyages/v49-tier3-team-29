@@ -1,15 +1,6 @@
 import List from "../models/Lists.js";
 // import Book from "../models/Books.js";
 
-export const getListById = async (req, res) => {
-  try {
-    const list = await List.find({ _id: req.params.listid });
-
-    res.json(list);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
 export const getListByUserId = async (req, res) => {
   try {
     const list = await List.findOne({ userId: req.params.userid });
@@ -19,16 +10,8 @@ export const getListByUserId = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-export const getAllLists = async (req, res) => {
-  try {
-    const list = await List.find();
 
-    res.json(list);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-export const deleteList = async (req, res) => {
+export const removeListBook = async (req, res) => {
   try {
     // get by list
     const list = await List.findOne({ _id: req.params.listid });
@@ -45,7 +28,7 @@ export const deleteList = async (req, res) => {
       return res.status(404).json({ message: "List not found." });
     }
 
-    res.status(200).json({ message: "List has been deleted." });
+    res.status(200).json({ message: "Removed list book." });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
