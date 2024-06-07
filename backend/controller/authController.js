@@ -149,26 +149,26 @@ export const newUser = async (req, res) => {
 // @route		POST	/users/login
 export const login = async (req, res) => {
 	res.status(200).json({ message: 'Login successful' });
-	// try {
-	// 	const { username, password } = req.body;
+	try {
+		const { username, password } = req.body;
 
-	// 	const user = await User.findOne({ username });
+		const user = await User.findOne({ username });
 
-	// 	if (user) {
-	// 		if (await bcrypt.compare(password, user.password))
-	// 			sendTokenResponse(user, 200, res);
-	// 		else {
-	// 			res.status(401).json({
-	// 				message: 'Incorrect login credentials',
-	// 			});
-	// 		}
-	// 	} else {
-	// 		res.status(404).json({ message: 'User not found' });
-	// 	}
-	// } catch (error) {
-	// 	console.error('Error loging in user:', error);
-	// 	res.status(500).json({ message: 'Internal server error' });
-	// }
+		if (user) {
+			if (await bcrypt.compare(password, user.password))
+				sendTokenResponse(user, 200, res);
+			else {
+				res.status(401).json({
+					message: 'Incorrect login credentials',
+				});
+			}
+		} else {
+			res.status(404).json({ message: 'User not found' });
+		}
+	} catch (error) {
+		console.error('Error loging in user:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
 };
 
 export { forgotPassword, resetPassword };
