@@ -1,5 +1,6 @@
 import Book from '../models/Books.js';
 import Review from '../models/Reviews.js';
+import mongoose from 'mongoose';
 
 // @desc		Get all books
 // @route		GET	/books
@@ -54,6 +55,22 @@ export const getBooksBySearchQuery = async (req, res) => {
 		);
 
 		res.json(booksWithReviews);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
+};
+
+export const getBookById = async (req, res) => {
+	try {
+		const { id } = req.params;
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return res.status(400).json({ error: 'Invalid ID' });
+		}
+		const book = await Book.findById(id);
+		if (!book) {
+			return res.status(404).json({ message: 'Book not found' });
+		}
+		res.json(book);
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}

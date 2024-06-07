@@ -15,6 +15,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
+import BookPage from './components/BookPage/BookPage.jsx';
 
 function App() {
 	// const [count, setCount] = useState(0);
@@ -51,6 +52,10 @@ function App() {
 						<Route
 							path="/auth/reset-password"
 							element={<ResetPasswordPage />}
+						/>
+						<Route
+							path="/book/:id"
+							element={<BookPage />}
 						/>
 					</Routes>
 				</Router>
