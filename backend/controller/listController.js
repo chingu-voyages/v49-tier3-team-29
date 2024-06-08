@@ -1,97 +1,103 @@
-import List from "../models/Lists.js";
-import Book from "../models/Books.js";
+import List from '../models/Lists.js';
+import Book from '../models/Books.js';
 
 // @desc   Add book to list
 // @route  PATCH  /lists/:listId/
 export const addBookToList = async (req, res) => {
-  try {
-    const { listId } = req.params;
-    const { bookId } = req.body;
+	try {
+		const { listId } = req.params;
+		const { bookId } = req.body;
 
-    // Check if the book exists and if the list exists and contains the book
-    const [findBook, findList] = await Promise.all([
-      Book.findById(bookId),
-      List.findById(listId),
-    ]);
+		// Check if the book exists and if the list exists and contains the book
+		const [findBook, findList] = await Promise.all([
+			Book.findById(bookId),
+			List.findById(listId),
+		]);
 
-    const errorMessage = !findBook
-      ? "Book not found"
-      : !findList
-      ? "List not found"
-      : findList.books.includes(bookId)
-      ? "Book already exists in list"
-      : null;
+		const errorMessage = !findBook
+			? 'Book not found'
+			: !findList
+			? 'List not found'
+			: findList.books.includes(bookId)
+			? 'Book already exists in list'
+			: null;
 
-    if (errorMessage) {
-      const statusCode =
-        errorMessage === "Book already exists in list" ? 400 : 404;
-      return res.status(statusCode).json({ message: errorMessage });
-    }
+		if (errorMessage) {
+			const statusCode =
+				errorMessage === 'Book already exists in list' ? 400 : 404;
+			return res.status(statusCode).json({ message: errorMessage });
+		}
 
-    // if (!findBook) {
-    // 	return res.status(404).json({ message: 'Book not found' });
-    // }
+		//* Add the book to the list
+		findList.books.push(bookId);
+		await findList.save();
 
-    // if (!findList) {
-    // 	return res.status(404).json({ message: 'List not found' });
-    // }
+		// populate the books field in the list object
+		const populatedList = await List.findById(listId)
+			.populate('books')
+			.exec();
 
-    // if (findList.books.includes(bookId)) {
-    // 	return res
-    // 		.status(400)
-    // 		.json({ message: 'Book already exists in list' });
-    // }
-
-    //* Add the book to the list
-    findList.books.push(bookId);
-    await findList.save();
-
-    const populatedList = await List.findById(listId).populate("books").exec();
-
-    res.status(200).json(populatedList);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+		res.status(200).json(populatedList);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
 };
 
+// @desc   query for a list by user Id
+// @route  GET  /lists/:userId/
 export const getListByUserId = async (req, res) => {
-  try {
-    const list = await List.findOne({ userId: req.params.userid });
+	try {
+		// Find list, and then populate the books field in the list object
+		const populatedList = await List.findOne({ userId: req.params.userId })
+			.populate('books')
+			.exec();
 
-    res.json(list);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+		if (!populatedList) {
+			return res.status(404).json({ message: 'List not found' });
+		}
+
+		res.json(populatedList);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
 };
 
 export const removeListBook = async (req, res) => {
-  try {
-    // get by book ID and list ID
-    const list = await List.findOne({
-      _id: req.params.listid,
-    });
-    if (!list) {
-      return res.status(404).json({ message: "List not found." });
-    }
+	try {
+		const { listId } = req.params;
+		const { bookId } = req.body;
 
-    // find and delete by book ID
-    const existingList = await List.updateOne(
-      {
-        _id: req.params.listid,
-      },
-      {
-        $pull: {
-          books: req.params.bookid,
-        },
-      }
-    );
+		// Check if the book exists, if the list exists and if the book is not in the list
+		const [findBook, findList] = await Promise.all([
+			Book.findById(bookId),
+			List.findById(listId),
+		]);
 
-    if (!existingList) {
-      return res.status(404).json({ message: "Book not found in the list." });
-    }
+		const errorMessage = !findBook
+			? 'Book not found'
+			: !findList
+			? 'List not found'
+			: !findList.books.includes(bookId)
+			? 'Book is not found on the list'
+			: null;
 
-    res.status(200).json({ message: "Removed book from the list." });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+		if (errorMessage) {
+			const statusCode =
+				errorMessage === 'Book is not found on the list' ? 400 : 404;
+			return res.status(statusCode).json({ message: errorMessage });
+		}
+
+		// find List, remove book by ID, and populate the books field in the list object
+		const existingList = await List.findOneAndUpdate(
+			{ _id: listId },
+			{ $pull: { books: bookId } },
+			{ new: true }
+		)
+			.populate('books')
+			.exec();
+
+		res.status(200).json(existingList);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
 };

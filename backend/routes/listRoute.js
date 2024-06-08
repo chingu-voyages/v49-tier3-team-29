@@ -1,19 +1,20 @@
-import express from "express";
+import express from 'express';
 import {
-  removeListBook,
-  getListByUserId,
-} from "../controller/listController.js";
+	removeListBook,
+	getListByUserId,
+} from '../controller/listController.js';
 
-import { addBookToList } from "../controller/listController.js";
+import { addBookToList } from '../controller/listController.js';
 
 const router = express.Router();
 
-router.patch("/:listId", addBookToList);
+// Add book to list
+router.patch('/:listId', addBookToList);
 
 // Get list by user ID
-router.get("/user/:userid", getListByUserId);
+router.get('/user/:userId', getListByUserId);
 
-// Delete one book from lilst by a combination of list ID + book ID
-router.delete("/:listid/:bookid", removeListBook);
+// Remove book from a list by listId
+router.patch('/remove/:listId', removeListBook);
 
 export default router;
