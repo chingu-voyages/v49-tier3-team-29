@@ -128,7 +128,7 @@ export const seedData = async () => {
 			genre: 'Thriller',
 			author: 'Gillian Flynn',
 			imageUrl:
-				'https://static.wikia.nocookie.net/gone-girl/images/d/dc/Sharp-objects-book-cover.jpg/revision/latest?cb=20160404234516',
+				'https://m.media-amazon.com/images/I/71-JO+PSPwL._AC_UF1000,1000_QL80_.jpg',
 			ISBN: '9780307341556',
 		},
 		{
