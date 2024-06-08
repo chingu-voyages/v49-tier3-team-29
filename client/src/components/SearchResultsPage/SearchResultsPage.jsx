@@ -1,8 +1,10 @@
-import styles from './SearchResultsPage.module.css';
+// import styles from './SearchResultsPage.module.css';
 
 const SearchResultsPage = () => {
 	return (
-		<div className={styles.SearchResultsPage}>
+		<div
+		// className={styles.SearchResultsPage}
+		>
 			<div>This works</div>
 		</div>
 	);
