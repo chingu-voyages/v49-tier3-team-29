@@ -8,6 +8,26 @@ export const getAllBooks = async (req, res) => {
 	try {
 		const books = await Book.find();
 
+		// Fetch reviews for all books in parallel
+		const booksWithReviews = await Promise.all(
+			books.map(async book => {
+				const reviews = await Review.find({ bookId: book._id });
+				return { ...book.toObject(), reviews };
+			})
+		);
+		res.json(booksWithReviews);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
+};
+
+// @desc		Get all books
+// @route		GET	/books/landingPage
+
+export const getAllLandingBooks = async (req, res) => {
+	try {
+		const books = await Book.find();
+
 		// Randomly select 5 books
 		const randomBooks = books
 			.sort(() => Math.random() - Math.random())

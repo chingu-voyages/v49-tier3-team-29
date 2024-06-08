@@ -15,6 +15,16 @@ export const fetchAllBooks = createAsyncThunk('book/allBooks', async () => {
 	return response;
 });
 
+// * Fetch landing page books
+export const fetchLandingBooks = createAsyncThunk(
+	'book/landingBooks',
+	async () => {
+		const request = await axios.get(`${bookBaseURL}/landingPage`);
+		const response = await request.data;
+		return response;
+	}
+);
+
 // * Fetch book by title, author, genre, or ISBN
 export const fetchBook = createAsyncThunk(
 	'book/bookQuery',
@@ -34,7 +44,8 @@ const bookSlice = createSlice({
 				action => {
 					return (
 						action.type === fetchBook.pending.type ||
-						action.type === fetchAllBooks.pending.type
+						action.type === fetchAllBooks.pending.type ||
+						action.type === fetchLandingBooks.pending.type
 					);
 				},
 				state => {
@@ -45,7 +56,8 @@ const bookSlice = createSlice({
 				action => {
 					return (
 						action.type === fetchBook.fulfilled.type ||
-						action.type === fetchAllBooks.fulfilled.type
+						action.type === fetchAllBooks.fulfilled.type ||
+						action.type === fetchLandingBooks.fulfilled.type
 					);
 				},
 				(state, action) => {
@@ -55,7 +67,11 @@ const bookSlice = createSlice({
 			)
 			.addMatcher(
 				action => {
-					return action.type === fetchBook.rejected.type;
+					return (
+						action.type === fetchBook.rejected.type ||
+						action.type === fetchAllBooks.rejected.type ||
+						action.type === fetchLandingBooks.rejected.type
+					);
 				},
 				(state, action) => {
 					state.loading = false;

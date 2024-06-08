@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import theme from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchAllBooks } from '../../reducers/bookSlice';
+import { fetchLandingBooks } from '../../reducers/bookSlice';
 import StarIcon from '@mui/icons-material/Star';
 import Stack from '@mui/material/Stack';
 
@@ -14,7 +14,7 @@ const Hero = () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			await dispatch(fetchAllBooks());
+			await dispatch(fetchLandingBooks());
 		}
 		fetchData();
 	}, [dispatch]);
@@ -42,10 +42,10 @@ const Hero = () => {
 							pt={{ xs: 1, sm: 5 }}
 							alignItems={'center'}
 							justifyContent={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								{books[0].title}
 							</Typography>
-							<Typography variant="body2">
+							<Typography variant='body2'>
 								By: {books[0].author}
 							</Typography>
 							<Box
@@ -55,7 +55,7 @@ const Hero = () => {
 								gap={1}>
 								<StarIcon
 									sx={{ fill: 'yellow' }}
-									fontSize="small"></StarIcon>
+									fontSize='small'></StarIcon>
 								<Typography>
 									{books[0].reviews.reduce(
 										(acc, curr) => acc + curr.rating,
@@ -84,10 +84,10 @@ const Hero = () => {
 							pt={{ xs: 1, sm: 5 }}
 							alignItems={'center'}
 							justifyContent={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								{books[1].title}
 							</Typography>
-							<Typography variant="body2">
+							<Typography variant='body2'>
 								By: {books[1].author}
 							</Typography>
 							<Box
@@ -97,7 +97,7 @@ const Hero = () => {
 								gap={1}>
 								<StarIcon
 									sx={{ fill: 'yellow' }}
-									fontSize="small"></StarIcon>
+									fontSize='small'></StarIcon>
 								<Typography>
 									{books[1].reviews.reduce(
 										(acc, curr) => acc + curr.rating,
@@ -127,10 +127,10 @@ const Hero = () => {
 							pt={{ xs: 1, sm: 5 }}
 							alignItems={'center'}
 							justifyContent={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								{books[2].title}
 							</Typography>
-							<Typography variant="body2">
+							<Typography variant='body2'>
 								By: {books[2].author}
 							</Typography>
 							<Box
@@ -140,7 +140,7 @@ const Hero = () => {
 								gap={1}>
 								<StarIcon
 									sx={{ fill: 'yellow' }}
-									fontSize="small"></StarIcon>
+									fontSize='small'></StarIcon>
 								<Typography>
 									{books[2].reviews.reduce(
 										(acc, curr) => acc + curr.rating,
@@ -170,10 +170,10 @@ const Hero = () => {
 							pt={{ xs: 1, sm: 5 }}
 							alignItems={'center'}
 							justifyContent={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								{books[3].title}
 							</Typography>
-							<Typography variant="body2">
+							<Typography variant='body2'>
 								By: {books[3].author}
 							</Typography>
 							<Box
@@ -183,7 +183,7 @@ const Hero = () => {
 								gap={1}>
 								<StarIcon
 									sx={{ fill: 'yellow' }}
-									fontSize="small"></StarIcon>
+									fontSize='small'></StarIcon>
 								<Typography>
 									{books[3].reviews.reduce(
 										(acc, curr) => acc + curr.rating,
@@ -213,10 +213,10 @@ const Hero = () => {
 							pt={{ xs: 1, sm: 5 }}
 							alignItems={'center'}
 							justifyContent={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								{books[4].title}
 							</Typography>
-							<Typography variant="body2">
+							<Typography variant='body2'>
 								By: {books[4].author}
 							</Typography>
 							<Box
@@ -226,7 +226,7 @@ const Hero = () => {
 								gap={1}>
 								<StarIcon
 									sx={{ fill: 'yellow' }}
-									fontSize="small"></StarIcon>
+									fontSize='small'></StarIcon>
 								<Typography>
 									{books[4].reviews.reduce(
 										(acc, curr) => acc + curr.rating,
@@ -243,7 +243,7 @@ const Hero = () => {
 	return (
 		<Box>
 			<Box textAlign={{ sm: 'left' }}>
-				<Typography variant="h5">
+				<Typography variant='h5'>
 					What are{' '}
 					<span
 						style={{

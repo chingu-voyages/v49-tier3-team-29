@@ -16,11 +16,29 @@ import InputBase from '@mui/material/InputBase';
 import theme from '../../theme';
 import { useState } from 'react';
 import { Divider, Menu, MenuItem, Tooltip } from '@mui/material';
+import { fetchBook } from '../../reducers/bookSlice';
+import { useDispatch } from 'react-redux';
 
 const Navbar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	// Needs to be changed for getting if a user is logged in or not
 	const isAuthenticated = true;
+
+	const [search, setSearch] = useState('');
+	const [searchResults, setSearchResults] = useState([]);
+
+	const dispatch = useDispatch();
+
+	const handleSearch = async e => {
+		e.preventDefault();
+
+		if (!search) return;
+		try {
+			await dispatch(fetchBook(search));
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	const handleMenu = event => {
 		setAnchorEl(event.target);
@@ -36,7 +54,7 @@ const Navbar = () => {
 				boxShadow: 0,
 			}}>
 			<Container
-				maxWidth="md"
+				maxWidth='md'
 				sx={{ position: 'relative' }}>
 				<Toolbar
 					sx={{
@@ -49,15 +67,15 @@ const Navbar = () => {
 					}}>
 					{isAuthenticated && (
 						<IconButton
-							color="inherit"
+							color='inherit'
 							sx={{ display: { sm: 'none' } }}>
-							<SearchIcon fontSize="large"></SearchIcon>
+							<SearchIcon fontSize='large'></SearchIcon>
 						</IconButton>
 					)}
 
 					<Box>
 						<Typography
-							variant="h4"
+							variant='h4'
 							fontWeight={200}>
 							shelf
 							<span style={{ fontWeight: 'bold' }}>share</span>
@@ -69,13 +87,13 @@ const Navbar = () => {
 								<Button
 									sx={{ color: 'white' }}
 									component={Link}
-									to="/">
+									to='/'>
 									Home
 								</Button>
 								<Button
 									sx={{ color: 'white' }}
 									component={Link}
-									to="/my-books">
+									to='/my-books'>
 									My Books
 								</Button>
 							</Box>
@@ -113,53 +131,63 @@ const Navbar = () => {
 										}}>
 										<SearchIcon />
 									</Box>
-									<InputBase
-										placeholder="Search…"
-										sx={{
-											color: 'inherit',
-											width: '100%',
-											'& .MuiInputBase-input': {
-												padding: theme.spacing(
-													1,
-													1,
-													1,
-													0
-												),
-												// vertical padding + font size from searchIcon
-												paddingLeft: `calc(1em + ${theme.spacing(
-													4
-												)})`,
-												transition:
-													theme.transitions.create(
-														'width'
+									<form onSubmit={handleSearch}>
+										<InputBase
+											placeholder='Search…'
+											value={search}
+											onChange={e =>
+												setSearch(e.target.value)
+											}
+											sx={{
+												color: 'inherit',
+												width: '100%',
+												'& .MuiInputBase-input': {
+													padding: theme.spacing(
+														1,
+														1,
+														1,
+														0
 													),
-												[theme.breakpoints.up('sm')]: {
-													// on screen sizes sm and up width starts at 12 characters and moves to 20 on focus
-													width: '12ch',
-													'&:focus': {
-														width: '20ch',
+													// vertical padding + font size from searchIcon
+													paddingLeft: `calc(1em + ${theme.spacing(
+														4
+													)})`,
+													transition:
+														theme.transitions.create(
+															'width'
+														),
+													[theme.breakpoints.up(
+														'sm'
+													)]: {
+														// on screen sizes sm and up width starts at 12 characters and moves to 20 on focus
+														width: '12ch',
+														'&:focus': {
+															width: '20ch',
+														},
 													},
 												},
-											},
-										}}
-										inputProps={{ 'aria-label': 'search' }}
-									/>
+											}}
+											inputProps={{
+												'aria-label': 'search',
+											}}
+										/>
+									</form>
 								</Box>
 							</Box>
 
-							<Tooltip title="Open Account Options">
+							<Tooltip title='Open Account Options'>
 								<IconButton
-									color="inherit"
-									aria-label="account of current user"
-									aria-controls="menu-appbar"
-									aria-haspopup="true"
+									color='inherit'
+									aria-label='account of current user'
+									aria-controls='menu-appbar'
+									aria-haspopup='true'
 									onClick={handleMenu}>
-									<AccountCircleIcon fontSize="large"></AccountCircleIcon>
+									<AccountCircleIcon fontSize='large'></AccountCircleIcon>
 								</IconButton>
 							</Tooltip>
 							<Menu
 								sx={{ mt: '45px' }}
-								id="menu-appbar"
+								id='menu-appbar'
 								anchorEl={anchorEl}
 								anchorOrigin={{
 									vertical: 'top',
@@ -189,7 +217,7 @@ const Navbar = () => {
 
 				{!isAuthenticated && (
 					<Card
-						variant="outlined"
+						variant='outlined'
 						sx={{
 							display: { xs: 'none', sm: 'block' },
 							position: 'absolute',
@@ -206,27 +234,27 @@ const Navbar = () => {
 							spacing={2}
 							justifyContent={'center'}
 							alignItems={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								Discover & read more
 							</Typography>
 							<Button
-								variant="outlined"
+								variant='outlined'
 								component={Link}
-								to="/signup"
-								size="large"
+								to='/signup'
+								size='large'
 								sx={{ width: '80%', mt: 3 }}
 								startIcon={
-									<EmailIcon fontSize="small"></EmailIcon>
+									<EmailIcon fontSize='small'></EmailIcon>
 								}>
 								<Typography
 									noWrap
-									variant="button">
+									variant='button'>
 									Sign Up with email
 								</Typography>
 							</Button>
 
 							<Button
-								variant="contained"
+								variant='contained'
 								sx={{
 									mt: 2,
 									width: '80%',
@@ -234,9 +262,9 @@ const Navbar = () => {
 										backgroundColor: 'secondary', // Change this to your preferred color
 									},
 								}}
-								size="large"
+								size='large'
 								component={Link}
-								to="/login">
+								to='/login'>
 								Sign In
 							</Button>
 						</Stack>
