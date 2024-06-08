@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/login', authLimiter, login);
 
 //* Register new user
-router.post('/register', authLimiter, newUser);
+router.post('/register', newUser);
 
 //* get all users
 router.get('/', getAllUsers);
@@ -22,7 +22,7 @@ router.get('/', getAllUsers);
 router.get('/:username', getUserByUsername);
 
 //* Update user by username
-router.patch('/:username', authLimiter, updateUser);
+router.patch('/:username', updateUser);
 
 // * Deactivate user
 router.patch('/:username/deactivate', deactivate);
