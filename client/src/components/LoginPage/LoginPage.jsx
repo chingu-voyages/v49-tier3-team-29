@@ -23,6 +23,16 @@ const LoginPage = () => {
 		await dispatch(loginUser(userCredentials));
 	};
 
+	const handleDemoUser = async () => {
+		const userCredentials = {
+			username: import.meta.env.VITE_DEMO_USERNAME,
+			password: import.meta.env.VITE_DEMO_PASSWORD,
+		};
+		console.log(userCredentials);
+
+		await dispatch(loginUser(userCredentials));
+	};
+
 	return (
 		<div
 			style={{
@@ -110,6 +120,22 @@ const LoginPage = () => {
 								}}
 								sx={{ width: '50%' }}>
 								Sign In
+							</Button>
+						</Grid>
+						<Grid
+							item
+							xs={12}>
+							<Button
+								variant='outlined'
+								size='medium'
+								onClick={handleDemoUser}>
+								<span
+									style={{
+										fontWeight: 'bold',
+										color: 'blue',
+									}}>
+									Demo user
+								</span>
 							</Button>
 						</Grid>
 						<Grid
