@@ -163,7 +163,9 @@ const Navbar = () => {
 									aria-controls="menu-appbar"
 									aria-haspopup="true"
 									onClick={handleMenu}>
-									<AccountCircleIcon fontSize="large"></AccountCircleIcon>
+									<Avatar
+										fontSize="large"
+										src={user.userImage}></Avatar>
 								</IconButton>
 							</Tooltip>
 							<Menu
