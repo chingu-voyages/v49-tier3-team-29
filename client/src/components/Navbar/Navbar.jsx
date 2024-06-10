@@ -20,6 +20,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import { useSelector } from 'react-redux';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Navbar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -163,9 +164,13 @@ const Navbar = () => {
 									aria-controls="menu-appbar"
 									aria-haspopup="true"
 									onClick={handleMenu}>
-									<Avatar
-										fontSize="large"
-										src={user.userImage}></Avatar>
+									{user.userImage ? (
+										<Avatar
+											fontSize="large"
+											src={user.userImage}></Avatar>
+									) : (
+										<AccountCircle fontSize="large"></AccountCircle>
+									)}
 								</IconButton>
 							</Tooltip>
 							<Menu
