@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -18,8 +17,6 @@ import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.
 import MyBooks from './components/MyBooks/MyBooks.jsx';
 
 function App() {
-	// const [count, setCount] = useState(0);
-
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -34,27 +31,27 @@ function App() {
 								</>
 							}>
 							<Route
-								path="/"
+								path='/'
 								element={<LandingPage />}
 							/>
 							<Route
-								path="/my-books"
+								path='/my-books'
 								element={<MyBooks />}
 							/>
 						</Route>
 						<Route
-							path="/login"
+							path='/login'
 							element={<LoginPage></LoginPage>}></Route>
 						<Route
-							path="/signup"
+							path='/signup'
 							element={<SignupPage />}
 						/>
 						<Route
-							path="/forgot-password"
+							path='/forgot-password'
 							element={<ForgotPasswordPage />}
 						/>
 						<Route
-							path="/auth/reset-password"
+							path='/auth/reset-password'
 							element={<ResetPasswordPage />}
 						/>
 					</Routes>
