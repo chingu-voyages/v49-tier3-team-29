@@ -9,18 +9,27 @@ import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import { alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import theme from '../../theme';
 import { useState } from 'react';
-import { Divider, Menu, MenuItem, Tooltip } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
-	// Needs to be changed for getting if a user is logged in or not
-	const isAuthenticated = true;
+
+	// Check is user exists in store
+	const user = useSelector(state => state.session.userInfo);
+	let isAuthenticated = false;
+	if (user.token) {
+		isAuthenticated = true;
+	}
 
 	const handleMenu = event => {
 		setAnchorEl(event.target);
