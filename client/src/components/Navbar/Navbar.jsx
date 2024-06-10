@@ -186,7 +186,10 @@ const Navbar = () => {
 								<MenuItem onClick={handleClose}>
 									Profile
 								</MenuItem>
-								<MenuItem onClick={handleClose}>
+								<MenuItem
+									onClick={handleClose}
+									component={Link}
+									to="/my-books">
 									My Books
 								</MenuItem>
 								<Divider></Divider>
@@ -261,8 +264,18 @@ const Navbar = () => {
 						display: { xs: 'flex', sm: 'none' },
 						justifyContent: 'space-around',
 					}}>
-					<Button sx={{ color: 'white' }}>Home</Button>
-					<Button sx={{ color: 'white' }}>My Books</Button>
+					<Button
+						sx={{ color: 'white' }}
+						component={Link}
+						to="/">
+						Home
+					</Button>
+					<Button
+						sx={{ color: 'white' }}
+						component={Link}
+						to="/my-books">
+						My Books
+					</Button>
 				</Toolbar>
 			)}
 		</AppBar>
