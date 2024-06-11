@@ -20,60 +20,64 @@ const RecentBooks = () => {
 			dispatch(fetchList(user.username));
 		}
 	}, [user, dispatch]);
-	let recentBooks = (
-		<Typography variant="h6">No books recently added</Typography>
-	);
+
+	let recentBooks = [];
+
 	if (list) {
 		if (list.length > 0) {
-			recentBooks = list.map(book => (
-				<Card
-					key={book.ISBN}
-					sx={{ maxWidth: '400px' }}>
-					<CardContent
-						sx={{
-							display: { xs: 'flex' },
-							flexDirection: 'column',
-							gap: 3,
-						}}>
-						<Paper
-							elevation={5}
-							sx={{
-								alignSelf: 'center',
-								backgroundImage: `url(${book.imageUrl})`,
-								backgroundSize: 'cover',
-								backgroundRepeat: 'no-repeat',
-								width: '100px',
-								height: '150px',
-							}}></Paper>
-
-						<Stack textAlign={'left'}>
-							<MaterialLink
-								component={Link}
-								to={'/'}>
-								{book.title}
-							</MaterialLink>
-							<Typography
-								variant="body2"
-								color={'text.secondary'}>
-								by {book.author}
-							</Typography>
-							<Typography
-								variant="body2"
-								mt={2}
-								textOverflow={'ellipsis'}
-								overflow={'hidden'}
+			for (let i = 0; i < 3; i++) {
+				if (list[i]) {
+					recentBooks.push(
+						<Card
+							key={list[i].ISBN}
+							sx={{ maxWidth: '400px' }}>
+							<CardContent
 								sx={{
-									lineClamp: 2,
-									display: '-webkit-box',
-									WebkitLineClamp: 3,
-									WebkitBoxOrient: 'vertical',
+									display: { xs: 'flex' },
+									flexDirection: 'column',
+									gap: 3,
 								}}>
-								{book.description}
-							</Typography>
-						</Stack>
-					</CardContent>
-				</Card>
-			));
+								<Paper
+									elevation={5}
+									sx={{
+										alignSelf: 'center',
+										backgroundImage: `url(${list[i].imageUrl})`,
+										backgroundSize: 'cover',
+										backgroundRepeat: 'no-repeat',
+										width: '100px',
+										height: '150px',
+									}}></Paper>
+
+								<Stack textAlign={'left'}>
+									<MaterialLink
+										component={Link}
+										to={'/'}>
+										{list[i].title}
+									</MaterialLink>
+									<Typography
+										variant="body2"
+										color={'text.secondary'}>
+										by {list[i].author}
+									</Typography>
+									<Typography
+										variant="body2"
+										mt={2}
+										textOverflow={'ellipsis'}
+										overflow={'hidden'}
+										sx={{
+											lineClamp: 2,
+											display: '-webkit-box',
+											WebkitLineClamp: 3,
+											WebkitBoxOrient: 'vertical',
+										}}>
+										{list[i].description}
+									</Typography>
+								</Stack>
+							</CardContent>
+						</Card>
+					);
+				}
+			}
 		}
 	}
 
@@ -91,7 +95,13 @@ const RecentBooks = () => {
 				alignItems={'center'}
 				direction={{ md: 'row' }}
 				gap={3}>
-				{recentBooks}
+				{recentBooks.length > 0 ? (
+					recentBooks
+				) : (
+					<Typography variant="h6">
+						No books recently added
+					</Typography>
+				)}
 			</Stack>
 			<MaterialLink
 				component={Link}
