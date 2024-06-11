@@ -1,5 +1,6 @@
 import List from '../models/Lists.js';
 import Book from '../models/Books.js';
+import User from '../models/Users.js';
 
 // @desc   Add book to list
 // @route  PATCH  /lists/:listId/
@@ -43,12 +44,16 @@ export const addBookToList = async (req, res) => {
 	}
 };
 
-// @desc   query for a list by user Id
-// @route  GET  /lists/:userId/
+// @desc   query for a list by username
+// @route  GET  /lists/:username/
 export const getListByUserId = async (req, res) => {
 	try {
+		const user = await User.findOne({ username: req.params.username });
+
 		// Find list, and then populate the books field in the list object
-		const populatedList = await List.findOne({ userId: req.params.userId })
+		const populatedList = await List.findOne({
+			userId: user._id.toString(),
+		})
 			.populate('books')
 			.exec();
 
