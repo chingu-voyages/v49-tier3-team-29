@@ -46,7 +46,7 @@ export const addBookToList = async (req, res) => {
 
 // @desc   query for a list by username
 // @route  GET  /lists/:username/
-export const getListByUserId = async (req, res) => {
+export const getListByUsername = async (req, res) => {
 	try {
 		const user = await User.findOne({ username: req.params.username });
 
