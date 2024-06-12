@@ -20,8 +20,8 @@ export const fetchBookReviews = createAsyncThunk(
 // * Fetch all reviews by a user
 export const fetchUserReviews = createAsyncThunk(
 	'review/userReviews',
-	async userId => {
-		const request = await axios.get(`${reviewBaseURL}/users/${userId}`);
+	async username => {
+		const request = await axios.get(`${reviewBaseURL}/users/${username}`);
 		const response = await request.data;
 		return response;
 	}
