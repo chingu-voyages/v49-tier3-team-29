@@ -21,6 +21,7 @@ export const sendTokenResponse = (user, statusCode, res) => {
 		username: user.username,
 		email: user.email,
 		name: user.name,
+		userImage: user.image,
 		token,
 	});
 };

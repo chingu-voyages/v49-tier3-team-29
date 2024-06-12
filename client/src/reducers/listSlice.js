@@ -9,8 +9,13 @@ const initialState = {
 };
 
 // * Fetch list
+<<<<<<< feat/import-recent-books-data
 export const fetchList = createAsyncThunk('list/', async username => {
 	const request = await axios.get(`${listBaseURL}/user/${username}`);
+=======
+export const fetchList = createAsyncThunk('list/', async () => {
+	const request = await axios.get(`${listBaseURL}/`);
+>>>>>>> dev
 	const response = await request.data;
 	return response;
 });
@@ -35,6 +40,10 @@ const listSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.listInfo = action.payload;
+<<<<<<< feat/import-recent-books-data
+=======
+					state.error = '';
+>>>>>>> dev
 				}
 			)
 			.addMatcher(
