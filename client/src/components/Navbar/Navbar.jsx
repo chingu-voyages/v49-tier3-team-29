@@ -46,7 +46,7 @@ const Navbar = () => {
 				boxShadow: 0,
 			}}>
 			<Container
-				maxWidth="md"
+				maxWidth='md'
 				sx={{ position: 'relative' }}>
 				<Toolbar
 					sx={{
@@ -59,15 +59,15 @@ const Navbar = () => {
 					}}>
 					{isAuthenticated && (
 						<IconButton
-							color="inherit"
+							color='inherit'
 							sx={{ display: { sm: 'none' } }}>
-							<SearchIcon fontSize="large"></SearchIcon>
+							<SearchIcon fontSize='large'></SearchIcon>
 						</IconButton>
 					)}
 
 					<Box>
 						<Typography
-							variant="h4"
+							variant='h4'
 							fontWeight={200}>
 							shelf
 							<span style={{ fontWeight: 'bold' }}>share</span>
@@ -79,13 +79,13 @@ const Navbar = () => {
 								<Button
 									sx={{ color: 'white' }}
 									component={Link}
-									to="/">
+									to='/'>
 									Home
 								</Button>
 								<Button
 									sx={{ color: 'white' }}
 									component={Link}
-									to="/my-books">
+									to='/my-books'>
 									My Books
 								</Button>
 							</Box>
@@ -124,7 +124,7 @@ const Navbar = () => {
 										<SearchIcon />
 									</Box>
 									<InputBase
-										placeholder="Search…"
+										placeholder='Search…'
 										sx={{
 											color: 'inherit',
 											width: '100%',
@@ -157,25 +157,25 @@ const Navbar = () => {
 								</Box>
 							</Box>
 
-							<Tooltip title="Open Account Options">
+							<Tooltip title='Open Account Options'>
 								<IconButton
-									color="inherit"
-									aria-label="account of current user"
-									aria-controls="menu-appbar"
-									aria-haspopup="true"
+									color='inherit'
+									aria-label='account of current user'
+									aria-controls='menu-appbar'
+									aria-haspopup='true'
 									onClick={handleMenu}>
 									{user.userImage ? (
 										<Avatar
-											fontSize="large"
+											fontSize='large'
 											src={user.userImage}></Avatar>
 									) : (
-										<AccountCircle fontSize="large"></AccountCircle>
+										<AccountCircle fontSize='large'></AccountCircle>
 									)}
 								</IconButton>
 							</Tooltip>
 							<Menu
 								sx={{ mt: '45px' }}
-								id="menu-appbar"
+								id='menu-appbar'
 								anchorEl={anchorEl}
 								anchorOrigin={{
 									vertical: 'top',
@@ -194,7 +194,7 @@ const Navbar = () => {
 								<MenuItem
 									onClick={handleClose}
 									component={Link}
-									to="/my-books">
+									to='/my-books'>
 									My Books
 								</MenuItem>
 								<Divider></Divider>
@@ -208,7 +208,7 @@ const Navbar = () => {
 
 				{!isAuthenticated && (
 					<Card
-						variant="outlined"
+						variant='outlined'
 						sx={{
 							display: { xs: 'none', sm: 'block' },
 							position: 'absolute',
@@ -225,27 +225,27 @@ const Navbar = () => {
 							spacing={2}
 							justifyContent={'center'}
 							alignItems={'center'}>
-							<Typography variant="h6">
+							<Typography variant='h6'>
 								Discover & read more
 							</Typography>
 							<Button
-								variant="outlined"
+								variant='outlined'
 								component={Link}
-								to="/signup"
-								size="large"
+								to='/signup'
+								size='large'
 								sx={{ width: '80%', mt: 3 }}
 								startIcon={
-									<EmailIcon fontSize="small"></EmailIcon>
+									<EmailIcon fontSize='small'></EmailIcon>
 								}>
 								<Typography
 									noWrap
-									variant="button">
+									variant='button'>
 									Sign Up with email
 								</Typography>
 							</Button>
 
 							<Button
-								variant="contained"
+								variant='contained'
 								sx={{
 									mt: 2,
 									width: '80%',
@@ -253,9 +253,9 @@ const Navbar = () => {
 										backgroundColor: 'secondary', // Change this to your preferred color
 									},
 								}}
-								size="large"
+								size='large'
 								component={Link}
-								to="/login">
+								to='/login'>
 								Sign In
 							</Button>
 						</Stack>
@@ -272,13 +272,13 @@ const Navbar = () => {
 					<Button
 						sx={{ color: 'white' }}
 						component={Link}
-						to="/">
+						to='/'>
 						Home
 					</Button>
 					<Button
 						sx={{ color: 'white' }}
 						component={Link}
-						to="/my-books">
+						to='/my-books'>
 						My Books
 					</Button>
 				</Toolbar>
