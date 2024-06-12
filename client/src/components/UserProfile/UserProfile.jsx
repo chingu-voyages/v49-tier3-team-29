@@ -1,12 +1,4 @@
-import {
-	Box,
-	ButtonBase,
-	Card,
-	CardContent,
-	CssBaseline,
-	Grid,
-	Typography,
-} from '@mui/material';
+import { Box, ButtonBase, CssBaseline, Grid, Typography } from '@mui/material';
 import styles from './UserProfile.module.css';
 import { useSelector } from 'react-redux';
 
@@ -45,48 +37,49 @@ const UserProfile = () => {
 						item
 						xs={12}
 						sm={4}>
-						<Card sx={{ marginLeft: 2, marginRight: 2 }}>
-							<CardContent>
-								<ButtonBase>
-									<img
-										src={profileImage}
-										className={styles.profileImageLarge}
-										alt="Profile"
-									/>
-								</ButtonBase>
-								<Typography variant="h6">
-									{testUser.username}
-								</Typography>
-								<Typography variant="body1">
-									{testUser.email}
-								</Typography>
-							</CardContent>
-						</Card>
+						<Box sx={{ marginLeft: 2, marginRight: 2 }}>
+							<ButtonBase>
+								<img
+									src={profileImage}
+									className={styles.profileImageLarge}
+									alt="Profile"
+								/>
+							</ButtonBase>
+							<Typography variant="h6">
+								{testUser.username}
+							</Typography>
+							<Typography variant="body1">
+								{testUser.email}
+							</Typography>
+						</Box>
 					</Grid>
 
 					<Grid
 						item
 						xs={12}
 						sm={8}>
-						<Card sx={{ marginLeft: 2, marginRight: 2 }}>
-							<CardContent>
-								<Typography variant="h6">
-									{testUser.name}
-								</Typography>
-								<Typography variant="body2">
-									Member Since:{' '}
-									{testUser.created_at.toLocaleDateString(
-										'en-US',
-										{
-											year: 'numeric',
-											month: 'long',
-										}
-									)}
-								</Typography>
-								<hr />
-								<Typography variant="h6">{`${testUser.name}'s reviews`}</Typography>
-							</CardContent>
-						</Card>
+						<Box
+							sx={{
+								marginLeft: 2,
+								marginRight: 2,
+								textAlign: 'left',
+							}}>
+							<Typography variant="h4">
+								{testUser.name}
+							</Typography>
+							<Typography variant="body2">
+								Member Since:{' '}
+								{testUser.created_at.toLocaleDateString(
+									'en-US',
+									{
+										year: 'numeric',
+										month: 'long',
+									}
+								)}
+							</Typography>
+							<hr />
+							<Typography variant="h6">{`${testUser.name}'s reviews`}</Typography>
+						</Box>
 					</Grid>
 				</Grid>
 			</Box>
