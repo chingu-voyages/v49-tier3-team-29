@@ -95,7 +95,11 @@ const RecentBooks = () => {
 				</Card>
 			</Stack>
 
-			<MaterialLink component={Link}>View all books</MaterialLink>
+			<MaterialLink
+				component={Link}
+				to="/my-books">
+				View all books
+			</MaterialLink>
 		</Stack>
 	);
 };
