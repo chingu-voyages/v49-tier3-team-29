@@ -1,4 +1,5 @@
 import {
+	Box,
 	ButtonBase,
 	Card,
 	CardContent,
@@ -27,66 +28,68 @@ const UserProfile = () => {
 	let selectedUser = useSelector(state => state.session.user);
 	if (!selectedUser) {
 		selectedUser = testUser;
+		// return <Redirect to="/login" />;
 	}
 	return (
-		<div
-			style={{
-				background: 'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
-			}}>
+		<div>
 			<CssBaseline />
-			<Grid
-				container
-				spacing={2}>
+			<Box
+				sx={{
+					background: 'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
+				}}
+				py={4}>
 				<Grid
-					item
-					xs={12}
-					sm={4}>
-					{' '}
-					<Card>
-						<CardContent>
-							<ButtonBase>
-								<img
-									src={profileImage}
-									className={styles.profileImageLarge}
-									alt="Profile"
-								/>
-							</ButtonBase>
-							<Typography variant="h6">
-								{testUser.username}
-							</Typography>
-							<Typography variant="body1">
-								{testUser.email}
-							</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
+					container
+					spacing={2}>
+					<Grid
+						item
+						xs={12}
+						sm={4}>
+						<Card sx={{ marginLeft: 2, marginRight: 2 }}>
+							<CardContent>
+								<ButtonBase>
+									<img
+										src={profileImage}
+										className={styles.profileImageLarge}
+										alt="Profile"
+									/>
+								</ButtonBase>
+								<Typography variant="h6">
+									{testUser.username}
+								</Typography>
+								<Typography variant="body1">
+									{testUser.email}
+								</Typography>
+							</CardContent>
+						</Card>
+					</Grid>
 
-				<Grid
-					item
-					xs={12}
-					sm={8}>
-					{' '}
-					<Card>
-						<CardContent>
-							<Typography variant="h6">
-								{testUser.name}
-							</Typography>
-							<Typography variant="body2">
-								Member Since:{' '}
-								{testUser.created_at.toLocaleDateString(
-									'en-US',
-									{
-										year: 'numeric',
-										month: 'long',
-									}
-								)}
-							</Typography>
-							<hr />
-							<Typography variant="h6">{`${testUser.name}'s reviews`}</Typography>
-						</CardContent>
-					</Card>
+					<Grid
+						item
+						xs={12}
+						sm={8}>
+						<Card sx={{ marginLeft: 2, marginRight: 2 }}>
+							<CardContent>
+								<Typography variant="h6">
+									{testUser.name}
+								</Typography>
+								<Typography variant="body2">
+									Member Since:{' '}
+									{testUser.created_at.toLocaleDateString(
+										'en-US',
+										{
+											year: 'numeric',
+											month: 'long',
+										}
+									)}
+								</Typography>
+								<hr />
+								<Typography variant="h6">{`${testUser.name}'s reviews`}</Typography>
+							</CardContent>
+						</Card>
+					</Grid>
 				</Grid>
-			</Grid>
+			</Box>
 		</div>
 	);
 };
