@@ -44,6 +44,11 @@ app.get('/', (req, res) => {
 	res.send('Shelf Share API is live!');
 });
 
+app.use((err, req, res, next) => {
+	console.error(err.stack);
+	res.status(500).send('Unknown error');
+});
+
 //* Connect to Database and then Start Server
 connectDB()
 	.then(() => {
