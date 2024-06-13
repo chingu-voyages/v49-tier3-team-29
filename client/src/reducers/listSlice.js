@@ -9,8 +9,8 @@ const initialState = {
 };
 
 // * Fetch list
-export const fetchList = createAsyncThunk('list/', async () => {
-	const request = await axios.get(`${listBaseURL}/`);
+export const fetchList = createAsyncThunk('list/', async username => {
+	const request = await axios.get(`${listBaseURL}/user/${username}`);
 	const response = await request.data;
 	return response;
 });
@@ -35,7 +35,6 @@ const listSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.listInfo = action.payload;
-					state.error = '';
 				}
 			)
 			.addMatcher(

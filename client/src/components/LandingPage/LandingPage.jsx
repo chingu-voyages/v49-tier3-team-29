@@ -10,9 +10,16 @@ import Features from '../Features/Features';
 import Hero from '../Hero/Hero';
 import RecentBooks from '../RecentBooks/RecentBooks';
 import RecentReviews from '../RecentReviews/RecentReviews';
+import { useSelector } from 'react-redux';
 
 const LandingPage = () => {
-	const isAuthenticated = true;
+	const user = useSelector(state => state.session.userInfo);
+	let isAuthenticated = false;
+
+	// Show Logged in components
+	if (user.token) {
+		isAuthenticated = true;
+	}
 
 	return (
 		<div className={styles.LandingPage}>
