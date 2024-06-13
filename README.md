@@ -27,6 +27,40 @@ Meeting Agenda templates (located in the `/docs` directory in this repo):
 - Meeting - Sprint Retrospective, Review, and Planning --> ./docs/meeting-sprint_retrospective_review_and_planning.docx
 - Meeting - Sprint Open Topic Session --> ./docs/meeting-sprint_open_topic_session.docx
 
+## Getting Started
+### Installation
+
+#### 1. Clone repository
+```
+git clone https://github.com/chingu-voyages/v49-tier3-team-29.git
+```
+#### 2. Install npm packages both in "client" and "backend" directory.
+```
+npm install
+```
+#### 3. Create .env file both in "client" and "backend" directory.
+#### client > .env
+```
+# Demo User Credentials
+VITE_DEMO_USERNAME=demo_user
+VITE_DEMO_PASSWORD=demo4929
+VITE_BACKENDURL=https://v49-tier3-team-29.onrender.com
+```
+#### backend > .env
+
+```
+PORT=5001
+DB_URI='mongodb://localhost:27017/your-database-name'
+BREVO_USERID='your-brevo-user-id' 👈️ This variable is required *only* for password reset function. Our team created and used one Breavo account under free-of-charge pricing tier. 
+BREVO_PASS='your-brevo-password' 👈️ You can create one and go to https://app.brevo.com/settings/keys/smtp to get your credentials. 
+JWT_SECRET='your-jwt' 
+DEMOUSER_PASSWORD='password'
+```
+#### 4. Run app on client terminal and on backend terminal too.
+```
+npm run dev
+```
+
 ## Our Team
 
 Everyone on your team should add their name along with a link to their GitHub
