@@ -9,11 +9,31 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import PropTypes from 'prop-types';
 
 const TableComponent = ({ rowHeaders, data }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
+	const [orderBy, setOrderBy] = useState('');
+	const [order, setOrder] = useState('asc');
+
+	const handleRequestSort = property => {
+		const isAsc = orderBy === property && order === 'asc';
+		setOrderBy(property);
+		setOrder(isAsc ? 'desc' : 'asc');
+	};
+
+	const sortedData = data.slice().sort((a, b) => {
+		const valueA = a[orderBy] || '';
+		const valueB = b[orderBy] || '';
+		if (order === 'asc') {
+			return valueA.localeCompare(valueB);
+		} else {
+			return valueB.localeCompare(valueA);
+		}
+	});
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -30,81 +50,97 @@ const TableComponent = ({ rowHeaders, data }) => {
 
 	return (
 		<div>
-			<div style={{ overflow: 'auto', maxHeight: '70vh' }}>
-				<TableContainer component={Paper}>
-					<Table
-						sx={{
-							minWidth: 650,
-							'& .MuiTableCell-root': {
-								maxWidth: '200px', // Set the maximum width for all TableCell components
-								overflow: 'hidden', // Optional: Handle overflow content
-								// textOverflow: 'ellipsis', // Optional: Add ellipsis for overflow content
-								whiteSpace: 'wrap', // Optional: Prevent text wrapping
-							},
-						}}
-						aria-label="simple table">
-						<TableHead>
-							<TableRow>
-								{rowHeaders.map(header => (
-									<TableCell key={header}>{header}</TableCell>
-								))}
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{data
-								.slice(
-									page * rowsPerPage,
-									page * rowsPerPage + rowsPerPage
-								)
-								.map(row => (
-									<TableRow
-										key={row.title}
+			<TableContainer component={Paper}>
+				<Table
+					sx={{
+						maxHeight: 'auto',
+						minWidth: 650,
+						'& .MuiTableCell-root': {
+							maxWidth: '200px',
+							overflow: 'hidden',
+							whiteSpace: 'wrap',
+						},
+					}}
+					aria-label="simple table">
+					<TableHead>
+						<TableRow
+							style={{
+								position: 'sticky',
+								top: 0,
+								zIndex: 1,
+							}}>
+							{rowHeaders.map(header => (
+								<TableCell key={header}>
+									<Button
+										onClick={() =>
+											handleRequestSort(header)
+										}
+										startIcon={
+											orderBy === header ? (
+												order === 'asc' ? (
+													<ArrowUpwardIcon />
+												) : (
+													<ArrowDownwardIcon />
+												)
+											) : null
+										}>
+										{header}
+									</Button>
+								</TableCell>
+							))}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{sortedData
+							.slice(
+								page * rowsPerPage,
+								page * rowsPerPage + rowsPerPage
+							)
+							.map(row => (
+								<TableRow
+									key={row.title}
+									sx={{
+										'&:last-child td, &:last-child th': {
+											border: 0,
+										},
+									}}>
+									<TableCell
+										component="img"
+										src={row.cover}
+										scope="row"
 										sx={{
-											'&:last-child td, &:last-child th':
-												{
-													border: 0,
-												},
-										}}>
-										<TableCell
-											component="img"
-											src={row.cover}
-											scope="row"
+											maxHeight: '100px',
+											maxWidth: '100px',
+										}}
+									/>
+									<TableCell align="left">
+										{row.title}
+									</TableCell>
+									<TableCell align="left">
+										{row.author}
+									</TableCell>
+									<TableCell align="left">
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={() => handleRemove(row)}
 											sx={{
-												maxHeight: '100px',
-												maxWidth: '100px',
-											}}></TableCell>
-										<TableCell align="left">
-											{row.title}
-										</TableCell>
-										<TableCell align="left">
-											{row.author}
-										</TableCell>
-										<TableCell align="left">
-											<Button
-												variant="contained"
-												color="primary"
-												onClick={() =>
-													handleRemove(row)
-												}
+												width: '10px',
+												height: '40px',
+											}}>
+											<DeleteIcon
 												sx={{
-													width: '10px',
-													height: '40px',
-												}}>
-												<DeleteIcon
-													sx={{
-														width: '80%',
-														height: 'auto',
-													}}
-												/>{' '}
-												{/* Center the icon */}
-											</Button>
-										</TableCell>
-									</TableRow>
-								))}
-						</TableBody>
-					</Table>
-				</TableContainer>
-			</div>
+													width: '80%',
+													height: 'auto',
+												}}
+											/>
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+					</TableBody>
+				</Table>
+			</TableContainer>
 			<TablePagination
 				rowsPerPageOptions={[5, 10, 25]}
 				component="div"

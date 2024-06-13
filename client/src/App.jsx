@@ -41,8 +41,8 @@ function App() {
 							<Route
 								path="/user-profile"
 								element={<UserProfile />}
-              />
-              <Route
+							/>
+							<Route
 								path="/my-books"
 								element={<MyBooks />}
 							/>

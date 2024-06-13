@@ -1,4 +1,4 @@
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import TableComponent from '../shared/TableComponent/TableComponent';
 import styles from './MyBooks.module.css';
 
@@ -68,16 +68,20 @@ const data = [
 ];
 
 const MyBooks = () => (
-	<div
-		style={{
-			padding: 20,
-		}}>
+	<div>
 		<CssBaseline />
-		<h3 className={styles.header}>My Books</h3>
-		<TableComponent
-			rowHeaders={rowHeaders}
-			data={data}
-		/>
+		<Box
+			sx={{
+				background: 'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
+				padding: { xs: 0, sm: 4 },
+			}}
+			py={4}>
+			<h3 className={styles.header}>My Books</h3>
+			<TableComponent
+				rowHeaders={rowHeaders}
+				data={data}
+			/>
+		</Box>
 	</div>
 );
 
