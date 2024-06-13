@@ -16,7 +16,9 @@ export const getAllBooks = async (req, res) => {
 		// Fetch reviews for all books in parallel
 		const booksWithReviews = await Promise.all(
 			randomBooks.map(async book => {
-				const reviews = await Review.find({ bookId: book._id });
+				const reviews = await Review.find({ bookId: book._id })
+					.populate('userId')
+					.exec();
 				return { ...book.toObject(), reviews };
 			})
 		);

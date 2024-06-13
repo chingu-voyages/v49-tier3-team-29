@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-//* get all reviews by user
+//* get all reviews by username
 router.get('/users/:username', getAllUserReviews);
 
 //* get all reviews by bookId
@@ -19,7 +19,7 @@ router.get('/:bookId', getAllBookReviews);
 router.post('/', createReview);
 
 //* update review
-router.patch('/:bookId', updateReview)
+router.patch('/:bookId', updateReview);
 
 //* delete review
 router.delete('/:username/:bookId', deleteReview);

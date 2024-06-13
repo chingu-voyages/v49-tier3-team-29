@@ -1,12 +1,12 @@
 import styles from './LoginPage.module.css';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../reducers/userSlice';
 
 const LoginPage = () => {
@@ -14,13 +14,29 @@ const LoginPage = () => {
 	const [password, setPassword] = useState('');
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	// Check is user exists in store
+	const user = useSelector(state => state.session.userInfo);
+
+	// Navigate to landing page if user is logged in
+	useEffect(() => {
+		if (user.token) {
+			navigate('/');
+		}
+	});
 
 	const handleSubmission = async () => {
 		const userCredentials = {
 			username,
 			password,
 		};
-		await dispatch(loginUser(userCredentials));
+		const response = await dispatch(loginUser(userCredentials));
+
+		// Navigate to landing page if login was successful
+		if (response.payload) {
+			navigate('/');
+		}
 	};
 
 	const handleDemoUser = async () => {
@@ -28,7 +44,6 @@ const LoginPage = () => {
 			username: import.meta.env.VITE_DEMO_USERNAME,
 			password: import.meta.env.VITE_DEMO_PASSWORD,
 		};
-		console.log(userCredentials);
 
 		await dispatch(loginUser(userCredentials));
 	};
@@ -50,16 +65,16 @@ const LoginPage = () => {
 				elevation={3}
 				className={styles.paper}>
 				<Typography
-					variant='h2'
-					component='h2'
-					align='center'
+					variant="h2"
+					component="h2"
+					align="center"
 					gutterBottom>
 					shelf<span style={{ fontWeight: 'bold' }}>share</span>
 				</Typography>
 				<Typography
-					variant='body1'
-					component='p'
-					align='center'
+					variant="body1"
+					component="p"
+					align="center"
 					gutterBottom>
 					SIGN IN
 				</Typography>
@@ -71,8 +86,8 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant='outlined'
-								label='Username'
+								variant="outlined"
+								label="Username"
 								fullWidth
 								autoFocus
 								value={username}
@@ -84,9 +99,9 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<TextField
-								variant='outlined'
-								label='Password'
-								type='password'
+								variant="outlined"
+								label="Password"
+								type="password"
 								fullWidth
 								value={password}
 								onChange={e => setPassword(e.target.value)}
@@ -97,11 +112,11 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<Typography
-								variant='body1'
+								variant="body1"
 								component={Link}
-								align='center'
+								align="center"
 								gutterBottom
-								to='/forgot-password'>
+								to="/forgot-password">
 								Forgot password
 							</Typography>
 						</Grid>
@@ -109,8 +124,8 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<Button
-								variant='contained'
-								color='primary'
+								variant="contained"
+								color="primary"
 								onClick={() => {
 									if (username === '' || password === '') {
 										alert('Please fill out all fields');
@@ -142,9 +157,9 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<Typography
-								variant='body1'
-								component='p'
-								align='center'
+								variant="body1"
+								component="p"
+								align="center"
 								gutterBottom>
 								New to Shelfshare?
 							</Typography>
@@ -153,10 +168,10 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<Button
-								variant='contained'
-								color='primary'
+								variant="contained"
+								color="primary"
 								component={Link}
-								to='/signup'
+								to="/signup"
 								sx={{ width: '25%' }}>
 								Sign Up
 							</Button>
