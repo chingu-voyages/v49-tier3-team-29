@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { userBaseURL, authBaseURL } from "../utils/baseUrl";
+import { userBaseURL } from "../utils/baseUrl";
 
 const initialState = {
   loading: false,
@@ -21,7 +21,7 @@ export const loginUser = createAsyncThunk(
 
 // * Logout User
 export const logoutUser = createAsyncThunk("user/logoutUser", async () => {
-  const request = await axios.get(`${authBaseURL}/logout`);
+  const request = await axios.post(`${userBaseURL}/logout`);
   const response = await request.data;
   return response;
 });
