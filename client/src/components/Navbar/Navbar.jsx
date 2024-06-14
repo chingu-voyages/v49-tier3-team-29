@@ -9,20 +9,28 @@ import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import { alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import theme from '../../theme';
 import { useState } from 'react';
-import { Divider, Menu, MenuItem, Tooltip } from '@mui/material';
-import { fetchBook } from '../../reducers/bookSlice';
-import { useDispatch } from 'react-redux';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import { useSelector } from 'react-redux';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Navbar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
-	// Needs to be changed for getting if a user is logged in or not
-	const isAuthenticated = true;
+
+	// Check is user exists in store
+	const user = useSelector(state => state.session.userInfo);
+	let isAuthenticated = false;
+	if (user.token) {
+		isAuthenticated = true;
+	}
 
 	const [search, setSearch] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
@@ -131,22 +139,25 @@ const Navbar = () => {
 										}}>
 										<SearchIcon />
 									</Box>
-									<form onSubmit={handleSearch}>
-										<InputBase
-											placeholder='Search…'
-											value={search}
-											onChange={e =>
-												setSearch(e.target.value)
-											}
-											sx={{
-												color: 'inherit',
-												width: '100%',
-												'& .MuiInputBase-input': {
-													padding: theme.spacing(
-														1,
-														1,
-														1,
-														0
+									<InputBase
+										placeholder='Search…'
+										sx={{
+											color: 'inherit',
+											width: '100%',
+											'& .MuiInputBase-input': {
+												padding: theme.spacing(
+													1,
+													1,
+													1,
+													0
+												),
+												// vertical padding + font size from searchIcon
+												paddingLeft: `calc(1em + ${theme.spacing(
+													4
+												)})`,
+												transition:
+													theme.transitions.create(
+														'width'
 													),
 													// vertical padding + font size from searchIcon
 													paddingLeft: `calc(1em + ${theme.spacing(
@@ -182,7 +193,13 @@ const Navbar = () => {
 									aria-controls='menu-appbar'
 									aria-haspopup='true'
 									onClick={handleMenu}>
-									<AccountCircleIcon fontSize='large'></AccountCircleIcon>
+									{user.userImage ? (
+										<Avatar
+											fontSize='large'
+											src={user.userImage}></Avatar>
+									) : (
+										<AccountCircle fontSize='large'></AccountCircle>
+									)}
 								</IconButton>
 							</Tooltip>
 							<Menu
@@ -203,7 +220,10 @@ const Navbar = () => {
 								<MenuItem onClick={handleClose}>
 									Profile
 								</MenuItem>
-								<MenuItem onClick={handleClose}>
+								<MenuItem
+									onClick={handleClose}
+									component={Link}
+									to='/my-books'>
 									My Books
 								</MenuItem>
 								<Divider></Divider>
@@ -278,8 +298,18 @@ const Navbar = () => {
 						display: { xs: 'flex', sm: 'none' },
 						justifyContent: 'space-around',
 					}}>
-					<Button sx={{ color: 'white' }}>Home</Button>
-					<Button sx={{ color: 'white' }}>My Books</Button>
+					<Button
+						sx={{ color: 'white' }}
+						component={Link}
+						to='/'>
+						Home
+					</Button>
+					<Button
+						sx={{ color: 'white' }}
+						component={Link}
+						to='/my-books'>
+						My Books
+					</Button>
 				</Toolbar>
 			)}
 		</AppBar>

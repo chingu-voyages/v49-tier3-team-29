@@ -78,6 +78,7 @@ const userSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.userInfo = action.payload;
+					state.error = '';
 				}
 			)
 			.addMatcher(
@@ -85,6 +86,7 @@ const userSlice = createSlice({
 				state => {
 					state.loading = false;
 					state.userInfo = {};
+					state.error = '';
 				}
 			)
 			.addMatcher(
@@ -98,7 +100,7 @@ const userSlice = createSlice({
 				},
 				(state, action) => {
 					state.loading = false;
-					state.userInfo = null;
+					state.userInfo = {};
 					state.error = action.error.message;
 					console.log(action.error.message);
 				}
