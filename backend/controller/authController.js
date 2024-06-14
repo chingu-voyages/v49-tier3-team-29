@@ -171,4 +171,19 @@ export const login = async (req, res) => {
 	}
 };
 
+// @desc		Log user out
+// @route		POST	/users/logout
+// @access  private
+export const logoutUser = async (req, res) => {
+  res.cookie("token", "none", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "User is logged out. Cookie is reset and it is no longer valid.",
+  });
+};
+
 export { forgotPassword, resetPassword };
