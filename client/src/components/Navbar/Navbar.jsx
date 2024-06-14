@@ -188,7 +188,10 @@ const Navbar = () => {
 								}}
 								open={Boolean(anchorEl)}
 								onClose={handleClose}>
-								<MenuItem onClick={handleClose}>
+								<MenuItem
+									onClick={handleClose}
+									component={Link}
+									to="/user-profile">
 									Profile
 								</MenuItem>
 								<MenuItem
