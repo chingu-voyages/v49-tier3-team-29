@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	Table,
 	TableBody,
@@ -5,10 +6,22 @@ import {
 	TableContainer,
 	TableRow,
 	Paper,
+	Button,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 const ReviewTableComponent = ({ reviews }) => {
+	const [showFullText, setShowFullText] = useState(
+		Array(reviews.length).fill(false)
+	);
+
+	const toggleTextVisibility = index => {
+		const newVisibility = [...showFullText];
+		newVisibility[index] = !newVisibility[index];
+		setShowFullText(newVisibility);
+	};
+
 	return (
 		<TableContainer
 			component={Paper}
@@ -50,8 +63,42 @@ const ReviewTableComponent = ({ reviews }) => {
 								<div>{review.title}</div>
 							</TableCell>
 							<TableCell>{review.rating}</TableCell>
-							<TableCell>{review.text}</TableCell>
-							<TableCell>{review.created_at}</TableCell>
+							<TableCell>
+								{showFullText[index] ? (
+									<div>
+										{review.text}
+										<Button
+											onClick={() =>
+												toggleTextVisibility(index)
+											}>
+											Read Less
+										</Button>
+									</div>
+								) : (
+									<div>
+										{review.text.length > 300
+											? `${review.text.substring(
+													0,
+													300
+											  )}...`
+											: review.text}
+										{review.text.length > 300 && (
+											<Button
+												onClick={() =>
+													toggleTextVisibility(index)
+												}>
+												Read More
+											</Button>
+										)}
+									</div>
+								)}
+							</TableCell>
+							<TableCell>
+								{review.created_at.toLocaleDateString('en-US', {
+									year: 'numeric',
+									month: 'long',
+								})}
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
