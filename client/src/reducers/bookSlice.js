@@ -5,6 +5,7 @@ import { bookBaseURL } from '../utils/baseUrl';
 const initialState = {
 	loading: false,
 	bookInfo: {},
+	searchResults: [],
 	error: '',
 };
 
@@ -50,12 +51,12 @@ const bookSlice = createSlice({
 				},
 				state => {
 					state.loading = true;
+					state.searchResults = null;
 				}
 			)
 			.addMatcher(
 				action => {
 					return (
-						action.type === fetchBook.fulfilled.type ||
 						action.type === fetchAllBooks.fulfilled.type ||
 						action.type === fetchLandingBooks.fulfilled.type
 					);
@@ -63,6 +64,14 @@ const bookSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.bookInfo = action.payload;
+				}
+			)
+			.addMatcher(
+				action => action.type === fetchBook.fulfilled.type,
+				(state, action) => {
+					state.loading = false;
+					state.searchResults = [...action.payload];
+					state.error = '';
 				}
 			)
 			.addMatcher(
@@ -76,6 +85,7 @@ const bookSlice = createSlice({
 				(state, action) => {
 					state.loading = false;
 					state.bookInfo = {};
+					state.searchResults = null;
 					state.error = action.error.message;
 				}
 			);
