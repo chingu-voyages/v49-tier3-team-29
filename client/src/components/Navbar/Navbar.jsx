@@ -32,22 +32,6 @@ const Navbar = () => {
 		isAuthenticated = true;
 	}
 
-	const [search, setSearch] = useState('');
-	const [searchResults, setSearchResults] = useState([]);
-
-	const dispatch = useDispatch();
-
-	const handleSearch = async e => {
-		e.preventDefault();
-
-		if (!search) return;
-		try {
-			await dispatch(fetchBook(search));
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
 	const handleMenu = event => {
 		setAnchorEl(event.target);
 	};
@@ -159,30 +143,17 @@ const Navbar = () => {
 													theme.transitions.create(
 														'width'
 													),
-													// vertical padding + font size from searchIcon
-													paddingLeft: `calc(1em + ${theme.spacing(
-														4
-													)})`,
-													transition:
-														theme.transitions.create(
-															'width'
-														),
-													[theme.breakpoints.up(
-														'sm'
-													)]: {
-														// on screen sizes sm and up width starts at 12 characters and moves to 20 on focus
-														width: '12ch',
-														'&:focus': {
-															width: '20ch',
-														},
+												[theme.breakpoints.up('sm')]: {
+													// on screen sizes sm and up width starts at 12 characters and moves to 20 on focus
+													width: '12ch',
+													'&:focus': {
+														width: '20ch',
 													},
 												},
-											}}
-											inputProps={{
-												'aria-label': 'search',
-											}}
-										/>
-									</form>
+											},
+										}}
+										inputProps={{ 'aria-label': 'search' }}
+									/>
 								</Box>
 							</Box>
 
