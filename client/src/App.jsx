@@ -59,7 +59,7 @@ function App() {
 							element={<ResetPasswordPage />}
 						/>
 						<Route
-							path="/book/:id"
+							path="/book/:ISBN"
 							element={<BookPage />}
 						/>
 					</Routes>
