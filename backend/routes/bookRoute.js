@@ -1,7 +1,6 @@
 import express from 'express';
 import {
 	getAllBooks,
-	getBookById,
 	getBooksBySearchQuery,
 } from '../controller/bookController.js';
 
@@ -11,6 +10,6 @@ const router = express.Router();
 router.get('/', getAllBooks);
 
 //* get book by search query
-router.get('/search/:searchQuery', getBooksBySearchQuery);
+router.get('/search/:field/:searchQuery', getBooksBySearchQuery);
 
 export default router;

@@ -5,22 +5,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBook } from '../../reducers/bookSlice';
 
 const BookPage = () => {
-	const { ISBN } = useParams();
+	const { field, searchQuery } = useParams();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		async function fetchData() {
-			await dispatch(fetchBook({ ISBN }));
-		}
+		const fetchData = async () => {
+			await dispatch(fetchBook({ field, searchQuery }));
+		};
+
 		fetchData();
-	}, [dispatch, ISBN]);
+	}, [dispatch, field, searchQuery]);
 
 	const book = useSelector(state => state.book.bookInfo);
 
 	return (
 		<>
-			<div>ISBN</div>
-			<div>${book}</div>
+			<div>{field}</div>
+			<div>{searchQuery}</div>
+			<div>{book.title}</div>
 		</>
 		// <div>
 		// 	{book && (

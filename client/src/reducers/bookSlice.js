@@ -16,11 +16,13 @@ export const fetchAllBooks = createAsyncThunk('book/allBooks', async () => {
 });
 
 // * Fetch book by title, author, genre, or ISBN
-export const fetchBook = createAsyncThunk('book/bookQuery', async query => {
-	const request = await axios.get(`${bookBaseURL}/search`, { params: query });
-	const response = await request.data;
-	return response;
-});
+export const fetchBook = createAsyncThunk(
+	'book/bookQuery',
+	async ({ field, searchQuery }) => {
+		const response = await axios.get(`/search/${field}/${searchQuery}`);
+		return response.data;
+	}
+);
 
 const bookSlice = createSlice({
 	name: 'book',

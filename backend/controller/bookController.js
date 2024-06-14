@@ -31,23 +31,66 @@ export const getAllBooks = async (req, res) => {
 // @desc		Get books by author name or genre title or ISBN
 // @route		GET	/books/search/:searchQuery
 
+// export const getBooksBySearchQuery = async (req, res) => {
+// 	try {
+// 		const searchQuery = req.params.searchQuery;
+// 		const booksBySearchQuery = await Book.find({
+// 			$or: [
+// 				{ author: { $regex: searchQuery, $options: 'i' } },
+// 				{ title: { $regex: searchQuery, $options: 'i' } },
+// 				{ ISBN: searchQuery },
+// 				{ genre: searchQuery },
+// 			],
+// 		});
+
+// 		if (booksBySearchQuery.length === 0) {
+// 			return res.status(404).json({ message: 'No books found' });
+// 		}
+
+// 		// Fetch reviews for all books in parallel
+// 		const booksWithReviews = await Promise.all(
+// 			booksBySearchQuery.map(async book => {
+// 				const reviews = await Review.find({ bookId: book._id });
+// 				return { ...book.toObject(), reviews };
+// 			})
+// 		);
+
+// 		res.json(booksWithReviews);
+// 	} catch (err) {
+// 		res.status(500).json({ message: err.message });
+// 	}
+// };
+
 export const getBooksBySearchQuery = async (req, res) => {
 	try {
-		const searchQuery = req.params.searchQuery;
-		const booksBySearchQuery = await Book.find({
-			$or: [
-				{ author: { $regex: searchQuery, $options: 'i' } },
-				{ title: { $regex: searchQuery, $options: 'i' } },
-				{ ISBN: searchQuery },
-				{ genre: searchQuery },
-			],
-		});
+		const { field, searchQuery } = req.params;
+		let query = {};
+
+		switch (field) {
+			case 'author':
+				query = { author: { $regex: searchQuery, $options: 'i' } };
+				break;
+			case 'title':
+				query = { title: { $regex: searchQuery, $options: 'i' } };
+				break;
+			case 'ISBN':
+				query = { ISBN: searchQuery };
+				break;
+			case 'genre':
+				query = { genre: { $regex: searchQuery, $options: 'i' } };
+				break;
+			default:
+				return res
+					.status(400)
+					.json({ message: 'Invalid field specified' });
+		}
+
+		const booksBySearchQuery = await Book.find(query);
 
 		if (booksBySearchQuery.length === 0) {
 			return res.status(404).json({ message: 'No books found' });
 		}
 
-		// Fetch reviews for all books in parallel
 		const booksWithReviews = await Promise.all(
 			booksBySearchQuery.map(async book => {
 				const reviews = await Review.find({ bookId: book._id });
