@@ -44,7 +44,7 @@ npm install
 # Demo User Credentials
 VITE_DEMO_USERNAME=demo_user
 VITE_DEMO_PASSWORD=demo4929
-VITE_BACKENDURL=https://v49-tier3-team-29.onrender.com
+VITE_BACKENDURL=http://localhost:5001 👈️ The backend URL varies based on your local environment.
 ```
 #### backend > .env
 
@@ -52,11 +52,11 @@ VITE_BACKENDURL=https://v49-tier3-team-29.onrender.com
 PORT=5001
 DB_URI='mongodb://localhost:27017/your-database-name'
 BREVO_USERID='your-brevo-user-id' 👈️ This variable is required *only* for password reset function. Our team created and used one Breavo account under free-of-charge pricing tier. 
-BREVO_PASS='your-brevo-password' 👈️ You can create one and go to https://app.brevo.com/settings/keys/smtp to get your credentials. 
+BREVO_PASS='your-brevo-password' 👈️ You can create your account and go to https://app.brevo.com/settings/keys/smtp to get your credentials. 
 JWT_SECRET='your-jwt' 
-DEMOUSER_PASSWORD='password'
+DEMOUSER_PASSWORD=demo4929 👈️ Demo user password should be identical with .env in client.
 ```
-#### 4. Run app on client terminal and on backend terminal too.
+#### 4. Run app on client terminal and on backend terminal.
 ```
 npm run dev
 ```
