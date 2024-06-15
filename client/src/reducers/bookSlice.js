@@ -5,7 +5,7 @@ import { bookBaseURL } from '../utils/baseUrl';
 const initialState = {
 	loading: false,
 	bookInfo: {},
-	searchResults: [],
+	searchResults: {},
 	error: '',
 };
 
@@ -70,7 +70,7 @@ const bookSlice = createSlice({
 				action => action.type === fetchBook.fulfilled.type,
 				(state, action) => {
 					state.loading = false;
-					state.searchResults = [...action.payload];
+					state.searchResults = action.payload;
 					state.error = '';
 				}
 			)
