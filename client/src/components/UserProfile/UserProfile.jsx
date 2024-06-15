@@ -1,7 +1,9 @@
 import { Box, ButtonBase, CssBaseline, Grid, Typography } from '@mui/material';
 import styles from './UserProfile.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReviewTableComponent from '../shared/ReviewTableComponent/ReviewTableComponent';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const testReviews = [
 	{
@@ -91,15 +93,18 @@ const profileImage =
 	'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
 
 const UserProfile = () => {
-	let selectedUser = useSelector(state => state.session.user);
-	if (!selectedUser) {
-		selectedUser = testUser;
-		// return <Redirect to="/login" />;
-	}
-	let selectedReviews = useSelector(state => state.review);
-	if (!selectedReviews) {
-		selectedReviews = testReviews;
-	}
+	let navigate = useNavigate();
+	const dispatch = useDispatch();
+	let selectedUser = useSelector(state => state.session.userInfo);
+	//let selectedReviews = useSelector(state => state.review.reviewInfo);
+
+	useEffect(() => {
+		if (!selectedUser.username) {
+			return navigate('/login');
+		}
+		// dispatch(fetchUserReviews(selectedUser.username));
+	}, [dispatch, navigate, selectedUser.username]);
+
 	return (
 		<div>
 			<CssBaseline />
@@ -118,16 +123,16 @@ const UserProfile = () => {
 						<Box sx={{ marginLeft: 2, marginRight: 2 }}>
 							<ButtonBase>
 								<img
-									src={profileImage}
+									src={selectedUser.userImage}
 									className={styles.profileImageLarge}
 									alt="Profile"
 								/>
 							</ButtonBase>
 							<Typography variant="h6">
-								{testUser.username}
+								{selectedUser.username}
 							</Typography>
 							<Typography variant="body1">
-								{testUser.email}
+								{selectedUser.email}
 							</Typography>
 						</Box>
 					</Grid>
@@ -143,8 +148,9 @@ const UserProfile = () => {
 								textAlign: 'left',
 							}}>
 							<Typography variant="h4">
-								{testUser.name}
+								{selectedUser.name}
 							</Typography>
+
 							<Typography variant="body2">
 								Member Since:{' '}
 								{testUser.created_at.toLocaleDateString(
@@ -156,7 +162,7 @@ const UserProfile = () => {
 								)}
 							</Typography>
 							<hr />
-							<Typography variant="h6">{`${testUser.name}'s Reviews (${testReviews.length})`}</Typography>
+							<Typography variant="h6">{`${selectedUser.name}'s Reviews (${testReviews.length})`}</Typography>
 							<ReviewTableComponent
 								reviews={testReviews}></ReviewTableComponent>
 						</Box>
