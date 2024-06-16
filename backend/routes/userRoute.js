@@ -6,12 +6,15 @@ import {
 	deactivate,
 } from '../controller/userController.js';
 import { login, newUser } from '../controller/authController.js';
+import { authLimiter } from '../middleware/limiter.js';
 
 const router = express.Router();
-
+//* Login user
 router.post('/login', login);
 
+//* Register new user
 router.post('/register', newUser);
+
 //* get all users
 router.get('/', getAllUsers);
 
