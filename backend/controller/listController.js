@@ -67,6 +67,8 @@ export const getListByUsername = async (req, res) => {
 	}
 };
 
+// @desc   Remove book from list
+// @route  PATCH  /lists/:listId/
 export const removeListBook = async (req, res) => {
 	try {
 		const { listId } = req.params;

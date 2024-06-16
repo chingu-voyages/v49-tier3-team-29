@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import theme from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchAllBooks } from '../../reducers/bookSlice';
+import { fetchLandingBooks } from '../../reducers/bookSlice';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -15,7 +15,7 @@ const Hero = () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			await dispatch(fetchAllBooks());
+			await dispatch(fetchLandingBooks());
 		}
 		fetchData();
 	}, [dispatch]);
@@ -49,8 +49,8 @@ const Hero = () => {
 						gap={1}>
 						<StarIcon
 							sx={{ fill: 'gold' }}
-							fontSize="large"></StarIcon>
-						<Typography variant="h5">
+							fontSize='large'></StarIcon>
+						<Typography variant='h5'>
 							{books[0].reviews.reduce(
 								(acc, curr) => acc + curr.rating,
 								0
@@ -82,8 +82,8 @@ const Hero = () => {
 						gap={1}>
 						<StarIcon
 							sx={{ fill: 'gold' }}
-							fontSize="large"></StarIcon>
-						<Typography variant="h5">
+							fontSize='large'></StarIcon>
+						<Typography variant='h5'>
 							{books[1].reviews.reduce(
 								(acc, curr) => acc + curr.rating,
 								0
@@ -116,8 +116,8 @@ const Hero = () => {
 						gap={1}>
 						<StarIcon
 							sx={{ fill: 'gold' }}
-							fontSize="large"></StarIcon>
-						<Typography variant="h5">
+							fontSize='large'></StarIcon>
+						<Typography variant='h5'>
 							{books[2].reviews.reduce(
 								(acc, curr) => acc + curr.rating,
 								0
@@ -150,8 +150,8 @@ const Hero = () => {
 						gap={1}>
 						<StarIcon
 							sx={{ fill: 'gold' }}
-							fontSize="large"></StarIcon>
-						<Typography variant="h5">
+							fontSize='large'></StarIcon>
+						<Typography variant='h5'>
 							{books[3].reviews.reduce(
 								(acc, curr) => acc + curr.rating,
 								0
@@ -184,8 +184,8 @@ const Hero = () => {
 						gap={1}>
 						<StarIcon
 							sx={{ fill: 'gold' }}
-							fontSize="large"></StarIcon>
-						<Typography variant="h5">
+							fontSize='large'></StarIcon>
+						<Typography variant='h5'>
 							{books[4].reviews.reduce(
 								(acc, curr) => acc + curr.rating,
 								0
@@ -199,7 +199,7 @@ const Hero = () => {
 	return (
 		<Box>
 			<Box textAlign={{ sm: 'left' }}>
-				<Typography variant="h5">
+				<Typography variant='h5'>
 					What are{' '}
 					<span
 						style={{
