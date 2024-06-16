@@ -39,4 +39,5 @@ coding!
 - Alex Hunt: [GitHub](https://github.com/alexh205) / [LinkedIn](https://www.linkedin.com/in/alexhse/)
 - Jared Sinai Hernandez [GitHub](https://github.com/jaredsina) / [LinkedIn](https://www.linkedin.com/in/jaredsina/)
    ...
-- Jeison Infante: [GitHub](https://github.com/JeisonRd) 
+- Jeison Infante: [GitHub](https://github.com/JeisonRd)
+- Jackie Leary: [GitHub](https://github.com/jackie-leary) / [LinkedIn](https://www.linkedin.com/in/jacqueline-leary-9a708111b/)
