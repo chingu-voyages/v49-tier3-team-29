@@ -79,7 +79,7 @@ export const fetchUser = createAsyncThunk(
 					Authorization: `Bearer ${accessToken}`,
 				},
 			});
-			console.log('response.data', response.data);
+
 			return response.data;
 		} catch (err) {
 			return rejectWithValue(err.response.data);

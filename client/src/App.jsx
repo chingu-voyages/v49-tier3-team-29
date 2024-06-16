@@ -41,13 +41,15 @@ function App() {
 	}, [dispatch, storedRefreshToken, user.username, initialLoad]);
 
 	useEffect(() => {
-		if (initialLoad) {
-			if (accessToken || !user.username) {
-				dispatch(fetchUser());
-			}
-			setInitialLoad(false);
+		if (!user.username && storedRefreshToken) {
+			dispatch(refreshToken()).then(() => {
+				if (accessToken) {
+					dispatch(fetchUser());
+				}
+			});
 		}
-	}, [dispatch, accessToken, user.username, initialLoad]);
+	}, [dispatch, storedRefreshToken, accessToken, user.username]);
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>

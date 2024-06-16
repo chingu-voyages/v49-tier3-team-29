@@ -38,7 +38,6 @@ const TableComponent = ({ rowHeaders, data }) => {
 		bookDispatch();
 		console.log('Remove button clicked for row:', row);
 	};
-	// console.log('data:', data);
 
 	return (
 		<div>

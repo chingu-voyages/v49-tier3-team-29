@@ -13,7 +13,11 @@ export const transporter = nodemailer.createTransport({
 });
 
 export const generateToken = (user, expiresIn) => {
-	return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-		expiresIn,
-	});
+	return jwt.sign(
+		{ id: user._id, username: user.username },
+		process.env.JWT_SECRET,
+		{
+			expiresIn: expiresIn,
+		}
+	);
 };
