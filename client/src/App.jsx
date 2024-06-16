@@ -16,11 +16,12 @@ import Footer from './components/Footer/Footer.jsx';
 import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
+import SearchPage from './components/SearchPage/SearchPage.jsx';
 import MyBooks from './components/MyBooks/MyBooks.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	// const [count, setCount] = useState(0);
-
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -46,6 +47,14 @@ function App() {
 								path="/my-books"
 								element={<MyBooks />}
 							/>
+							<Route
+								path="/search"
+								element={<SearchPage />}
+							/>
+							<Route
+								path="/my-books"
+								element={<MyBooks />}
+							/>
 						</Route>
 						<Route
 							path="/login"
@@ -65,6 +74,10 @@ function App() {
 					</Routes>
 				</Router>
 			</ThemeProvider>
+			<ToastContainer
+				position="top-right"
+				autoClose={2500}
+			/>
 		</>
 	);
 }

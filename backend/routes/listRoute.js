@@ -2,9 +2,8 @@ import express from 'express';
 import {
 	removeListBook,
 	getListByUsername,
+	addBookToList,
 } from '../controller/listController.js';
-
-import { addBookToList } from '../controller/listController.js';
 
 const router = express.Router();
 

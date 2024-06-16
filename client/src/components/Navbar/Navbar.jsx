@@ -21,9 +21,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import { useSelector } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useDispatch } from 'react-redux';
+import { fetchBook } from '../../reducers/bookSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [searchTerm, setSearchTerm] = useState('');
 
 	// Check is user exists in store
 	const user = useSelector(state => state.session.userInfo);
@@ -37,6 +44,29 @@ const Navbar = () => {
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
+	};
+
+	const handleChange = event => {
+		event.preventDefault();
+		setSearchTerm(event.target.value);
+	};
+
+	const handleSubmit = async event => {
+		event.preventDefault();
+
+		searchTerm.trim();
+
+		if (!searchTerm) {
+			return alert('Please enter a search term');
+		}
+
+		// fetch book data
+		await dispatch(fetchBook(searchTerm));
+		// clear search term
+		setSearchTerm('');
+
+		// redirect to search page
+		navigate('/search');
 	};
 
 	return (
@@ -79,6 +109,7 @@ const Navbar = () => {
 								<Button
 									sx={{ color: 'white' }}
 									component={Link}
+									onClick={() => setSearchTerm('')}
 									to="/">
 									Home
 								</Button>
@@ -90,71 +121,79 @@ const Navbar = () => {
 								</Button>
 							</Box>
 							<Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-								<Box
-									sx={{
-										position: 'relative',
-										borderRadius: theme.shape.borderRadius,
-										backgroundColor: alpha(
-											theme.palette.common.white,
-											0.15
-										),
-										'&:hover': {
-											backgroundColor: alpha(
-												theme.palette.common.white,
-												0.25
-											),
-										},
-										marginLeft: 0,
-										width: '100%',
-										[theme.breakpoints.up('sm')]: {
-											marginLeft: theme.spacing(1),
-											width: 'auto',
-										},
-									}}>
+								<form onSubmit={handleSubmit}>
 									<Box
 										sx={{
-											padding: theme.spacing(0, 2),
-											height: '100%',
-											position: 'absolute',
-											pointerEvents: 'none',
-											display: 'flex',
-											alignItems: 'center',
-											justifyContent: 'center',
-										}}>
-										<SearchIcon />
-									</Box>
-									<InputBase
-										placeholder="Search…"
-										sx={{
-											color: 'inherit',
-											width: '100%',
-											'& .MuiInputBase-input': {
-												padding: theme.spacing(
-													1,
-													1,
-													1,
-													0
+											position: 'relative',
+											borderRadius:
+												theme.shape.borderRadius,
+											backgroundColor: alpha(
+												theme.palette.common.white,
+												0.15
+											),
+											'&:hover': {
+												backgroundColor: alpha(
+													theme.palette.common.white,
+													0.25
 												),
-												// vertical padding + font size from searchIcon
-												paddingLeft: `calc(1em + ${theme.spacing(
-													4
-												)})`,
-												transition:
-													theme.transitions.create(
-														'width'
+											},
+											marginLeft: 0,
+											width: '100%',
+											[theme.breakpoints.up('sm')]: {
+												marginLeft: theme.spacing(1),
+												width: 'auto',
+											},
+										}}>
+										<Box
+											sx={{
+												padding: theme.spacing(0, 2),
+												height: '100%',
+												position: 'absolute',
+												pointerEvents: 'none',
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+											}}>
+											<SearchIcon />
+										</Box>
+										<InputBase
+											placeholder="Search…"
+											onChange={handleChange}
+											sx={{
+												color: 'inherit',
+												width: '100%',
+												'& .MuiInputBase-input': {
+													padding: theme.spacing(
+														1,
+														1,
+														1,
+														0
 													),
-												[theme.breakpoints.up('sm')]: {
-													// on screen sizes sm and up width starts at 12 characters and moves to 20 on focus
-													width: '12ch',
-													'&:focus': {
-														width: '20ch',
+													// vertical padding + font size from searchIcon
+													paddingLeft: `calc(1em + ${theme.spacing(
+														4
+													)})`,
+													transition:
+														theme.transitions.create(
+															'width'
+														),
+													[theme.breakpoints.up(
+														'sm'
+													)]: {
+														// on screen sizes sm and up width starts at 12 characters and moves to 20 on focus
+														width: '12ch',
+														'&:focus': {
+															width: '20ch',
+														},
 													},
 												},
-											},
-										}}
-										inputProps={{ 'aria-label': 'search' }}
-									/>
-								</Box>
+											}}
+											inputProps={{
+												'aria-label': 'search',
+											}}
+										/>
+									</Box>
+								</form>
 							</Box>
 
 							<Tooltip title="Open Account Options">
@@ -275,6 +314,7 @@ const Navbar = () => {
 					<Button
 						sx={{ color: 'white' }}
 						component={Link}
+						onClick={() => setSearchTerm('')}
 						to="/">
 						Home
 					</Button>
