@@ -5,3 +5,4 @@ export const bookBaseURL = `${backendURL}/books`;
 export const userBaseURL = `${backendURL}/users`;
 export const listBaseURL = `${backendURL}/lists`;
 export const reviewBaseURL = `${backendURL}/reviews`;
+export const authBaseURL = `${backendURL}/auth`;

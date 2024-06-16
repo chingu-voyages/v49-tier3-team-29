@@ -10,14 +10,36 @@ import Features from '../Features/Features';
 import Hero from '../Hero/Hero';
 import RecentBooks from '../RecentBooks/RecentBooks';
 import RecentReviews from '../RecentReviews/RecentReviews';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchUser, refreshToken } from '../../reducers/userSlice';
 
 const LandingPage = () => {
-	const user = useSelector(state => state.session.userInfo);
+	const dispatch = useDispatch();
+	const { user, accessToken } = useSelector(state => state.session);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			dispatch(refreshToken());
+		}, 14 * 60 * 1000); // 14 minutes to refresh before expiry
+		return () => clearInterval(interval);
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (accessToken) {
+			dispatch(fetchUser());
+		}
+	}, [dispatch, accessToken]);
+
+	if (!user) {
+		return <div>Loading...</div>;
+	}
+
+	// const user = useSelector(state => state.session.userInfo);
 	let isAuthenticated = false;
 
 	// Show Logged in components
-	if (user.token) {
+	if (accessToken) {
 		isAuthenticated = true;
 	}
 
@@ -31,7 +53,7 @@ const LandingPage = () => {
 							'linear-gradient(to bottom, #FFEFD5, #FFFFFF)',
 					}}
 					py={4}>
-					<Container maxWidth="lg">
+					<Container maxWidth='lg'>
 						<Hero></Hero>
 						{!isAuthenticated && (
 							<>
@@ -40,19 +62,19 @@ const LandingPage = () => {
 									mb={6}
 									sx={{ display: { sm: 'none' } }}>
 									<Typography
-										variant="h5"
+										variant='h5'
 										fontWeight={700}>
 										Meet your next favorite book.
 									</Typography>
 									<Typography
 										mt={3}
-										variant="body1">
+										variant='body1'>
 										Find and read more books you{"'"}ll
 										love. Be part of Shelfshare, the worlds
 										largest community for readers like you.
 									</Typography>
 									<Button
-										variant="contained"
+										variant='contained'
 										sx={{
 											mt: 3,
 											width: '80%',
@@ -60,23 +82,23 @@ const LandingPage = () => {
 												backgroundColor: 'secondary', // Change this to your preferred color
 											},
 										}}
-										size="large"
+										size='large'
 										component={Link}
-										to="/login">
+										to='/login'>
 										Sign In
 									</Button>
 									<Button
-										variant="outlined"
+										variant='outlined'
 										component={Link}
-										to="/signup"
-										size="large"
+										to='/signup'
+										size='large'
 										sx={{ width: '80%', mt: 2 }}
 										startIcon={
-											<EmailIcon fontSize="small"></EmailIcon>
+											<EmailIcon fontSize='small'></EmailIcon>
 										}>
 										<Typography
 											noWrap
-											variant="button">
+											variant='button'>
 											Sign Up with email
 										</Typography>
 									</Button>
