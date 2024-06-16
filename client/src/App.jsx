@@ -17,6 +17,8 @@ import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPa
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
 import SearchPage from './components/SearchPage/SearchPage.jsx';
 import MyBooks from './components/MyBooks/MyBooks.jsx';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
@@ -63,6 +65,7 @@ function App() {
 					</Routes>
 				</Router>
 			</ThemeProvider>
+ <ToastContainer position="top-right" autoClose={2500} />
 		</>
 	);
 }
