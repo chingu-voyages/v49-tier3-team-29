@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { userBaseURL } from '../utils/baseUrl';
+import { authBaseURL, userBaseURL } from '../utils/baseUrl';
 
 const initialState = {
 	loading: false,
@@ -15,7 +15,7 @@ export const loginUser = createAsyncThunk(
 	'user/loginUser',
 	async userCredentials => {
 		const request = await axios.post(
-			`${userBaseURL}/login`,
+			`${authBaseURL}/login`,
 			userCredentials
 		);
 		const response = await request.data;
@@ -26,7 +26,7 @@ export const loginUser = createAsyncThunk(
 
 // * Logout User
 export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
-	const request = await axios.post(`${userBaseURL}/logout`);
+	const request = await axios.post(`${authBaseURL}/logout`);
 	const response = await request.data;
 	return response;
 });
@@ -35,7 +35,7 @@ export const registerUser = createAsyncThunk(
 	'user/registerUser',
 	async userDetails => {
 		const request = await axios.post(
-			`${userBaseURL}/register`,
+			`${authBaseURL}/register`,
 			userDetails
 		);
 		const response = await request.data;
@@ -44,21 +44,17 @@ export const registerUser = createAsyncThunk(
 	}
 );
 
-// * Authenticate/ restore logged In user
-export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-	const accessToken = localStorage.getItem('accessToken');
-	const response = await axios.get(`${userBaseURL}/register`, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	});
-	return response.data;
+// * Fetch user by username
+export const fetchUser = createAsyncThunk('user/fetchUser', async username => {
+	const request = await axios.get(`${userBaseURL}/${username}`);
+	const response = await request.data;
+	return response;
 });
 
 // * Refresh Token
 export const refreshToken = createAsyncThunk('user/tokenRefresh', async () => {
 	const refreshToken = localStorage.getItem('refreshToken');
-	const response = await axios.post(`${userBaseURL}/register`, {
+	const response = await axios.post(`${authBaseURL}/refresh-token`, {
 		token: refreshToken,
 	});
 	return response.data;

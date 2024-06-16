@@ -1,23 +1,30 @@
 import express from 'express';
-import { forgotPassword, resetPassword } from '../controller/authController.js';
+import {
+	forgotPassword,
+	resetPassword,
+	refreshToken,
+	newUser,
+	login,
+	logoutUser,
+} from '../controller/authController.js';
 const router = express.Router();
 
-//* initiate password reset
+//* Initiate password reset
 router.post('/forgot-password', forgotPassword);
 
-//* process resetting password
+//* Process resetting password
 router.post('/reset-password', resetPassword);
 
 //* Refresh Token
 router.post('/refresh-token', refreshToken);
 
-//* new user
+//* New user
 router.post('/register', newUser);
 
 // * Login user
 router.post('/login', login);
 
-//* log user out
+//* Log user out
 router.post('/logout', logoutUser);
 
 export default router;
