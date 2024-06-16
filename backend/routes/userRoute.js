@@ -5,12 +5,6 @@ import {
 	updateUser,
 	deactivate,
 } from '../controller/userController.js';
-import {
-	login,
-	newUser,
-	logoutUser,
-	refreshToken,
-} from '../controller/authController.js';
 
 const router = express.Router();
 

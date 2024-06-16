@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.cover {
+    width: 30%;
+}

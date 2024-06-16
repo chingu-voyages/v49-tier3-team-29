@@ -25,11 +25,11 @@ const LandingPage = () => {
 		return () => clearInterval(interval);
 	}, [dispatch]);
 
-	useEffect(() => {
-		if (accessToken) {
-			dispatch(fetchUser());
-		}
-	}, [dispatch, accessToken]);
+	// useEffect(() => {
+	// 	if (accessToken) {
+	// 		dispatch(fetchUser());
+	// 	}
+	// }, [dispatch, accessToken]);
 
 	if (!user) {
 		return <div>Loading...</div>;

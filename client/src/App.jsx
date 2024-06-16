@@ -14,28 +14,12 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
+import SearchPage from './components/SearchPage/SearchPage.jsx';
 import MyBooks from './components/MyBooks/MyBooks.jsx';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser, refreshToken } from './reducers/userSlice.js';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	const dispatch = useDispatch();
-	const { accessToken, refreshToken: storedRefreshToken } = useSelector(
-		state => state.session
-	);
-
-	useEffect(() => {
-		if (storedRefreshToken) {
-			dispatch(refreshToken());
-		}
-	}, [dispatch, storedRefreshToken]);
-
-	useEffect(() => {
-		if (accessToken) {
-			dispatch(fetchUser());
-		}
-	}, [dispatch, accessToken]);
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -52,6 +36,10 @@ function App() {
 							<Route
 								path='/'
 								element={<LandingPage />}
+							/>
+							<Route
+								path='/search'
+								element={<SearchPage />}
 							/>
 							<Route
 								path='/my-books'
@@ -76,6 +64,10 @@ function App() {
 					</Routes>
 				</Router>
 			</ThemeProvider>
+			<ToastContainer
+				position='top-right'
+				autoClose={2500}
+			/>
 		</>
 	);
 }

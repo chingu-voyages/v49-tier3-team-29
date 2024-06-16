@@ -30,6 +30,7 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
 	const response = await request.data;
 	return response;
 });
+
 // * Register User
 export const registerUser = createAsyncThunk(
 	'user/registerUser',
@@ -83,7 +84,6 @@ const userSlice = createSlice({
 				action => {
 					return (
 						action.type === loginUser.fulfilled.type ||
-						action.type === refreshToken.fulfilled.type ||
 						action.type === registerUser.fulfilled.type
 					);
 				},
@@ -91,7 +91,29 @@ const userSlice = createSlice({
 					state.loading = false;
 					state.user = action.payload.user;
 					state.accessToken = action.payload.accessToken;
+					localStorage.setItem(
+						'accessToken',
+						action.payload.accessToken
+					);
 					state.refreshToken = action.payload.refreshToken;
+					localStorage.setItem(
+						'refreshToken',
+						action.payload.refreshToken
+					);
+					state.error = '';
+				}
+			)
+			.addMatcher(
+				action => {
+					return action.type === refreshToken.fulfilled.type;
+				},
+				(state, action) => {
+					state.loading = false;
+					state.refreshToken = action.payload.refreshToken;
+					localStorage.setItem(
+						'refreshToken',
+						action.payload.refreshToken
+					);
 					state.error = '';
 				}
 			)
@@ -100,6 +122,10 @@ const userSlice = createSlice({
 				state => {
 					state.loading = false;
 					state.user = {};
+					state.accessToken = null;
+					localStorage.removeItem('accessToken');
+					state.refreshToken = null;
+					localStorage.removeItem('refreshToken');
 					state.error = '';
 				}
 			)

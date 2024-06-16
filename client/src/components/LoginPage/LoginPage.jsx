@@ -8,6 +8,8 @@ import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../reducers/userSlice';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
 	const [username, setUsername] = useState('');
@@ -17,27 +19,46 @@ const LoginPage = () => {
 	const navigate = useNavigate();
 
 	// Check is user exists in store
-	const { accessToken } = useSelector(state => state.session);
+	const userObj = useSelector(state => state.session);
 
-	// Navigate to landing page if user is logged in
-	useEffect(() => {
-		if (accessToken) {
-			navigate('/');
-		}
-	});
-
-	const handleSubmission = async () => {
-		const userCredentials = {
+	// React hook form variables for handling submission
+	const onSubmit = async () => {
+		const userDetails = {
 			username,
 			password,
 		};
-		const response = await dispatch(loginUser(userCredentials));
-
-		// Navigate to landing page if login was successful
-		if (response.payload) {
+		// If there is token in response once user credential is submitted and mached, redirect user to landing page and show toast successful message.
+		await dispatch(loginUser(userDetails))
+			.then(response => {
+				if (response.payload.token) {
+					toast.success('Successfully logged in. ');
+					navigate('/');
+				}
+			})
+			.catch(error => {
+				toast.error(
+					'Could not log in. Please check if the user credential is correct.'
+				);
+			});
+	};
+	// React hook form initial setting and values
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm({
+		criteriaMode: 'all',
+		defaultValues: {
+			username: '',
+			password: '',
+		},
+	});
+	// Navigate to landing page if user is logged in
+	useEffect(() => {
+		if (userObj.accessToken) {
 			navigate('/');
 		}
-	};
+	});
 
 	const handleDemoUser = async () => {
 		const userCredentials = {
@@ -78,7 +99,10 @@ const LoginPage = () => {
 					gutterBottom>
 					SIGN IN
 				</Typography>
-				<form className={styles.form}>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit(onSubmit)}
+					noValidate>
 					<Grid
 						container
 						spacing={2}>
@@ -86,6 +110,11 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<TextField
+								{...register('username', {
+									required: 'This is required.',
+								})}
+								error={!!errors.username}
+								helperText={errors.username?.message}
 								variant='outlined'
 								label='Username'
 								fullWidth
@@ -99,6 +128,11 @@ const LoginPage = () => {
 							item
 							xs={12}>
 							<TextField
+								{...register('password', {
+									required: 'This is required.',
+								})}
+								error={!!errors.password}
+								helperText={errors.password?.message}
 								variant='outlined'
 								label='Password'
 								type='password'
@@ -125,14 +159,8 @@ const LoginPage = () => {
 							xs={12}>
 							<Button
 								variant='contained'
+								type='submit'
 								color='primary'
-								onClick={() => {
-									if (username === '' || password === '') {
-										alert('Please fill out all fields');
-										return;
-									}
-									handleSubmission();
-								}}
 								sx={{ width: '50%' }}>
 								Sign In
 							</Button>
