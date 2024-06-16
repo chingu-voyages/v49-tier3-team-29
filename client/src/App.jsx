@@ -18,8 +18,36 @@ import SearchPage from './components/SearchPage/SearchPage.jsx';
 import MyBooks from './components/MyBooks/MyBooks.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { refreshToken, fetchUser } from './reducers/userSlice.js';
 
 function App() {
+	const dispatch = useDispatch();
+	const {
+		accessToken,
+		refreshToken: storedRefreshToken,
+		user,
+	} = useSelector(state => state.session);
+
+	const [initialLoad, setInitialLoad] = useState(true);
+
+	useEffect(() => {
+		if (initialLoad) {
+			if (storedRefreshToken || !user.username) {
+				dispatch(refreshToken());
+			}
+		}
+	}, [dispatch, storedRefreshToken, user.username, initialLoad]);
+
+	useEffect(() => {
+		if (initialLoad) {
+			if (accessToken || !user.username) {
+				dispatch(fetchUser());
+			}
+			setInitialLoad(false);
+		}
+	}, [dispatch, accessToken, user.username, initialLoad]);
 	return (
 		<>
 			<ThemeProvider theme={theme}>

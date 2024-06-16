@@ -109,7 +109,7 @@ async function resetPassword(req, res) {
 }
 
 // @desc		Register new user
-// @route		POST	/users/register
+// @route		POST	/auth/register
 export const newUser = async (req, res) => {
 	try {
 		const { username, email, password, name } = req.body;
@@ -146,7 +146,7 @@ export const newUser = async (req, res) => {
 };
 
 // @desc		Login user
-// @route		POST	/users/login
+// @route		POST	/auth/login
 export const login = async (req, res) => {
 	try {
 		const { username, password } = req.body;
@@ -171,7 +171,7 @@ export const login = async (req, res) => {
 };
 
 // @desc		Log user out
-// @route		POST	/users/logout
+// @route		POST	/auth/logout
 // @access  private
 export const logoutUser = async (req, res) => {
 	res.cookie('token', 'none', {
@@ -186,7 +186,7 @@ export const logoutUser = async (req, res) => {
 	});
 };
 // @desc		Refresh token
-// @route		POST	/users/refresh-token
+// @route		POST	/auth/refresh-token
 export const refreshToken = (req, res) => {
 	const { token } = req.body;
 
@@ -203,4 +203,26 @@ export const refreshToken = (req, res) => {
 	});
 };
 
+// @desc		Fetch authenticated user
+// @route		GET	/auth/user
+
+export const fetchUser = async (req, res) => {
+	try {
+		const user = await User.findById(req.user._id);
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		res.status(200).json({
+			user: {
+				username: user.username,
+				email: user.email,
+				name: user.name,
+				userImage: user.image,
+			},
+		});
+	} catch (error) {
+		res.status(500).json({ message: 'Something went wrong' });
+	}
+};
 export { forgotPassword, resetPassword };

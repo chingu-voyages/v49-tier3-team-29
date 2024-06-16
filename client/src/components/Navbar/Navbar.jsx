@@ -34,10 +34,10 @@ const Navbar = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// Check is user exists in store
-	const userObj = useSelector(state => state.session);
-	const user = useSelector(state => state.session.user);
+	const { user, accessToken } = useSelector(state => state.session);
+
 	let isAuthenticated = false;
-	if (userObj.accessToken) {
+	if (accessToken) {
 		isAuthenticated = true;
 	}
 

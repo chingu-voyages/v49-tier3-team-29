@@ -10,32 +10,15 @@ import Features from '../Features/Features';
 import Hero from '../Hero/Hero';
 import RecentBooks from '../RecentBooks/RecentBooks';
 import RecentReviews from '../RecentReviews/RecentReviews';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchUser, refreshToken } from '../../reducers/userSlice';
+import { useSelector } from 'react-redux';
 
 const LandingPage = () => {
-	const dispatch = useDispatch();
 	const { user, accessToken } = useSelector(state => state.session);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			dispatch(refreshToken());
-		}, 14 * 60 * 1000); // 14 minutes to refresh before expiry
-		return () => clearInterval(interval);
-	}, [dispatch]);
-
-	// useEffect(() => {
-	// 	if (accessToken) {
-	// 		dispatch(fetchUser());
-	// 	}
-	// }, [dispatch, accessToken]);
 
 	if (!user) {
 		return <div>Loading...</div>;
 	}
 
-	// const user = useSelector(state => state.session.userInfo);
 	let isAuthenticated = false;
 
 	// Show Logged in components
