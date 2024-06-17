@@ -11,7 +11,7 @@ import { fetchList } from '../../reducers/listSlice';
 
 const RecentBooks = () => {
 	const dispatch = useDispatch();
-	const user = useSelector(state => state.session.userInfo);
+	const user = useSelector(state => state.session.user);
 
 	// Select the books list from the listInfo
 	const list = useSelector(state => state.list.listInfo.books);
@@ -55,12 +55,12 @@ const RecentBooks = () => {
 										{list[i].title}
 									</MaterialLink>
 									<Typography
-										variant="body2"
+										variant='body2'
 										color={'text.secondary'}>
 										by {list[i].author}
 									</Typography>
 									<Typography
-										variant="body2"
+										variant='body2'
 										mt={2}
 										textOverflow={'ellipsis'}
 										overflow={'hidden'}
@@ -88,7 +88,7 @@ const RecentBooks = () => {
 			spacing={{ xs: 3, sm: 6 }}
 			justifyContent={'center'}
 			alignItems={'center'}>
-			<Typography variant="h5">Recently added to my books</Typography>
+			<Typography variant='h5'>Recently added to my books</Typography>
 			<Stack
 				width={{ sx: '100%', sm: '75%', md: '100%' }}
 				justifyContent={'space-around'}
@@ -98,14 +98,14 @@ const RecentBooks = () => {
 				{recentBooks.length > 0 ? (
 					recentBooks
 				) : (
-					<Typography variant="h6">
+					<Typography variant='h6'>
 						No books recently added
 					</Typography>
 				)}
 			</Stack>
 			<MaterialLink
 				component={Link}
-				to="/my-books">
+				to='/my-books'>
 				View all books
 			</MaterialLink>
 		</Stack>

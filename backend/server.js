@@ -22,10 +22,10 @@ const app = express();
 
 // Security Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({ credentials: true }));
 
 // Apply general rate limiter to all routes
-app.use(genLimiter);
+// app.use(genLimiter);
 
 // Body parser
 app.use(express.json());

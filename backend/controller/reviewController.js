@@ -6,7 +6,7 @@ import User from '../models/Users.js';
 export const getAllUserReviews = async (req, res) => {
 	try {
 		const user = await User.findOne({ username: req.params.username });
-		console.log(user);
+
 		const reviews = await Review.find({ userId: user._id.toString() });
 
 		res.json(reviews);

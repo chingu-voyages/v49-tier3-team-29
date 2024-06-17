@@ -1,33 +1,23 @@
-import express from "express";
+import express from 'express';
 import {
-  getAllUsers,
-  getUserByUsername,
-  updateUser,
-  deactivate,
-} from "../controller/userController.js";
-import { login, logoutUser, newUser } from "../controller/authController.js";
-import { authLimiter } from "../middleware/limiter.js";
+	getAllUsers,
+	getUserByUsername,
+	updateUser,
+	deactivate,
+} from '../controller/userController.js';
 
 const router = express.Router();
-//* Login user
-router.post("/login", login);
-
-//* Register new user
-router.post("/register", newUser);
 
 //* get all users
-router.get("/", getAllUsers);
+router.get('/', getAllUsers);
 
 //* get user by username
-router.get("/:username", getUserByUsername);
+router.get('/:username', getUserByUsername);
 
 //* Update user by username
-router.patch("/:username", updateUser);
+router.patch('/:username', updateUser);
 
 // * Deactivate user
-router.patch("/:username/deactivate", deactivate);
-
-//* log user out
-router.post("/logout", logoutUser);
+router.patch('/:username/deactivate', deactivate);
 
 export default router;

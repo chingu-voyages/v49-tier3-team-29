@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -17,10 +16,40 @@ import ForgotPasswordPage from './components/ForgotPasswordPage/ForgotPasswordPa
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage.jsx';
 import SearchPage from './components/SearchPage/SearchPage.jsx';
 import MyBooks from './components/MyBooks/MyBooks.jsx';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { refreshToken, fetchUser } from './reducers/userSlice.js';
 
 function App() {
+	const dispatch = useDispatch();
+	const {
+		accessToken,
+		refreshToken: storedRefreshToken,
+		user,
+	} = useSelector(state => state.session);
+
+	const [initialLoad, setInitialLoad] = useState(true);
+
+	useEffect(() => {
+		if (initialLoad) {
+			if (storedRefreshToken || !user.username) {
+				dispatch(refreshToken());
+			}
+		}
+	}, [dispatch, storedRefreshToken, user.username, initialLoad]);
+
+	useEffect(() => {
+		if (!user.username && storedRefreshToken) {
+			dispatch(refreshToken()).then(() => {
+				if (accessToken) {
+					dispatch(fetchUser());
+				}
+			});
+		}
+	}, [dispatch, storedRefreshToken, accessToken, user.username]);
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -65,7 +94,10 @@ function App() {
 					</Routes>
 				</Router>
 			</ThemeProvider>
- <ToastContainer position="top-right" autoClose={2500} />
+			<ToastContainer
+				position='top-right'
+				autoClose={2500}
+			/>
 		</>
 	);
 }

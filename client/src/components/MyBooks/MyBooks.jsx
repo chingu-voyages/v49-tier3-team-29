@@ -9,10 +9,13 @@ import { fetchList } from '../../reducers/listSlice';
 const rowHeaders = ['Cover', 'Title', 'Author', 'Remove'];
 
 const MyBooks = () => {
-	const user = useSelector(state => state.session.userInfo);
+	const user = useSelector(state => state.session.user);
 	const [userList, setUserList] = useState([]);
 	const dispatch = useDispatch();
 
+	if (!user.username) {
+		window.location.href = '/';
+	}
 	useEffect(() => {
 		const fetchUserList = async () => {
 			const response = await dispatch(fetchList(user.username));

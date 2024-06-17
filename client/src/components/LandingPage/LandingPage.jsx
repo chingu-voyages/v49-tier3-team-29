@@ -13,11 +13,16 @@ import RecentReviews from '../RecentReviews/RecentReviews';
 import { useSelector } from 'react-redux';
 
 const LandingPage = () => {
-	const user = useSelector(state => state.session.userInfo);
+	const { user, accessToken } = useSelector(state => state.session);
+
+	if (!user) {
+		return <div>Loading...</div>;
+	}
+
 	let isAuthenticated = false;
 
 	// Show Logged in components
-	if (user.token) {
+	if (accessToken) {
 		isAuthenticated = true;
 	}
 
