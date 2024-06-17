@@ -5,13 +5,9 @@ import {
 	updateUser,
 	deactivate,
 } from '../controller/userController.js';
-import { login, newUser } from '../controller/authController.js';
 
 const router = express.Router();
 
-router.post('/login', login);
-
-router.post('/register', newUser);
 //* get all users
 router.get('/', getAllUsers);
 

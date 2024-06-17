@@ -10,10 +10,15 @@ import TablePagination from '@mui/material/TablePagination';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeListBook } from '../../../reducers/listSlice';
 
 const TableComponent = ({ rowHeaders, data }) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
+	const [selected, setSelected] = useState([]);
+
+	const dispatch = useDispatch();
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -25,6 +30,12 @@ const TableComponent = ({ rowHeaders, data }) => {
 	};
 
 	const handleRemove = row => {
+		const bookDispatch = async selected => {
+			await dispatch(
+				removeListBook({ listId: selected.id, bookId: row.id })
+			);
+		};
+		bookDispatch();
 		console.log('Remove button clicked for row:', row);
 	};
 
@@ -42,7 +53,7 @@ const TableComponent = ({ rowHeaders, data }) => {
 								whiteSpace: 'wrap', // Optional: Prevent text wrapping
 							},
 						}}
-						aria-label="simple table">
+						aria-label='simple table'>
 						<TableHead>
 							<TableRow>
 								{rowHeaders.map(header => (
@@ -66,23 +77,23 @@ const TableComponent = ({ rowHeaders, data }) => {
 												},
 										}}>
 										<TableCell
-											component="img"
-											src={row.cover}
-											scope="row"
+											component='img'
+											src={row.imageUrl}
+											scope='row'
 											sx={{
-												maxHeight: '100px',
-												maxWidth: '100px',
+												maxHeight: '170px',
+												maxWidth: '110px',
 											}}></TableCell>
-										<TableCell align="left">
+										<TableCell align='left'>
 											{row.title}
 										</TableCell>
-										<TableCell align="left">
+										<TableCell align='left'>
 											{row.author}
 										</TableCell>
-										<TableCell align="left">
+										<TableCell align='left'>
 											<Button
-												variant="contained"
-												color="primary"
+												variant='contained'
+												color='primary'
 												onClick={() =>
 													handleRemove(row)
 												}
@@ -107,7 +118,7 @@ const TableComponent = ({ rowHeaders, data }) => {
 			</div>
 			<TablePagination
 				rowsPerPageOptions={[5, 10, 25]}
-				component="div"
+				component='div'
 				count={data.length}
 				rowsPerPage={rowsPerPage}
 				page={page}

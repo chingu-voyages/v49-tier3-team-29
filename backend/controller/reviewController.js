@@ -2,10 +2,12 @@ import Review from '../models/Reviews.js';
 import User from '../models/Users.js';
 
 // @desc		Get all user reviews
-// @route		GET	/reviews/:userId
+// @route		GET	/reviews/:username
 export const getAllUserReviews = async (req, res) => {
 	try {
-		const reviews = await Review.find({ userId: req.params.userId });
+		const user = await User.findOne({ username: req.params.username });
+
+		const reviews = await Review.find({ userId: user._id.toString() });
 
 		res.json(reviews);
 	} catch (err) {

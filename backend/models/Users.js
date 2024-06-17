@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 //schema
 const userSchema = new mongoose.Schema({
@@ -20,13 +19,6 @@ const userSchema = new mongoose.Schema({
 	passwordResetToken: { type: String },
 	passwordResetExpires: { type: Date },
 });
-
-//* Take the ID from User schema and set with JWT
-userSchema.methods.getSignedJwtToken = function () {
-	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-		expiresIn: '1d',
-	});
-};
 
 //* Method for hashing password
 userSchema.pre('save', async function (next) {

@@ -1,5 +1,8 @@
-export const bookBaseURL = "http://localhost:5001/books";
-export const userBaseURL = "http://localhost:5001/users";
-export const listBaseURL = "http://localhost:5001/lists";
-export const reviewBaseURL = 'http://localhost:5001/reviews';
+// Create a .env file with VITE_BACKENDURL to make requests to backend
+const backendURL = import.meta.env.VITE_BACKENDURL;
 
+export const bookBaseURL = `${backendURL}/books`;
+export const userBaseURL = `${backendURL}/users`;
+export const listBaseURL = `${backendURL}/lists`;
+export const reviewBaseURL = `${backendURL}/reviews`;
+export const authBaseURL = `${backendURL}/auth`;
